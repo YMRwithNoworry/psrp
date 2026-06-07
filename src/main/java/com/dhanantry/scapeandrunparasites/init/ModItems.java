@@ -18,6 +18,7 @@ import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tiers;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -90,6 +91,8 @@ public final class ModItems {
     public static final DeferredItem<LivingArmorItem> ARMOR_CHEST_SENTIENT = livingArmor("armor_chest_sentient", true, ArmorItem.Type.CHESTPLATE);
     public static final DeferredItem<LivingArmorItem> ARMOR_PANTS_SENTIENT = livingArmor("armor_pants_sentient", true, ArmorItem.Type.LEGGINGS);
     public static final DeferredItem<LivingArmorItem> ARMOR_BOOTS_SENTIENT = livingArmor("armor_boots_sentient", true, ArmorItem.Type.BOOTS);
+    public static final DeferredItem<DeferredSpawnEggItem> ITEMMOBSPAWNER_FLOG = register("itemmobspawner_flog", () ->
+        new DeferredSpawnEggItem(ModEntities.GRUNT, 0x2A1714, 0xA62A2A, new Item.Properties()));
 
     private ModItems() {
     }

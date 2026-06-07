@@ -1,6 +1,8 @@
 package com.dhanantry.scapeandrunparasites;
 
 import com.dhanantry.scapeandrunparasites.init.ModCreativeTabs;
+import com.dhanantry.scapeandrunparasites.init.ModEntities;
+import com.dhanantry.scapeandrunparasites.init.ModEntityEvents;
 import com.dhanantry.scapeandrunparasites.init.ModItems;
 import com.dhanantry.scapeandrunparasites.item.SrpEquipmentEvents;
 import com.dhanantry.scapeandrunparasites.util.config.SrpConfig;
@@ -19,8 +21,10 @@ public final class SRPMain {
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public SRPMain(IEventBus modEventBus, ModContainer modContainer) {
+        ModEntities.register(modEventBus);
         ModItems.register(modEventBus);
         ModCreativeTabs.register(modEventBus);
+        modEventBus.register(ModEntityEvents.class);
         modEventBus.addListener(this::commonSetup);
 
         NeoForge.EVENT_BUS.register(SrpEquipmentEvents.class);

@@ -21,6 +21,15 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - `com.dhanantry.scapeandrunparasites.util.config.SRPConfig`: defaults for
   living weapon durability, living-to-sentient thresholds, weapon damage/range,
   bow damage/cap, and living/sentient armor point settings.
+- `com.dhanantry.scapeandrunparasites.entity.monster.pure.EntityFlog`: Grunt /
+  Flog entity size, legacy parasite ID `60`, climb flag, swim and water leap
+  goals, AOE melee attack, skill leap, evade dash, variant skin selection, and
+  pure-tier attributes.
+- `com.dhanantry.scapeandrunparasites.client.renderer.entity.pure.RenderFlog`:
+  Flog texture paths and skin-to-texture mapping.
+- `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Flog
+  attributes before multipliers: `20` health, `7` armor, `13` attack damage,
+  `0.4` knockback resistance, and movement speed `0.274172325`.
 
 ## Implemented In This Slice
 
@@ -38,13 +47,28 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - Added runtime attribute replacement through `ItemAttributeModifierEvent`.
 - Added `srpkills` and `srphits` persistence through 1.21 data components.
 - Added living-to-sentient upgrade hooks for weapons and armor.
+- Added the first evidence-backed parasite entity slice:
+  - registered the Grunt/Flog entity under the legacy `grunt` visible entity id,
+  - registered the legacy `itemmobspawner_flog` spawn egg,
+  - preserved size `0.7666 x 1.95`, eye height `1.73`, parasite ID `60`, base
+    health/armor/damage/speed/follow-range/knockback attributes,
+  - implemented climbing with a synced flag and wall-climber navigation,
+  - implemented water leap, AOE melee around the target, skill leap, evade dash,
+    and skin 5/6/7 texture variants,
+  - wired a client renderer to the four legacy Flog texture resources.
 
 ## Explicit Gaps
 
 This is not a complete mod port yet. The following systems still require their
 own evidence-backed slices:
 
-- parasite entities, AI goals, attributes, and animations,
+- the remaining parasite entities, AI goals, attributes, and animations,
+- exact Flog `ModelFlog` geometry and Java-authored animation conversion; the
+  current renderer uses a 1.21 spider model as a temporary carrier for legacy
+  Flog textures while behavior is being restored,
+- exact `SRPPotions.VIRA_E` and `SRPPotions.BLEED_E` effect behavior; skin 5/6
+  attacks are currently mapped to short vanilla Hunger/Weakness effects so the
+  combat hook is live until the custom status system is migrated,
 - block registry and legacy block behavior,
 - world evolution and phase systems,
 - potions/effects and adaptation systems,
