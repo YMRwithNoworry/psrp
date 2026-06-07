@@ -34,9 +34,16 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class FlogEntity extends SrpParasiteMob {
+public class FlogEntity extends SrpParasiteMob implements GeoEntity {
     public static final int LEGACY_PARASITE_ID = 60;
+    public static final String LEGACY_MODEL_ANIMATION_NAME = "animation.flog.func_78087_a";
     public static final double LEGACY_HEALTH = 20.0D;
     public static final double LEGACY_ARMOR = 7.0D;
     public static final double LEGACY_ATTACK_DAMAGE = 13.0D;
@@ -60,7 +67,9 @@ public class FlogEntity extends SrpParasiteMob {
 
     private static final EntityDataAccessor<Byte> CLIMBING = SynchedEntityData.defineId(FlogEntity.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Integer> SKIN = SynchedEntityData.defineId(FlogEntity.class, EntityDataSerializers.INT);
+    private static final RawAnimation LEGACY_MODEL_ANIMATION = RawAnimation.begin().thenLoop(LEGACY_MODEL_ANIMATION_NAME);
 
+    private final AnimatableInstanceCache animationCache = GeckoLibUtil.createInstanceCache(this);
     private float attackTimer;
     private boolean attackTimerRising;
     private int skillCooldown;
@@ -84,6 +93,16 @@ public class FlogEntity extends SrpParasiteMob {
     @Override
     public int getParasiteIDRegister() {
         return LEGACY_PARASITE_ID;
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "legacy_model", state -> state.setAndContinue(LEGACY_MODEL_ANIMATION)));
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.animationCache;
     }
 
     @Override

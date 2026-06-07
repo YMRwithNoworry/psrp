@@ -27,6 +27,11 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   pure-tier attributes.
 - `com.dhanantry.scapeandrunparasites.client.renderer.entity.pure.RenderFlog`:
   Flog texture paths and skin-to-texture mapping.
+- `com.dhanantry.scapeandrunparasites.client.model.entity.pure.ModelFlog`:
+  legacy `ModelRenderer` geometry and Java-authored pose methods. GeckoLib
+  conversion preserved method-derived animation names
+  `animation.flog.func_78087_a` and
+  `animation.flog.setRotationAnglesCosmical`.
 - `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Flog
   attributes before multipliers: `20` health, `7` armor, `13` attack damage,
   `0.4` knockback resistance, and movement speed `0.274172325`.
@@ -55,7 +60,9 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   - implemented climbing with a synced flag and wall-climber navigation,
   - implemented water leap, AOE melee around the target, skill leap, evade dash,
     and skin 5/6/7 texture variants,
-  - wired a client renderer to the four legacy Flog texture resources.
+  - wired a GeckoLib client renderer to the converted legacy `ModelFlog`
+    geometry, Java-authored animation resource, and four legacy Flog texture
+    resources.
 
 ## Explicit Gaps
 
@@ -63,9 +70,6 @@ This is not a complete mod port yet. The following systems still require their
 own evidence-backed slices:
 
 - the remaining parasite entities, AI goals, attributes, and animations,
-- exact Flog `ModelFlog` geometry and Java-authored animation conversion; the
-  current renderer uses a 1.21 spider model as a temporary carrier for legacy
-  Flog textures while behavior is being restored,
 - exact `SRPPotions.VIRA_E` and `SRPPotions.BLEED_E` effect behavior; skin 5/6
   attacks are currently mapped to short vanilla Hunger/Weakness effects so the
   combat hook is live until the custom status system is migrated,
