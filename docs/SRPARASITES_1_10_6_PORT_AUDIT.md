@@ -78,6 +78,12 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - `com.dhanantry.scapeandrunparasites.potion.PotionOverheat`: server-side tick
   behavior that checks `tickCount % 20 == 0` and sets the host on fire for `2`
   seconds.
+- `com.dhanantry.scapeandrunparasites.util.handlers.SRPEventHandlerBus`:
+  handles `OVERHEATING_E` in `LivingHurtEvent` after the legacy Viral damage
+  adjustment and before Muscle Out. If the current damage source is the old
+  `inFire` or `onFire` source, it increases the current amount to
+  `amount + amount * (amplifier + 1)` with no config gate. The inspected 1.10.6
+  bytecode does not include lava or hot-floor damage in this Overheating branch.
 - `com.dhanantry.scapeandrunparasites.potion.PotionContamination`: server-side
   behavior gated by the shared `25 >> amplifier` cadence and an additional
   `tickCount % 40 == 0` check. When active it deals `1` damage if the host is
@@ -299,6 +305,12 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - Registered evidence-backed `srparasites:overheating` with legacy color
   `0xFF8706` and ported its old server-side `tickCount % 20 == 0` behavior:
   affected entities are ignited for `2` seconds.
+- Ported Overheating fire damage amplification from the old
+  `SRPEventHandlerBus` `LivingHurtEvent`: when the affected entity takes
+  `DamageTypes.IN_FIRE` or `DamageTypes.ON_FIRE` damage, the current incoming
+  damage amount is increased by `amount + amount * (amplifier + 1)`. This keeps
+  the legacy order after Viral and before Muscle Out, and intentionally does
+  not include modern lava or hot-floor damage without legacy evidence.
 - Registered evidence-backed `srparasites:conta` with legacy color `0x9DF100`
   and ported its old contamination loop: shared `25 >> amplifier` cadence,
   additional 40 tick gate, self-damage while above `1` health, and current

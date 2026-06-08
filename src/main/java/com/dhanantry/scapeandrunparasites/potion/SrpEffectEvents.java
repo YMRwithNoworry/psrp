@@ -2,6 +2,7 @@ package com.dhanantry.scapeandrunparasites.potion;
 
 import com.dhanantry.scapeandrunparasites.init.ModEffects;
 import com.dhanantry.scapeandrunparasites.util.config.SrpConfig;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -18,6 +19,13 @@ public final class SrpEffectEvents {
         if (viral != null && SrpConfig.VIRAL_ENABLE.get()) {
             float amount = event.getAmount();
             float multiplier = (viral.getAmplifier() + 1.0F) * SrpConfig.VIRAL_AMOUNT.get().floatValue();
+            event.setAmount(amount + amount * multiplier);
+        }
+
+        MobEffectInstance overheating = event.getEntity().getEffect(ModEffects.OVERHEATING);
+        if (overheating != null && (event.getSource().is(DamageTypes.IN_FIRE) || event.getSource().is(DamageTypes.ON_FIRE))) {
+            float amount = event.getAmount();
+            float multiplier = overheating.getAmplifier() + 1.0F;
             event.setAmount(amount + amount * multiplier);
         }
 
