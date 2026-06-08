@@ -17,7 +17,10 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   armor stores `srphits` and upgrades to sentient variants after the configured
   damage threshold.
 - `com.dhanantry.scapeandrunparasites.item.tool.WeaponToolRangeBase`: living
-  bows use configurable damage, bonus, and cap values.
+  bows use configurable damage, bonus, and cap values. On arrow release, the
+  old bow computes `draw seconds * bonus`, caps that multiplier at
+  `damage * damageCap`, multiplies the base arrow damage by the capped
+  multiplier, then adds the fixed `damage` value.
 - `com.dhanantry.scapeandrunparasites.util.config.SRPConfig`: defaults for
   living weapon durability, living-to-sentient thresholds, weapon damage/range,
   bow damage/cap, living/sentient armor point settings, and the empty default
@@ -271,6 +274,11 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - Added runtime attribute replacement through `ItemAttributeModifierEvent`.
 - Added `srpkills` and `srphits` persistence through 1.21 data components.
 - Added living-to-sentient upgrade hooks for weapons and armor.
+- Ported the living greatbow damage formula from `WeaponToolRangeBase`: normal
+  and sentient greatbows now use the legacy `weapon_bow_bonus`,
+  `weapon_bow_damageCap`, and `weapon_bow_damage` sequence instead of treating
+  `damageCap` as a final total-damage cap. This multiplies the base arrow
+  damage by the capped multiplier, then adds the fixed damage value.
 - Registered evidence-backed `srparasites:viral` and `srparasites:bleed` mob
   effects with legacy colors. Their shared base clears NeoForge effect cures and
   ports the old `applyStackPotion` amplifier/duration stacking behavior.
@@ -472,6 +480,10 @@ own evidence-backed slices:
   interactions outside the migrated Flog, Orch, and Kirin combat slices. Current
   legacy bytecode evidence has no Needler or Dod Smoke Trail potion type to
   mirror,
+- remaining living/sentient greatbow behavior beyond the migrated damage
+  formula: legacy tipped-arrow Bleed and Dod Smoke Trail application, scent/Prey
+  calling gates, pull/pulling/vinni item predicates, and tooltip text still need
+  focused slices,
 - block registry and legacy block behavior,
 - SRP Web block variants and type-specific Webball web placement; until the
   block system is migrated, Webball placement is represented by vanilla

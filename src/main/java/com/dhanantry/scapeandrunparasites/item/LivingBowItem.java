@@ -11,8 +11,11 @@ import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 
 public class LivingBowItem extends BowItem {
+    private static final ThreadLocal<Integer> DRAW_TICKS = new ThreadLocal<>();
+
     private final boolean sentient;
 
     public LivingBowItem(boolean sentient, Properties properties) {
@@ -29,13 +32,30 @@ public class LivingBowItem extends BowItem {
     }
 
     @Override
+    public void releaseUsing(ItemStack stack, Level level, LivingEntity entity, int timeLeft) {
+        DRAW_TICKS.set(Math.max(0, getUseDuration(stack, entity) - timeLeft));
+        try {
+            super.releaseUsing(stack, level, entity, timeLeft);
+        } finally {
+            DRAW_TICKS.remove();
+        }
+    }
+
+    @Override
     protected void shootProjectile(LivingEntity shooter, Projectile projectile, int index, float velocity, float inaccuracy, float angle, LivingEntity target) {
         super.shootProjectile(shooter, projectile, index, velocity, inaccuracy, angle, target);
         if (projectile instanceof AbstractArrow arrow) {
             int damage = sentient ? SrpConfig.WEAPON_BOW_SENTIENT_DAMAGE.get() : SrpConfig.WEAPON_BOW_DAMAGE.get();
+            int bonus = sentient ? SrpConfig.WEAPON_BOW_SENTIENT_BONUS.get() : SrpConfig.WEAPON_BOW_BONUS.get();
             int cap = sentient ? SrpConfig.WEAPON_BOW_SENTIENT_DAMAGE_CAP.get() : SrpConfig.WEAPON_BOW_DAMAGE_CAP.get();
-            arrow.setBaseDamage(Math.min(cap, arrow.getBaseDamage() + damage));
+            double multiplier = Math.min((double) damage * cap, drawSeconds() * (double) bonus);
+            arrow.setBaseDamage(arrow.getBaseDamage() * multiplier + damage);
         }
+    }
+
+    private static int drawSeconds() {
+        Integer drawTicks = DRAW_TICKS.get();
+        return drawTicks == null ? 0 : drawTicks / 20;
     }
 
     @Override
