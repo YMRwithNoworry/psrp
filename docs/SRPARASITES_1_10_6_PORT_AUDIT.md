@@ -76,6 +76,24 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   above `1` health, then spreads `CONTA_E` with the current duration and
   amplifier to all living entities in a `4 x 3 x 4` expanded box around the
   host, using the legacy `applyStackPotion` stacking rules.
+- `com.dhanantry.scapeandrunparasites.init.SRPPotions`: registers
+  `THORNSHADE_THORNS_E` as `thornshade_thorns` with color `0x421F7E` and a
+  potion type duration of `60`.
+- `com.dhanantry.scapeandrunparasites.potion.PotionThornshadeThorns`: defines
+  no ticking behavior; `applyEffectTick` returns immediately and
+  `shouldApplyEffectTickThisTick` returns `false`.
+- `com.dhanantry.scapeandrunparasites.util.handlers.ThornshadeThornsHandler`:
+  implements the real Thornshade runtime behavior. It stores state under
+  `srp_thornshade_thorns` with `Uses`, `CooldownUntil`, `ExplodeDelay`, and
+  `HasExplodedOnce`; rejects parasites, hosts above `120.0` max health, already
+  affected hosts, and infinite or `>= 72000` tick effects; reflects melee
+  damage at `0.25` or `0.5`; schedules a `20` tick self-destruct after too many
+  applications; explodes without block destruction at radius `3.0`; chains
+  nearby already affected hosts; and spreads Thornshade for `600` ticks within
+  the wider `10.0` search radius.
+- `com.dhanantry.scapeandrunparasites.item.ItemThornshadeDecanter`: registers
+  `srparasites:thornshade_decanter`, stack size `16`, drink animation, `32` tick
+  use duration, and applies `THORNSHADE_THORNS_E` to players for `400` ticks.
 - `com.dhanantry.scapeandrunparasites.entity.monster.pure.EntityFlog`: Grunt /
   Flog entity size, legacy parasite ID `60`, climb flag, swim and water leap
   goals, AOE melee attack, skill leap, evade dash, variant skin selection, and
@@ -194,6 +212,24 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   additional 40 tick gate, self-damage while above `1` health, and current
   duration/amplifier spreading through the old `applyStackPotion` stacking rule
   to nearby living entities in the legacy `4 x 3 x 4` expanded area.
+- Registered evidence-backed `srparasites:thornshade_thorns` with legacy color
+  `0x421F7E` and no per-effect tick callback, matching
+  `PotionThornshadeThorns`.
+- Added the legacy `srparasites:thornshade_decanter` drink item with stack size
+  `16`, `32` tick use duration, drink animation, creative-mode consumption
+  bypass, and `400` tick Thornshade application.
+- Ported the core `ThornshadeThornsHandler` runtime surface:
+  `MobEffectEvent.Applicable` preserves application rejection rules, `Uses` and
+  `CooldownUntil` updates, and explosion scheduling; `LivingDamageEvent.Pre`
+  reflects thorns damage back to living attackers at legacy `0.25` / `0.5`
+  multipliers; `EntityTickEvent.Post` advances the `ExplodeDelay` countdown,
+  blood/block-dust particles, no-block-damage self explosion, `HasExplodedOnce`
+  persistence, host kill, `thornshade_self_destruct` criterion awarding, nearby
+  chained explosions, and `600` tick spread to valid hosts inside the legacy
+  `10.0` radius.
+- Added a modern `data/srparasites/advancement/thornshade_self_destruct.json`
+  with the legacy `exploded` / `minecraft:impossible` criterion so the
+  self-destruct award has a loadable 1.21.1 target.
 - Added the first evidence-backed parasite entity slice:
   - registered the Grunt/Flog entity under the legacy `grunt` visible entity id,
   - registered the legacy `itemmobspawner_flog` spawn egg,
@@ -251,9 +287,9 @@ own evidence-backed slices:
   scary/void orb projectile entities, and related sound/particle polish,
 - remaining SRP status effects beyond the currently implemented viral, bleed,
   corrosive, rage, vomit, senses, indeaf, overheating, conta, effectpos, and
-  effectneg effects; potion item variants, brewing data, HUD/screen overlays,
-  viral transmission systems, and immunity interactions outside this Flog
-  combat slice,
+  effectneg effects and the newly implemented Thornshade Thorns handler; potion
+  item variants, brewing data, HUD/screen overlays, viral transmission systems,
+  and immunity interactions outside this Flog combat slice,
 - block registry and legacy block behavior,
 - SRP Web block variants and type-specific Webball web placement; until the
   block system is migrated, Webball placement is represented by vanilla

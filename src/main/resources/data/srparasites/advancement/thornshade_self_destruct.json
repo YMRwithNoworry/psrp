@@ -1,0 +1,29 @@
+{
+  "criteria": {
+    "exploded": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.srparasites.thornshade_self_destruct.desc"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "srparasites:thornshade_decanter"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.srparasites.thornshade_self_destruct.title"
+    }
+  },
+  "requirements": [
+    [
+      "exploded"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

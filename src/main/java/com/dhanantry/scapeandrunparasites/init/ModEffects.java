@@ -11,6 +11,7 @@ import com.dhanantry.scapeandrunparasites.potion.OverheatingMobEffect;
 import com.dhanantry.scapeandrunparasites.potion.RageMobEffect;
 import com.dhanantry.scapeandrunparasites.potion.SrpMobEffect;
 import com.dhanantry.scapeandrunparasites.potion.SrpSensingMobEffect;
+import com.dhanantry.scapeandrunparasites.potion.ThornshadeThornsMobEffect;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -43,6 +44,8 @@ public final class ModEffects {
         new EffectPosMobEffect(MobEffectCategory.HARMFUL, EffectPosMobEffect.LEGACY_COLOR));
     public static final DeferredHolder<MobEffect, EffectNegMobEffect> EFFECT_NEG = EFFECTS.register("effectneg", () ->
         new EffectNegMobEffect(MobEffectCategory.HARMFUL, EffectNegMobEffect.LEGACY_COLOR));
+    public static final DeferredHolder<MobEffect, ThornshadeThornsMobEffect> THORNSHADE_THORNS = EFFECTS.register("thornshade_thorns", () ->
+        new ThornshadeThornsMobEffect(MobEffectCategory.BENEFICIAL, ThornshadeThornsMobEffect.LEGACY_COLOR));
 
     private ModEffects() {
     }
