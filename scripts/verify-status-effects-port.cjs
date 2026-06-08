@@ -16,6 +16,7 @@ const required = [
   "src/main/java/com/dhanantry/scapeandrunparasites/potion/EffectNegMobEffect.java",
   "src/main/java/com/dhanantry/scapeandrunparasites/potion/EffectPosMobEffect.java",
   "src/main/java/com/dhanantry/scapeandrunparasites/potion/IndeafMobEffect.java",
+  "src/main/java/com/dhanantry/scapeandrunparasites/client/IndeafClientEvents.java",
   "src/main/java/com/dhanantry/scapeandrunparasites/potion/OverheatingMobEffect.java",
   "src/main/java/com/dhanantry/scapeandrunparasites/potion/RageMobEffect.java",
   "src/main/java/com/dhanantry/scapeandrunparasites/potion/SrpEffectEvents.java",
@@ -210,6 +211,26 @@ for (const marker of [
   "entity.zza = 0.0F"
 ]) {
   if (!indeaf.includes(marker)) throw new Error(`IndeafMobEffect missing legacy Indeaf marker: ${marker}`);
+}
+
+const indeafClient = read("src/main/java/com/dhanantry/scapeandrunparasites/client/IndeafClientEvents.java");
+for (const marker of [
+  "@EventBusSubscriber(modid = SRPMain.MODID, value = Dist.CLIENT)",
+  "value = Dist.CLIENT",
+  "ClientTickEvent.Pre",
+  "ClientTickEvent.Post",
+  "minecraft.player.hasEffect(ModEffects.INDEAF)",
+  "minecraft.options.keyUp",
+  "minecraft.options.keyDown",
+  "minecraft.options.keyLeft",
+  "minecraft.options.keyRight",
+  "minecraft.options.keyJump",
+  "key.setDown(false)"
+]) {
+  if (!indeafClient.includes(marker)) throw new Error(`IndeafClientEvents missing legacy client input marker: ${marker}`);
+}
+for (const forbidden of ["bus =", "EventBusSubscriber.Bus"]) {
+  if (indeafClient.includes(forbidden)) throw new Error(`IndeafClientEvents should not use deprecated subscriber bus marker: ${forbidden}`);
 }
 
 const effectPos = read("src/main/java/com/dhanantry/scapeandrunparasites/potion/EffectPosMobEffect.java");

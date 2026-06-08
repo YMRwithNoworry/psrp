@@ -72,6 +72,10 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   `effectpos` runs every 20 ticks and deals magic damage for each active
   non-bad effect; `effectneg` runs every 20 ticks and reapplies old
   `applyStackPotion` stacking to each active bad effect.
+- `com.dhanantry.scapeandrunparasites.util.handlers.SRPEventHandlerBus`:
+  `onClientTick` checks the local player for `INDEAF_E` and releases the old
+  forward, back, left, right, and jump key bindings. The modern port maps those
+  to `keyUp`, `keyDown`, `keyLeft`, `keyRight`, and `keyJump`.
 - `com.dhanantry.scapeandrunparasites.init.SRPPotions`: registers
   `OVERHEATING_E` as `overheating` with color `0xFF8706` and `CONTA_E` as
   `conta` with color `0x9DF100`. Their potion types both use duration `2400`.
@@ -295,6 +299,10 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - Registered evidence-backed `srparasites:indeaf` with legacy color `0xFFDD00`
   and ported its old every-tick movement lock by clearing horizontal delta
   movement and movement input values server-side.
+- Ported the old Indeaf client input lock: on NeoForge
+  `ClientTickEvent.Pre` and `ClientTickEvent.Post`, the physical client checks
+  the local player for `INDEAF_E` and calls `key.setDown(false)` on `keyUp`,
+  `keyDown`, `keyLeft`, `keyRight`, and `keyJump`.
 - Registered evidence-backed `srparasites:effectpos` with legacy color
   `0xB890C8` and ported its old 20 tick cadence, magic damage source, and
   `0.5 * (active non-bad effect amplifier + 1)` damage rule.
