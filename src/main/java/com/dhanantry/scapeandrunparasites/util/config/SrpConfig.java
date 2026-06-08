@@ -1,6 +1,7 @@
 package com.dhanantry.scapeandrunparasites.util.config;
 
 import java.util.Locale;
+import java.util.List;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
 public final class SrpConfig {
@@ -50,6 +51,12 @@ public final class SrpConfig {
     public static final ModConfigSpec.IntValue SENTIENT_DAMAGE_CAP;
     public static final ModConfigSpec.IntValue SENTIENT_POINT_CAP;
 
+    public static final ModConfigSpec.DoubleValue BLEEDING_DAMAGE;
+    public static final ModConfigSpec.DoubleValue BLEEDING_DAMAGE_CAP;
+    public static final ModConfigSpec.BooleanValue VIRAL_ENABLE;
+    public static final ModConfigSpec.DoubleValue VIRAL_AMOUNT;
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> STACKABLE_POTIONS_LIMIT;
+
     public static final ModConfigSpec SPEC;
 
     static {
@@ -96,6 +103,19 @@ public final class SrpConfig {
         SENTIENT_POINT_REDUCTION = BUILDER.defineInRange("sentientPointReduction", 0.018D, 0.0D, 1000.0D);
         SENTIENT_DAMAGE_CAP = BUILDER.defineInRange("sentientDamageCap", 7, 0, 1024);
         SENTIENT_POINT_CAP = BUILDER.defineInRange("sentientPointCap", 13, 0, 1024);
+        BUILDER.pop();
+
+        BUILDER.push("status_effects");
+        BLEEDING_DAMAGE = BUILDER.comment("Legacy SRPConfigSystems: Bleeding Damage. Damage fraction of the victim's max health.")
+            .defineInRange("bleedingDamage", 0.06D, 0.0D, 1.0D);
+        BLEEDING_DAMAGE_CAP = BUILDER.comment("Legacy SRPConfigSystems: Bleeding Damage Limit.")
+            .defineInRange("bleedingDamageCap", 100.0D, 0.0D, 1000.0D);
+        VIRAL_ENABLE = BUILDER.comment("Legacy SRPConfigSystems: enable Viral damage amplification.")
+            .define("viralEnable", true);
+        VIRAL_AMOUNT = BUILDER.comment("Legacy SRPConfigSystems: Viral Amount. Extra incoming damage per amplifier level.")
+            .defineInRange("viralAmount", 0.5D, 0.0D, 1000.0D);
+        STACKABLE_POTIONS_LIMIT = BUILDER.comment("Legacy SRPConfig: Limit Potion Amplifiers entries formatted as namespace:effect;limit.")
+            .defineListAllowEmpty("stackablePotionsLimit", List.of(), value -> value instanceof String);
         BUILDER.pop();
         SPEC = BUILDER.build();
     }

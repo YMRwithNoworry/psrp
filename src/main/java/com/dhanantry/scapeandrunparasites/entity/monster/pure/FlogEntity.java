@@ -1,5 +1,7 @@
 package com.dhanantry.scapeandrunparasites.entity.monster.pure;
 
+import com.dhanantry.scapeandrunparasites.init.ModEffects;
+import com.dhanantry.scapeandrunparasites.potion.SrpMobEffect;
 import java.util.EnumSet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -9,8 +11,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -189,9 +189,9 @@ public class FlogEntity extends SrpParasiteMob implements GeoEntity {
 
     private void applyLegacyVariantEffect(LivingEntity target) {
         if (getSkin() == 5) {
-            target.addEffect(new MobEffectInstance(MobEffects.HUNGER, 40, 0), this);
+            SrpMobEffect.applyStackEffect(ModEffects.VIRAL, target, 40, 0);
         } else if (getSkin() == 6) {
-            target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 40, 0), this);
+            SrpMobEffect.applyStackEffect(ModEffects.BLEED, target, 40, 0);
         }
     }
 

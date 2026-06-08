@@ -20,11 +20,25 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   bows use configurable damage, bonus, and cap values.
 - `com.dhanantry.scapeandrunparasites.util.config.SRPConfig`: defaults for
   living weapon durability, living-to-sentient thresholds, weapon damage/range,
-  bow damage/cap, and living/sentient armor point settings.
+  bow damage/cap, living/sentient armor point settings, and the empty default
+  `stackablePotionsLimit` list.
+- `com.dhanantry.scapeandrunparasites.init.SRPPotions`: registers `BLEED_E` as
+  `bleed` with color `0x5E0806`, registers `VIRA_E` as `viral` with color
+  `0x136334`, and defines the old `applyStackPotion` amplifier/duration
+  stacking rules.
+- `com.dhanantry.scapeandrunparasites.potion.SRPEffectBase`: clears curative
+  items and applies non-bleed effect ticks every `25 >> amplifier` ticks.
+- `com.dhanantry.scapeandrunparasites.potion.PotionBleed`: server-side bleeding
+  tick behavior, `DAMAGE_INDICATOR` particle, max-health-scaled damage,
+  movement multiplier, and `bleedingDamage` / `bleedingDamageCap` config use.
+- `com.dhanantry.scapeandrunparasites.event.SRPEventHandlerBus`: applies the
+  `viralEnable` / `viralAmount` incoming damage multiplier while a victim has
+  `VIRA_E`.
 - `com.dhanantry.scapeandrunparasites.entity.monster.pure.EntityFlog`: Grunt /
   Flog entity size, legacy parasite ID `60`, climb flag, swim and water leap
   goals, AOE melee attack, skill leap, evade dash, variant skin selection, and
-  pure-tier attributes.
+  pure-tier attributes. Skin `5` applies `VIRA_E` for 40 ticks at amplifier 0;
+  skin `6` applies `BLEED_E` for 40 ticks at amplifier 0.
 - `com.dhanantry.scapeandrunparasites.client.renderer.entity.pure.RenderFlog`:
   Flog texture paths and skin-to-texture mapping.
 - `com.dhanantry.scapeandrunparasites.client.model.entity.pure.ModelFlog`:
@@ -49,9 +63,20 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   - living and sentient greatbows,
   - living and sentient armor.
 - Added NeoForge config values that mirror the legacy `SRPConfig` gear defaults.
+- Added NeoForge config values for the migrated status-effect defaults:
+  `bleedingDamage = 0.06`, `bleedingDamageCap = 100.0`, `viralEnable = true`,
+  `viralAmount = 0.5`, and an empty `stackablePotionsLimit` list.
 - Added runtime attribute replacement through `ItemAttributeModifierEvent`.
 - Added `srpkills` and `srphits` persistence through 1.21 data components.
 - Added living-to-sentient upgrade hooks for weapons and armor.
+- Registered evidence-backed `srparasites:viral` and `srparasites:bleed` mob
+  effects with legacy colors. Their shared base clears NeoForge effect cures and
+  ports the old `applyStackPotion` amplifier/duration stacking behavior.
+- Implemented core `bleed` behavior: server-only damage indicator particles,
+  `25 >> amplifier` tick cadence, max-health-scaled damage, movement scaling,
+  and the legacy damage cap.
+- Implemented core `viral` behavior: incoming damage amplification based on
+  effect amplifier and the `viralAmount` config.
 - Added the first evidence-backed parasite entity slice:
   - registered the Grunt/Flog entity under the legacy `grunt` visible entity id,
   - registered the legacy `itemmobspawner_flog` spawn egg,
@@ -60,6 +85,8 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   - implemented climbing with a synced flag and wall-climber navigation,
   - implemented water leap, AOE melee around the target, skill leap, evade dash,
     and skin 5/6/7 texture variants,
+  - wired skin 5 attacks to the migrated `viral` stack effect and skin 6 attacks
+    to the migrated `bleed` stack effect,
   - wired a GeckoLib client renderer to the converted legacy `ModelFlog`
     geometry, Java-authored animation resource, and four legacy Flog texture
     resources.
@@ -70,12 +97,12 @@ This is not a complete mod port yet. The following systems still require their
 own evidence-backed slices:
 
 - the remaining parasite entities, AI goals, attributes, and animations,
-- exact `SRPPotions.VIRA_E` and `SRPPotions.BLEED_E` effect behavior; skin 5/6
-  attacks are currently mapped to short vanilla Hunger/Weakness effects so the
-  combat hook is live until the custom status system is migrated,
+- remaining SRP status effects, potion item variants, brewing data, HUD/screen
+  overlays, viral transmission systems, and immunity interactions outside this
+  Flog combat slice,
 - block registry and legacy block behavior,
 - world evolution and phase systems,
-- potions/effects and adaptation systems,
+- adaptation systems,
 - bestiary GUI and networking,
 - recipes, loot tables, advancements, and data generation,
 - sounds and entity renderers.

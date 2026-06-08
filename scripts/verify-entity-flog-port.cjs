@@ -9,8 +9,12 @@ const readJson = (file) => JSON.parse(read(file));
 const required = [
   "src/main/java/com/dhanantry/scapeandrunparasites/init/ModEntities.java",
   "src/main/java/com/dhanantry/scapeandrunparasites/init/ModEntityEvents.java",
+  "src/main/java/com/dhanantry/scapeandrunparasites/init/ModEffects.java",
   "src/main/java/com/dhanantry/scapeandrunparasites/entity/monster/pure/SrpParasiteMob.java",
   "src/main/java/com/dhanantry/scapeandrunparasites/entity/monster/pure/FlogEntity.java",
+  "src/main/java/com/dhanantry/scapeandrunparasites/potion/SrpMobEffect.java",
+  "src/main/java/com/dhanantry/scapeandrunparasites/potion/BleedMobEffect.java",
+  "src/main/java/com/dhanantry/scapeandrunparasites/potion/SrpEffectEvents.java",
   "src/main/java/com/dhanantry/scapeandrunparasites/client/ModClientEvents.java",
   "src/main/java/com/dhanantry/scapeandrunparasites/client/FlogRenderer.java",
   "src/main/resources/assets/srparasites/geo/entity/flog.geo.json",
@@ -40,8 +44,24 @@ for (const marker of ['modId = "geckolib"', 'versionRange = "[${geckolib_version
 }
 
 const main = read("src/main/java/com/dhanantry/scapeandrunparasites/SRPMain.java");
-for (const marker of ["ModEntities.register(modEventBus)", "modEventBus.register(ModEntityEvents.class)"]) {
+for (const marker of [
+  "ModEntities.register(modEventBus)",
+  "ModEffects.register(modEventBus)",
+  "modEventBus.register(ModEntityEvents.class)",
+  "NeoForge.EVENT_BUS.register(SrpEffectEvents.class)"
+]) {
   if (!main.includes(marker)) throw new Error(`SRPMain missing entity wiring marker: ${marker}`);
+}
+
+const effects = read("src/main/java/com/dhanantry/scapeandrunparasites/init/ModEffects.java");
+for (const marker of [
+  "Registries.MOB_EFFECT",
+  'EFFECTS.register("viral"',
+  "new SrpMobEffect(MobEffectCategory.HARMFUL, 0x136334)",
+  'EFFECTS.register("bleed"',
+  "new BleedMobEffect(MobEffectCategory.HARMFUL, 0x5E0806)"
+]) {
+  if (!effects.includes(marker)) throw new Error(`ModEffects missing legacy effect marker: ${marker}`);
 }
 
 const entities = read("src/main/java/com/dhanantry/scapeandrunparasites/init/ModEntities.java");
@@ -87,9 +107,62 @@ for (const marker of [
   "WaterLeapGoal",
   "SkillLeapGoal",
   "EvadeDashGoal",
-  "setBesideClimbableBlock(this.horizontalCollision)"
+  "setBesideClimbableBlock(this.horizontalCollision)",
+  "SrpMobEffect.applyStackEffect(ModEffects.VIRAL, target, 40, 0)",
+  "SrpMobEffect.applyStackEffect(ModEffects.BLEED, target, 40, 0)"
 ]) {
   if (!flog.includes(marker)) throw new Error(`FlogEntity missing legacy behavior marker: ${marker}`);
+}
+for (const forbidden of ["MobEffects.HUNGER", "MobEffects.WEAKNESS"]) {
+  if (flog.includes(forbidden)) throw new Error(`FlogEntity still contains temporary vanilla effect marker: ${forbidden}`);
+}
+
+const srpEffect = read("src/main/java/com/dhanantry/scapeandrunparasites/potion/SrpMobEffect.java");
+for (const marker of [
+  "fillEffectCures",
+  "cures.clear()",
+  "applyStackEffect",
+  "stackedDuration",
+  "STACKABLE_POTIONS_LIMIT"
+]) {
+  if (!srpEffect.includes(marker)) throw new Error(`SrpMobEffect missing legacy stacking marker: ${marker}`);
+}
+
+const bleedEffect = read("src/main/java/com/dhanantry/scapeandrunparasites/potion/BleedMobEffect.java");
+for (const marker of [
+  "25 >> amplifier",
+  "DAMAGE_INDICATOR",
+  "getMaxHealth()",
+  "BLEEDING_DAMAGE",
+  "BLEEDING_DAMAGE_CAP"
+]) {
+  if (!bleedEffect.includes(marker)) throw new Error(`BleedMobEffect missing legacy bleed marker: ${marker}`);
+}
+
+const effectEvents = read("src/main/java/com/dhanantry/scapeandrunparasites/potion/SrpEffectEvents.java");
+for (const marker of [
+  "LivingIncomingDamageEvent",
+  "VIRAL_ENABLE",
+  "VIRAL_AMOUNT",
+  "setAmount"
+]) {
+  if (!effectEvents.includes(marker)) throw new Error(`SrpEffectEvents missing legacy viral marker: ${marker}`);
+}
+
+const config = read("src/main/java/com/dhanantry/scapeandrunparasites/util/config/SrpConfig.java");
+for (const marker of [
+  "BLEEDING_DAMAGE",
+  "bleedingDamage",
+  "BLEEDING_DAMAGE_CAP",
+  "bleedingDamageCap",
+  "VIRAL_ENABLE",
+  "viralEnable",
+  "VIRAL_AMOUNT",
+  "viralAmount",
+  "STACKABLE_POTIONS_LIMIT",
+  "stackablePotionsLimit"
+]) {
+  if (!config.includes(marker)) throw new Error(`SrpConfig missing legacy status config marker: ${marker}`);
 }
 
 const renderer = read("src/main/java/com/dhanantry/scapeandrunparasites/client/FlogRenderer.java");
