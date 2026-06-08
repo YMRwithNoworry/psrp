@@ -1,7 +1,7 @@
 package com.dhanantry.scapeandrunparasites.item;
 
-import com.dhanantry.scapeandrunparasites.init.ModItems;
 import com.dhanantry.scapeandrunparasites.init.ModEffects;
+import com.dhanantry.scapeandrunparasites.init.ModItems;
 import com.dhanantry.scapeandrunparasites.util.config.SrpConfig;
 import java.util.List;
 import net.minecraft.network.chat.Component;
@@ -21,6 +21,9 @@ public class LivingBowItem extends BowItem {
     private static final ThreadLocal<Integer> DRAW_TICKS = new ThreadLocal<>();
     private static final int LEGACY_TIPPED_ARROW_EFFECT_TICKS = 200;
     private static final int LEGACY_TIPPED_ARROW_EFFECT_AMPLIFIER = 0;
+    private static final float MODERN_FULL_POWER_ARROW_VELOCITY = 3.0F;
+    private static final float LEGACY_FULL_POWER_ARROW_VELOCITY = 4.4F;
+    private static final float LEGACY_ARROW_INACCURACY = 0.0F;
 
     private final boolean sentient;
 
@@ -59,7 +62,8 @@ public class LivingBowItem extends BowItem {
 
     @Override
     protected void shootProjectile(LivingEntity shooter, Projectile projectile, int index, float velocity, float inaccuracy, float angle, LivingEntity target) {
-        super.shootProjectile(shooter, projectile, index, velocity, inaccuracy, angle, target);
+        float legacyVelocity = velocity * (LEGACY_FULL_POWER_ARROW_VELOCITY / MODERN_FULL_POWER_ARROW_VELOCITY);
+        projectile.shootFromRotation(shooter, shooter.getXRot(), shooter.getYRot() + angle, 0.0F, legacyVelocity, LEGACY_ARROW_INACCURACY);
         if (projectile instanceof AbstractArrow arrow) {
             int damage = sentient ? SrpConfig.WEAPON_BOW_SENTIENT_DAMAGE.get() : SrpConfig.WEAPON_BOW_DAMAGE.get();
             int bonus = sentient ? SrpConfig.WEAPON_BOW_SENTIENT_BONUS.get() : SrpConfig.WEAPON_BOW_BONUS.get();

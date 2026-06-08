@@ -25,6 +25,9 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   created projectile is an old `EntityTippedArrow`, the living bow appends
   `BLEED_E` and `DOD_SMOKE_TRAIL_E` for `200` ticks at amplifier `0`, with
   ambient `false` and visible `true`.
+- `com.dhanantry.scapeandrunparasites.item.tool.WeaponToolRangeBase`: the old
+  bow fires through `EntityArrow.func_184547_a` with velocity `power * 4.4` and
+  zero inaccuracy.
 - `com.dhanantry.scapeandrunparasites.util.config.SRPConfig`: defaults for
   living weapon durability, living-to-sentient thresholds, weapon damage/range,
   bow damage/cap, living/sentient armor point settings, and the empty default
@@ -288,6 +291,10 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   the created `Arrow` receives the old `BLEED_E` and `DOD_SMOKE_TRAIL_E`
   additions for `200` ticks at amplifier `0`, with ambient `false` and visible
   `true`.
+- Ported the living greatbow legacy arrow ballistics from
+  `WeaponToolRangeBase`: modern `BowItem` passes `power * 3.0` into
+  `shootProjectile`, so the port converts that value to the legacy `power * 4.4`
+  velocity and uses zero inaccuracy before applying the legacy damage formula.
 - Registered evidence-backed `srparasites:viral` and `srparasites:bleed` mob
   effects with legacy colors. Their shared base clears NeoForge effect cures and
   ports the old `applyStackPotion` amplifier/duration stacking behavior.
@@ -490,9 +497,9 @@ own evidence-backed slices:
   legacy bytecode evidence has no Needler or Dod Smoke Trail potion type to
   mirror,
 - remaining living/sentient greatbow behavior beyond the migrated damage
-  formula and tipped-arrow effect additions: scent/Prey calling gates,
-  pull/pulling/vinni item predicates, and tooltip text still need focused
-  slices,
+  formula, tipped-arrow effect additions, and legacy arrow ballistics:
+  scent/Prey calling gates, pull/pulling/vinni item predicates, and tooltip text
+  still need focused slices,
 - block registry and legacy block behavior,
 - SRP Web block variants and type-specific Webball web placement; until the
   block system is migrated, Webball placement is represented by vanilla

@@ -37,6 +37,9 @@ for (const marker of [
   "WEAPON_BOW_SENTIENT_DAMAGE_CAP",
   "Math.min((double) damage * cap, drawSeconds() * (double) bonus)",
   "arrow.setBaseDamage(arrow.getBaseDamage() * multiplier + damage)",
+  "LEGACY_FULL_POWER_ARROW_VELOCITY = 4.4F",
+  "LEGACY_ARROW_INACCURACY = 0.0F",
+  "projectile.shootFromRotation(shooter, shooter.getXRot(), shooter.getYRot() + angle, 0.0F, legacyVelocity, LEGACY_ARROW_INACCURACY)",
   "projectileStack.getItem() instanceof TippedArrowItem",
   "tippedArrow.addEffect(new MobEffectInstance(ModEffects.BLEED, LEGACY_TIPPED_ARROW_EFFECT_TICKS, LEGACY_TIPPED_ARROW_EFFECT_AMPLIFIER, false, true))",
   "tippedArrow.addEffect(new MobEffectInstance(ModEffects.DOD_SMOKE_TRAIL, LEGACY_TIPPED_ARROW_EFFECT_TICKS, LEGACY_TIPPED_ARROW_EFFECT_AMPLIFIER, false, true))"
