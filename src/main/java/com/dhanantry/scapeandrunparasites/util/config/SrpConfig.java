@@ -66,6 +66,7 @@ public final class SrpConfig {
     public static final ModConfigSpec.DoubleValue NEEDLER_MAX_DAMAGE_MONSTER;
     public static final ModConfigSpec.ConfigValue<List<? extends String>> NEEDLER_IMMUNE_LIST;
     public static final ModConfigSpec.BooleanValue NEEDLER_IMMUNE_LIST_WHITE;
+    public static final ModConfigSpec.DoubleValue MUSCLE_OUT_DAMAGE_OUT;
     public static final ModConfigSpec.ConfigValue<List<? extends String>> STACKABLE_POTIONS_LIMIT;
 
     public static final ModConfigSpec SPEC;
@@ -147,6 +148,8 @@ public final class SrpConfig {
             .defineListAllowEmpty("needlerImmuneList", List.of(), value -> value instanceof String);
         NEEDLER_IMMUNE_LIST_WHITE = BUILDER.comment("Legacy SRPConfigSystems: Needler Immune Mob List Inverted. True treats the list as a whitelist.")
             .define("needlerImmuneListWhite", false);
+        MUSCLE_OUT_DAMAGE_OUT = BUILDER.comment("Legacy SRPConfigSystems: MuscleOut Value. Outgoing damage multiplier applied to attackers with Muscle Out per amplifier level.")
+            .defineInRange("muscleoutDamageOut", 0.09D, 0.0D, 1.0D);
         STACKABLE_POTIONS_LIMIT = BUILDER.comment("Legacy SRPConfig: Limit Potion Amplifiers entries formatted as namespace:effect;limit.")
             .defineListAllowEmpty("stackablePotionsLimit", List.of(), value -> value instanceof String);
         BUILDER.pop();

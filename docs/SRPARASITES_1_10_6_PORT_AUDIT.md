@@ -119,6 +119,13 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   with color `0x796E85`, `NOVISION_E` as `novision` with color `0x182639`,
   and `MUSCLEOUT_E` as `muscleout` with color `0xEC7F82`. The legacy harmful
   flag is set only for `antimall` and `muscleout` in this marker/basic subset.
+- `com.dhanantry.scapeandrunparasites.util.config.SRPConfigSystems`: defines
+  Muscle Out default `muscleoutDamageOut = 0.09`.
+- `com.dhanantry.scapeandrunparasites.util.handlers.SRPEventHandlerBus`:
+  handles `MUSCLEOUT_E` in `LivingHurtEvent` after the legacy Viral damage
+  adjustment. It reads the event source entity, requires that source to be a
+  living attacker with `MUSCLEOUT_E`, and replaces the current damage amount
+  with `amount * muscleoutDamageOut * (amplifier + 1)`.
 - `com.dhanantry.scapeandrunparasites.init.SRPPotions`: registers legacy
   `PotionType` fields for the already implemented potion subset:
   `FEAR_P` as `srparasites:fear`, `RES_P` as registry id `srparasites:res`
@@ -249,8 +256,8 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   `rageEnable = true`, `rageDamage = 0.1`, `rageSpeed = 0.1`,
   `needlerDamage = 0.4`, `needlerTerminal = 7`,
   `needlerMaxDamPlayer = 1.0E9`, `needlerMaxDamMonster = 1.0E9`, an empty
-  `needlerImmuneList`, `needlerImmuneListWhite = false`, and an empty
-  `stackablePotionsLimit` list.
+  `needlerImmuneList`, `needlerImmuneListWhite = false`,
+  `muscleoutDamageOut = 0.09`, and an empty `stackablePotionsLimit` list.
 - Added runtime attribute replacement through `ItemAttributeModifierEvent`.
 - Added `srpkills` and `srphits` persistence through 1.21 data components.
 - Added living-to-sentient upgrade hooks for weapons and armor.
@@ -315,9 +322,15 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   `srparasites:primitive`, `srparasites:adapted`, `srparasites:pure`,
   `srparasites:crude`, `srparasites:feral`, `srparasites:nexus`,
   `srparasites:braining`, `srparasites:novision`, and
-  `srparasites:muscleout`. This slice intentionally preserves their registry,
-  color, category, translation, GUI icon, and potion item surfaces only; their
-  external gameplay hooks are tracked as explicit gaps below.
+  `srparasites:muscleout`. This preserves their registry, color, category,
+  translation, GUI icon, and potion item surfaces; external gameplay hooks
+  beyond Muscle Out are tracked as explicit gaps below.
+- Ported Muscle Out outgoing damage from the old `SRPEventHandlerBus`
+  `LivingHurtEvent`: when the event source entity is a living attacker with
+  `MUSCLEOUT_E`, the current incoming damage amount is replaced by
+  `amount * muscleoutDamageOut * (amplifier + 1)`. Muscle Out preserves its
+  legacy replacement formula and remains independent from the `viralEnable`
+  config gate.
 - Registered modern 1.21.1 `Registries.POTION` entries for the implemented
   legacy potion subset: `corro`, `vira`, `vomit`, `rage`, `senses`, `indeaf`,
   `overheating`, `conta`, `effectpos`, `effectneg`, `the_sign`, and
@@ -418,11 +431,12 @@ own evidence-backed slices:
   scary/void orb projectile entities, and related sound/particle polish,
 - remaining SRP status-effect behavior beyond the currently implemented viral,
   bleed, dod_smoke_trail, corrosive, rage, vomit, senses, indeaf, overheating,
-  conta, needler, effectpos, effectneg, the_sign, and Thornshade Thorns handler.
+  conta, needler, muscleout, effectpos, effectneg, the_sign, and Thornshade
+  Thorns handler.
   The marker/basic effects `fear`, `antimall`, `repel`, `debar`, `link`,
   `pivot`, `jugg`, `parate`, `primitive`, `adapted`, `pure`, `crude`, `feral`,
-  `nexus`, `braining`, `novision`, and `muscleout` currently have their
-  registry/potion surface only,
+  `nexus`, `braining`, and `novision` currently have their registry/potion
+  surface only,
 - DEBAR/PIVOT/JUGG/PARATE/EPEL external interactions from old parasite and
   effect systems are not implemented yet: evolution point and XP changes,
   damage redirection, death/dislodgement reactions, attribute-transfer
