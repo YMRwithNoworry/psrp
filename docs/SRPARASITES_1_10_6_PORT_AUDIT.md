@@ -85,7 +85,9 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   amplifier to all living entities in a `4 x 3 x 4` expanded box around the
   host, using the legacy `applyStackPotion` stacking rules.
 - `com.dhanantry.scapeandrunparasites.init.SRPPotions`: registers `DLER_E` as
-  `needler` with color `0xC7B403` and a potion type duration of `2400`.
+  `needler` with color `0xC7B403`. Current bytecode evidence has no `DLER_P`
+  `PotionType` field, so no legacy Needler potion item is registered in this
+  slice.
 - `com.dhanantry.scapeandrunparasites.util.config.SRPConfigSystems`: defines
   Needler defaults `needlerDamage = 0.4`, `needlerTerminal = 7`,
   `needlerMaxDamPlayer = 1.0E9`, `needlerMaxDamMonster = 1.0E9`, empty
@@ -103,6 +105,16 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - `com.dhanantry.scapeandrunparasites.init.SRPPotions`: registers
   `THORNSHADE_THORNS_E` as `thornshade_thorns` with color `0x421F7E` and a
   potion type duration of `60`.
+- `com.dhanantry.scapeandrunparasites.init.SRPPotions`: registers legacy
+  `PotionType` fields for the already implemented potion subset:
+  `CORRO_P` as registry id `srparasites:corro` with potion name
+  `srparasites:corrosive`, `VIRA_P` as `srparasites:vira` with
+  `srparasites:viral`, and `VOMIT_P`, `RAGE_P`, `SENS_P`, `INDEAF_P`,
+  `OVERHEATING_P`, `CONTA_P`, `EFFECTPOS_P`, and `EFFECTNEG_P` using matching
+  registry/name paths. These use duration `2400`. `THORNSHADE_THORNS_P` uses
+  registry/name `srparasites:thornshade_thorns` with duration `60`.
+- `com.dhanantry.scapeandrunparasites.init.SRPPotions`: current bytecode
+  evidence has no `DOD_SMOKE_TRAIL_P` or `DLER_P` legacy `PotionType` field.
 - `com.dhanantry.scapeandrunparasites.potion.PotionThornshadeThorns`: defines
   no ticking behavior; `applyEffectTick` returns immediately and
   `shouldApplyEffectTickThisTick` returns `false`.
@@ -255,6 +267,13 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - Registered evidence-backed `srparasites:thornshade_thorns` with legacy color
   `0x421F7E` and no per-effect tick callback, matching
   `PotionThornshadeThorns`.
+- Registered modern 1.21.1 `Registries.POTION` entries for the implemented
+  legacy potion subset: `corro`, `vira`, `vomit`, `rage`, `senses`, `indeaf`,
+  `overheating`, `conta`, `effectpos`, `effectneg`, and `thornshade_thorns`.
+  The normal potion durations preserve the legacy `2400` ticks, and
+  Thornshade Thorns preserves `60` ticks. Modern potion, splash potion,
+  lingering potion, and tipped arrow translation keys were added for those
+  registered names.
 - Added the legacy `srparasites:thornshade_decanter` drink item with stack size
   `16`, `32` tick use duration, drink animation, creative-mode consumption
   bypass, and `400` tick Thornshade application.
@@ -328,9 +347,10 @@ own evidence-backed slices:
 - remaining SRP status effects beyond the currently implemented viral, bleed,
   dod_smoke_trail, corrosive, rage, vomit, senses, indeaf, overheating, conta,
   needler, effectpos, and effectneg effects and the newly implemented
-  Thornshade Thorns handler; potion item variants, brewing data, HUD/screen
-  overlays, viral transmission systems, and immunity interactions outside this
-  Flog combat slice,
+  Thornshade Thorns handler; potion item variants for unimplemented effects,
+  brewing data, HUD/screen overlays, viral transmission systems, and immunity
+  interactions outside this Flog combat slice. Current legacy bytecode evidence
+  has no Needler or Dod Smoke Trail potion type to mirror,
 - block registry and legacy block behavior,
 - SRP Web block variants and type-specific Webball web placement; until the
   block system is migrated, Webball placement is represented by vanilla
