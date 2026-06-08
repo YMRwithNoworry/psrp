@@ -50,6 +50,20 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   Rage defaults `rageEnable = true`, `rageDamage = 0.1`, and `rageSpeed = 0.1`.
   The legacy config text describes `rageEnable` as the switch controlling
   whether parasites spawn with or give the Rage effect.
+- `com.dhanantry.scapeandrunparasites.init.SRPPotions`: registers `VOMIT_E` as
+  `vomit` with color `0x726C41` and a follow-range attribute modifier amount
+  `0.9`, and registers `SENS_E` as `senses` with color `0x8E9ED7` and a
+  follow-range attribute modifier amount `0.1`. Both old modifiers use
+  operation `2` (`ADD_MULTIPLIED_TOTAL` in modern terms).
+- `com.dhanantry.scapeandrunparasites.init.SRPPotions`: registers `INDEAF_E` as
+  `indeaf` with color `0xFFDD00`, `EFFECTPOS_E` as `effectpos` with color
+  `0xB890C8`, and `EFFECTNEG_E` as `effectneg` with color `0x6FACB4`.
+- `com.dhanantry.scapeandrunparasites.potion.SRPEffectBase`: implements the
+  simple runtime behavior for `INDEAF_E`, `EFFECTPOS_E`, and `EFFECTNEG_E`.
+  `indeaf` zeroes horizontal motion and player movement inputs every tick;
+  `effectpos` runs every 20 ticks and deals magic damage for each active
+  non-bad effect; `effectneg` runs every 20 ticks and reapplies old
+  `applyStackPotion` stacking to each active bad effect.
 - `com.dhanantry.scapeandrunparasites.entity.monster.pure.EntityFlog`: Grunt /
   Flog entity size, legacy parasite ID `60`, climb flag, swim and water leap
   goals, AOE melee attack, skill leap, evade dash, variant skin selection, and
@@ -147,6 +161,19 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   The effect ports the old movement speed and attack damage attribute modifiers
   using total multiplicative modifiers that scale with amplifier and read the
   modern config values at application time.
+- Registered evidence-backed `srparasites:vomit` and `srparasites:senses` with
+  legacy colors `0x726C41` and `0x8E9ED7`. Both effects port the old
+  follow-range total-multiplier modifiers with amplifier scaling.
+- Registered evidence-backed `srparasites:indeaf` with legacy color `0xFFDD00`
+  and ported its old every-tick movement lock by clearing horizontal delta
+  movement and movement input values server-side.
+- Registered evidence-backed `srparasites:effectpos` with legacy color
+  `0xB890C8` and ported its old 20 tick cadence, magic damage source, and
+  `0.5 * (active non-bad effect amplifier + 1)` damage rule.
+- Registered evidence-backed `srparasites:effectneg` with legacy color
+  `0x6FACB4` and ported its old 20 tick cadence by copying active effects and
+  applying the shared `applyStackPotion` stacking behavior to each active bad
+  effect.
 - Added the first evidence-backed parasite entity slice:
   - registered the Grunt/Flog entity under the legacy `grunt` visible entity id,
   - registered the legacy `itemmobspawner_flog` spawn egg,
@@ -202,9 +229,10 @@ own evidence-backed slices:
 - broader `EntityPCosmical` systems used by Kirin and other cosmical parasites:
   clone/shadow damage splitting, cosmical render layer behavior, NeuroLock,
   scary/void orb projectile entities, and related sound/particle polish,
-- remaining SRP status effects, potion item variants, brewing data, HUD/screen
-  overlays, viral transmission systems, and immunity interactions outside this
-  Flog combat slice,
+- remaining SRP status effects beyond the currently implemented viral, bleed,
+  corrosive, rage, vomit, senses, indeaf, effectpos, and effectneg effects;
+  potion item variants, brewing data, HUD/screen overlays, viral transmission
+  systems, and immunity interactions outside this Flog combat slice,
 - block registry and legacy block behavior,
 - SRP Web block variants and type-specific Webball web placement; until the
   block system is migrated, Webball placement is represented by vanilla

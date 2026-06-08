@@ -11,11 +11,20 @@ const required = [
   "src/main/java/com/dhanantry/scapeandrunparasites/potion/SrpMobEffect.java",
   "src/main/java/com/dhanantry/scapeandrunparasites/potion/BleedMobEffect.java",
   "src/main/java/com/dhanantry/scapeandrunparasites/potion/CorrosiveMobEffect.java",
+  "src/main/java/com/dhanantry/scapeandrunparasites/potion/EffectNegMobEffect.java",
+  "src/main/java/com/dhanantry/scapeandrunparasites/potion/EffectPosMobEffect.java",
+  "src/main/java/com/dhanantry/scapeandrunparasites/potion/IndeafMobEffect.java",
   "src/main/java/com/dhanantry/scapeandrunparasites/potion/RageMobEffect.java",
   "src/main/java/com/dhanantry/scapeandrunparasites/potion/SrpEffectEvents.java",
+  "src/main/java/com/dhanantry/scapeandrunparasites/potion/SrpSensingMobEffect.java",
   "src/main/java/com/dhanantry/scapeandrunparasites/util/config/SrpConfig.java",
   "src/main/resources/assets/srparasites/textures/gui/potion_corrosive.png",
+  "src/main/resources/assets/srparasites/textures/gui/potion_effectneg.png",
+  "src/main/resources/assets/srparasites/textures/gui/potion_effectpos.png",
+  "src/main/resources/assets/srparasites/textures/gui/potion_indeaf.png",
   "src/main/resources/assets/srparasites/textures/gui/potion_rage.png",
+  "src/main/resources/assets/srparasites/textures/gui/potion_senses.png",
+  "src/main/resources/assets/srparasites/textures/gui/potion_vomit.png",
   "src/main/resources/assets/srparasites/lang/en_us.json"
 ];
 
@@ -32,8 +41,18 @@ for (const marker of [
   "new BleedMobEffect(MobEffectCategory.HARMFUL, 0x5E0806)",
   'EFFECTS.register("corrosive"',
   "new CorrosiveMobEffect(MobEffectCategory.HARMFUL, CorrosiveMobEffect.LEGACY_COLOR)",
+  'EFFECTS.register("vomit"',
+  "SrpSensingMobEffect.LEGACY_VOMIT_COLOR",
   'EFFECTS.register("rage"',
-  "new RageMobEffect(MobEffectCategory.BENEFICIAL, RageMobEffect.LEGACY_COLOR)"
+  "new RageMobEffect(MobEffectCategory.BENEFICIAL, RageMobEffect.LEGACY_COLOR)",
+  'EFFECTS.register("senses"',
+  "SrpSensingMobEffect.LEGACY_SENSES_COLOR",
+  'EFFECTS.register("indeaf"',
+  "new IndeafMobEffect(MobEffectCategory.BENEFICIAL, IndeafMobEffect.LEGACY_COLOR)",
+  'EFFECTS.register("effectpos"',
+  "new EffectPosMobEffect(MobEffectCategory.HARMFUL, EffectPosMobEffect.LEGACY_COLOR)",
+  'EFFECTS.register("effectneg"',
+  "new EffectNegMobEffect(MobEffectCategory.HARMFUL, EffectNegMobEffect.LEGACY_COLOR)"
 ]) {
   if (!effects.includes(marker)) throw new Error(`ModEffects missing status-effect marker: ${marker}`);
 }
@@ -126,6 +145,65 @@ for (const marker of ["25 >> amplifier", "DAMAGE_INDICATOR", "BLEEDING_DAMAGE", 
   if (!bleed.includes(marker)) throw new Error(`BleedMobEffect missing legacy bleed marker: ${marker}`);
 }
 
+const sensing = read("src/main/java/com/dhanantry/scapeandrunparasites/potion/SrpSensingMobEffect.java");
+for (const marker of [
+  "extends SrpMobEffect",
+  "LEGACY_VOMIT_COLOR = 0x726C41",
+  "LEGACY_SENSES_COLOR = 0x8E9ED7",
+  "LEGACY_VOMIT_FOLLOW_RANGE_MULTIPLIER = 0.9D",
+  "LEGACY_SENSES_FOLLOW_RANGE_MULTIPLIER = 0.1D",
+  "Attributes.FOLLOW_RANGE",
+  "ResourceLocation.fromNamespaceAndPath(SRPMain.MODID, modifierPath)",
+  "addAttributeModifiers(AttributeMap attributeMap, int amplifier)",
+  "removeAttributeModifiers(AttributeMap attributeMap)",
+  "this.multiplier * (amplifier + 1.0D)",
+  "AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL",
+  "attribute.addPermanentModifier(new AttributeModifier(this.modifierId, this.multiplier * (amplifier + 1.0D), AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL))",
+  "attribute.removeModifier(this.modifierId)"
+]) {
+  if (!sensing.includes(marker)) throw new Error(`SrpSensingMobEffect missing legacy Vomit/Senses marker: ${marker}`);
+}
+
+const indeaf = read("src/main/java/com/dhanantry/scapeandrunparasites/potion/IndeafMobEffect.java");
+for (const marker of [
+  "extends SrpMobEffect",
+  "LEGACY_COLOR = 0xFFDD00",
+  "shouldApplyEffectTickThisTick(int duration, int amplifier)",
+  "return true",
+  "applyEffectTick(LivingEntity entity, int amplifier)",
+  "!entity.level().isClientSide",
+  "entity.setDeltaMovement(0.0D, entity.getDeltaMovement().y, 0.0D)",
+  "entity.xxa = 0.0F",
+  "entity.zza = 0.0F"
+]) {
+  if (!indeaf.includes(marker)) throw new Error(`IndeafMobEffect missing legacy Indeaf marker: ${marker}`);
+}
+
+const effectPos = read("src/main/java/com/dhanantry/scapeandrunparasites/potion/EffectPosMobEffect.java");
+for (const marker of [
+  "extends SrpMobEffect",
+  "LEGACY_COLOR = 0xB890C8",
+  "duration % 20 == 0",
+  "entity.getActiveEffects()",
+  "effect.getEffect().value().getCategory() != MobEffectCategory.HARMFUL",
+  "entity.damageSources().magic()",
+  "0.5F * (effect.getAmplifier() + 1.0F)"
+]) {
+  if (!effectPos.includes(marker)) throw new Error(`EffectPosMobEffect missing legacy EffectPos marker: ${marker}`);
+}
+
+const effectNeg = read("src/main/java/com/dhanantry/scapeandrunparasites/potion/EffectNegMobEffect.java");
+for (const marker of [
+  "extends SrpMobEffect",
+  "LEGACY_COLOR = 0x6FACB4",
+  "duration % 20 == 0",
+  "new ArrayList<>(entity.getActiveEffects())",
+  "effect.getEffect().value().getCategory() == MobEffectCategory.HARMFUL",
+  "SrpMobEffect.applyStackEffect(effect.getEffect(), entity, 20, amplifier)"
+]) {
+  if (!effectNeg.includes(marker)) throw new Error(`EffectNegMobEffect missing legacy EffectNeg marker: ${marker}`);
+}
+
 const events = read("src/main/java/com/dhanantry/scapeandrunparasites/potion/SrpEffectEvents.java");
 for (const marker of ["LivingIncomingDamageEvent", "VIRAL_ENABLE", "VIRAL_AMOUNT", "setAmount"]) {
   if (!events.includes(marker)) throw new Error(`SrpEffectEvents missing viral event marker: ${marker}`);
@@ -136,6 +214,17 @@ if (!lang["mob_effect.srparasites:corrosive"]) throw new Error("en_us.json missi
 if (!String(lang["mob_effect.srparasites:corrosive"]).includes("Corrosion")) throw new Error("Unexpected Corrosive translation");
 if (!lang["mob_effect.srparasites:rage"]) throw new Error("en_us.json missing legacy Rage mob effect translation");
 if (!String(lang["mob_effect.srparasites:rage"]).includes("Rage")) throw new Error("Unexpected Rage translation");
+for (const [id, expected] of [
+  ["vomit", "Vomit"],
+  ["senses", "Heightened Senses"],
+  ["indeaf", "Indeaf"],
+  ["effectpos", "Positive"],
+  ["effectneg", "Negative"]
+]) {
+  const key = `mob_effect.srparasites:${id}`;
+  if (!lang[key]) throw new Error(`en_us.json missing legacy ${id} mob effect translation`);
+  if (!String(lang[key]).includes(expected)) throw new Error(`Unexpected ${id} translation`);
+}
 
 const audit = read("docs/SRPARASITES_1_10_6_PORT_AUDIT.md");
 for (const marker of [
@@ -151,7 +240,22 @@ for (const marker of [
   "rageDamage = 0.1",
   "rageSpeed = 0.1",
   "srparasites:rage",
-  "movement speed and attack damage"
+  "movement speed and attack damage",
+  "VOMIT_E",
+  "0x726C41",
+  "SENS_E",
+  "0x8E9ED7",
+  "INDEAF_E",
+  "0xFFDD00",
+  "EFFECTPOS_E",
+  "0xB890C8",
+  "EFFECTNEG_E",
+  "0x6FACB4",
+  "srparasites:vomit",
+  "srparasites:senses",
+  "srparasites:indeaf",
+  "srparasites:effectpos",
+  "srparasites:effectneg"
 ]) {
   if (!audit.includes(marker)) throw new Error(`Port audit missing Rage marker: ${marker}`);
 }
