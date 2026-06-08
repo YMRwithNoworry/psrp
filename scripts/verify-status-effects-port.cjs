@@ -10,18 +10,22 @@ const required = [
   "src/main/java/com/dhanantry/scapeandrunparasites/init/ModEffects.java",
   "src/main/java/com/dhanantry/scapeandrunparasites/potion/SrpMobEffect.java",
   "src/main/java/com/dhanantry/scapeandrunparasites/potion/BleedMobEffect.java",
+  "src/main/java/com/dhanantry/scapeandrunparasites/potion/ContaminationMobEffect.java",
   "src/main/java/com/dhanantry/scapeandrunparasites/potion/CorrosiveMobEffect.java",
   "src/main/java/com/dhanantry/scapeandrunparasites/potion/EffectNegMobEffect.java",
   "src/main/java/com/dhanantry/scapeandrunparasites/potion/EffectPosMobEffect.java",
   "src/main/java/com/dhanantry/scapeandrunparasites/potion/IndeafMobEffect.java",
+  "src/main/java/com/dhanantry/scapeandrunparasites/potion/OverheatingMobEffect.java",
   "src/main/java/com/dhanantry/scapeandrunparasites/potion/RageMobEffect.java",
   "src/main/java/com/dhanantry/scapeandrunparasites/potion/SrpEffectEvents.java",
   "src/main/java/com/dhanantry/scapeandrunparasites/potion/SrpSensingMobEffect.java",
   "src/main/java/com/dhanantry/scapeandrunparasites/util/config/SrpConfig.java",
+  "src/main/resources/assets/srparasites/textures/gui/potion_conta.png",
   "src/main/resources/assets/srparasites/textures/gui/potion_corrosive.png",
   "src/main/resources/assets/srparasites/textures/gui/potion_effectneg.png",
   "src/main/resources/assets/srparasites/textures/gui/potion_effectpos.png",
   "src/main/resources/assets/srparasites/textures/gui/potion_indeaf.png",
+  "src/main/resources/assets/srparasites/textures/gui/potion_overheating.png",
   "src/main/resources/assets/srparasites/textures/gui/potion_rage.png",
   "src/main/resources/assets/srparasites/textures/gui/potion_senses.png",
   "src/main/resources/assets/srparasites/textures/gui/potion_vomit.png",
@@ -49,6 +53,10 @@ for (const marker of [
   "SrpSensingMobEffect.LEGACY_SENSES_COLOR",
   'EFFECTS.register("indeaf"',
   "new IndeafMobEffect(MobEffectCategory.BENEFICIAL, IndeafMobEffect.LEGACY_COLOR)",
+  'EFFECTS.register("overheating"',
+  "new OverheatingMobEffect(MobEffectCategory.HARMFUL, OverheatingMobEffect.LEGACY_COLOR)",
+  'EFFECTS.register("conta"',
+  "new ContaminationMobEffect(MobEffectCategory.HARMFUL, ContaminationMobEffect.LEGACY_COLOR)",
   'EFFECTS.register("effectpos"',
   "new EffectPosMobEffect(MobEffectCategory.HARMFUL, EffectPosMobEffect.LEGACY_COLOR)",
   'EFFECTS.register("effectneg"',
@@ -204,6 +212,44 @@ for (const marker of [
   if (!effectNeg.includes(marker)) throw new Error(`EffectNegMobEffect missing legacy EffectNeg marker: ${marker}`);
 }
 
+const overheating = read("src/main/java/com/dhanantry/scapeandrunparasites/potion/OverheatingMobEffect.java");
+for (const marker of [
+  "extends SrpMobEffect",
+  "LEGACY_COLOR = 0xFF8706",
+  "shouldApplyEffectTickThisTick(int duration, int amplifier)",
+  "return true",
+  "applyEffectTick(LivingEntity entity, int amplifier)",
+  "!entity.level().isClientSide",
+  "entity.tickCount % 20 == 0",
+  "entity.igniteForSeconds(2.0F)"
+]) {
+  if (!overheating.includes(marker)) throw new Error(`OverheatingMobEffect missing legacy Overheating marker: ${marker}`);
+}
+
+const contamination = read("src/main/java/com/dhanantry/scapeandrunparasites/potion/ContaminationMobEffect.java");
+for (const marker of [
+  "extends SrpMobEffect",
+  "LEGACY_COLOR = 0x9DF100",
+  "LEGACY_SELF_DAMAGE_INTERVAL = 40",
+  "LEGACY_SPREAD_XZ_RANGE = 4",
+  "LEGACY_SPREAD_Y_RANGE = 3",
+  "25 >> amplifier",
+  "entity.tickCount % LEGACY_SELF_DAMAGE_INTERVAL == 0",
+  "entity.getHealth() > 1.0F",
+  "entity.hurt(entity.damageSources().magic(), 1.0F)",
+  "entity.getEffect(ModEffects.CONTAMINATION)",
+  "current == null ? 0 : current.getDuration()",
+  "new AABB(",
+  "entity.getX() + 1.0D",
+  "entity.getY() + 1.0D",
+  "entity.getZ() + 1.0D",
+  ".inflate(LEGACY_SPREAD_XZ_RANGE, LEGACY_SPREAD_Y_RANGE, LEGACY_SPREAD_XZ_RANGE)",
+  "entity.level().getEntitiesOfClass(LivingEntity.class, spreadBox)",
+  "SrpMobEffect.applyStackEffect(ModEffects.CONTAMINATION, nearby, duration, amplifier)"
+]) {
+  if (!contamination.includes(marker)) throw new Error(`ContaminationMobEffect missing legacy Contamination marker: ${marker}`);
+}
+
 const events = read("src/main/java/com/dhanantry/scapeandrunparasites/potion/SrpEffectEvents.java");
 for (const marker of ["LivingIncomingDamageEvent", "VIRAL_ENABLE", "VIRAL_AMOUNT", "setAmount"]) {
   if (!events.includes(marker)) throw new Error(`SrpEffectEvents missing viral event marker: ${marker}`);
@@ -218,6 +264,8 @@ for (const [id, expected] of [
   ["vomit", "Vomit"],
   ["senses", "Heightened Senses"],
   ["indeaf", "Indeaf"],
+  ["overheating", "Overheating"],
+  ["conta", "Conta"],
   ["effectpos", "Positive"],
   ["effectneg", "Negative"]
 ]) {
@@ -251,13 +299,19 @@ for (const marker of [
   "0xB890C8",
   "EFFECTNEG_E",
   "0x6FACB4",
+  "OVERHEATING_E",
+  "0xFF8706",
+  "CONTA_E",
+  "0x9DF100",
   "srparasites:vomit",
   "srparasites:senses",
   "srparasites:indeaf",
+  "srparasites:overheating",
+  "srparasites:conta",
   "srparasites:effectpos",
   "srparasites:effectneg"
 ]) {
-  if (!audit.includes(marker)) throw new Error(`Port audit missing Rage marker: ${marker}`);
+  if (!audit.includes(marker)) throw new Error(`Port audit missing status-effect marker: ${marker}`);
 }
 
 console.log("Status-effect port verifier passed.");

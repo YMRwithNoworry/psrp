@@ -2,10 +2,12 @@ package com.dhanantry.scapeandrunparasites.init;
 
 import com.dhanantry.scapeandrunparasites.SRPMain;
 import com.dhanantry.scapeandrunparasites.potion.BleedMobEffect;
+import com.dhanantry.scapeandrunparasites.potion.ContaminationMobEffect;
 import com.dhanantry.scapeandrunparasites.potion.CorrosiveMobEffect;
 import com.dhanantry.scapeandrunparasites.potion.EffectNegMobEffect;
 import com.dhanantry.scapeandrunparasites.potion.EffectPosMobEffect;
 import com.dhanantry.scapeandrunparasites.potion.IndeafMobEffect;
+import com.dhanantry.scapeandrunparasites.potion.OverheatingMobEffect;
 import com.dhanantry.scapeandrunparasites.potion.RageMobEffect;
 import com.dhanantry.scapeandrunparasites.potion.SrpMobEffect;
 import com.dhanantry.scapeandrunparasites.potion.SrpSensingMobEffect;
@@ -33,6 +35,10 @@ public final class ModEffects {
         new SrpSensingMobEffect(MobEffectCategory.BENEFICIAL, SrpSensingMobEffect.LEGACY_SENSES_COLOR, "effect.senses_follow_range", SrpSensingMobEffect.LEGACY_SENSES_FOLLOW_RANGE_MULTIPLIER));
     public static final DeferredHolder<MobEffect, IndeafMobEffect> INDEAF = EFFECTS.register("indeaf", () ->
         new IndeafMobEffect(MobEffectCategory.BENEFICIAL, IndeafMobEffect.LEGACY_COLOR));
+    public static final DeferredHolder<MobEffect, OverheatingMobEffect> OVERHEATING = EFFECTS.register("overheating", () ->
+        new OverheatingMobEffect(MobEffectCategory.HARMFUL, OverheatingMobEffect.LEGACY_COLOR));
+    public static final DeferredHolder<MobEffect, ContaminationMobEffect> CONTAMINATION = EFFECTS.register("conta", () ->
+        new ContaminationMobEffect(MobEffectCategory.HARMFUL, ContaminationMobEffect.LEGACY_COLOR));
     public static final DeferredHolder<MobEffect, EffectPosMobEffect> EFFECT_POS = EFFECTS.register("effectpos", () ->
         new EffectPosMobEffect(MobEffectCategory.HARMFUL, EffectPosMobEffect.LEGACY_COLOR));
     public static final DeferredHolder<MobEffect, EffectNegMobEffect> EFFECT_NEG = EFFECTS.register("effectneg", () ->

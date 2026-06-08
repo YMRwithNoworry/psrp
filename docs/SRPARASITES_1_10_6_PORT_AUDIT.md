@@ -64,6 +64,18 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   `effectpos` runs every 20 ticks and deals magic damage for each active
   non-bad effect; `effectneg` runs every 20 ticks and reapplies old
   `applyStackPotion` stacking to each active bad effect.
+- `com.dhanantry.scapeandrunparasites.init.SRPPotions`: registers
+  `OVERHEATING_E` as `overheating` with color `0xFF8706` and `CONTA_E` as
+  `conta` with color `0x9DF100`. Their potion types both use duration `2400`.
+- `com.dhanantry.scapeandrunparasites.potion.PotionOverheat`: server-side tick
+  behavior that checks `tickCount % 20 == 0` and sets the host on fire for `2`
+  seconds.
+- `com.dhanantry.scapeandrunparasites.potion.PotionContamination`: server-side
+  behavior gated by the shared `25 >> amplifier` cadence and an additional
+  `tickCount % 40 == 0` check. When active it deals `1` damage if the host is
+  above `1` health, then spreads `CONTA_E` with the current duration and
+  amplifier to all living entities in a `4 x 3 x 4` expanded box around the
+  host, using the legacy `applyStackPotion` stacking rules.
 - `com.dhanantry.scapeandrunparasites.entity.monster.pure.EntityFlog`: Grunt /
   Flog entity size, legacy parasite ID `60`, climb flag, swim and water leap
   goals, AOE melee attack, skill leap, evade dash, variant skin selection, and
@@ -174,6 +186,14 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   `0x6FACB4` and ported its old 20 tick cadence by copying active effects and
   applying the shared `applyStackPotion` stacking behavior to each active bad
   effect.
+- Registered evidence-backed `srparasites:overheating` with legacy color
+  `0xFF8706` and ported its old server-side `tickCount % 20 == 0` behavior:
+  affected entities are ignited for `2` seconds.
+- Registered evidence-backed `srparasites:conta` with legacy color `0x9DF100`
+  and ported its old contamination loop: shared `25 >> amplifier` cadence,
+  additional 40 tick gate, self-damage while above `1` health, and current
+  duration/amplifier spreading through the old `applyStackPotion` stacking rule
+  to nearby living entities in the legacy `4 x 3 x 4` expanded area.
 - Added the first evidence-backed parasite entity slice:
   - registered the Grunt/Flog entity under the legacy `grunt` visible entity id,
   - registered the legacy `itemmobspawner_flog` spawn egg,
@@ -230,9 +250,10 @@ own evidence-backed slices:
   clone/shadow damage splitting, cosmical render layer behavior, NeuroLock,
   scary/void orb projectile entities, and related sound/particle polish,
 - remaining SRP status effects beyond the currently implemented viral, bleed,
-  corrosive, rage, vomit, senses, indeaf, effectpos, and effectneg effects;
-  potion item variants, brewing data, HUD/screen overlays, viral transmission
-  systems, and immunity interactions outside this Flog combat slice,
+  corrosive, rage, vomit, senses, indeaf, overheating, conta, effectpos, and
+  effectneg effects; potion item variants, brewing data, HUD/screen overlays,
+  viral transmission systems, and immunity interactions outside this Flog
+  combat slice,
 - block registry and legacy block behavior,
 - SRP Web block variants and type-specific Webball web placement; until the
   block system is migrated, Webball placement is represented by vanilla
