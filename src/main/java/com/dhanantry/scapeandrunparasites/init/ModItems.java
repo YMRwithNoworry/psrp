@@ -95,6 +95,8 @@ public final class ModItems {
         new DeferredSpawnEggItem(ModEntities.GRUNT, 0x2A1714, 0xA62A2A, new Item.Properties()));
     public static final DeferredItem<DeferredSpawnEggItem> ITEMMOBSPAWNER_KIRIN = register("itemmobspawner_kirin", () ->
         new DeferredSpawnEggItem(ModEntities.KIRIN, 0x2B111E, 0x3157A5, new Item.Properties()));
+    public static final DeferredItem<DeferredSpawnEggItem> ITEMMOBSPAWNER_ORCH = register("itemmobspawner_orch", () ->
+        new DeferredSpawnEggItem(ModEntities.MONARCH, 0x313517, 0x313517, new Item.Properties()));
 
     private ModItems() {
     }

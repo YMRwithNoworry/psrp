@@ -72,6 +72,26 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   attributes before multipliers: `410` health, `30` armor, `155` attack damage,
   `1.0` knockback resistance, and movement speed `0.24`. The derived follow
   range config default is `80`.
+- `com.dhanantry.scapeandrunparasites.entity.monster.pure.EntityOrch`: Monarch /
+  Orch entity size, legacy parasite ID `84`, step height `1.0`, climb flag,
+  water leap, AOE melee attack, projectile volley, skill leap, evade dash, skin
+  variant selection, and pure-tier attributes. Skin `1` applies half max health
+  and 1.5x attack damage; skin `7` uses the heavy texture variant.
+- `com.dhanantry.scapeandrunparasites.entity.projectile.EntityProjectileWebball`:
+  legacy `webball` projectile id `101`, size `0.3 x 0.3`, default type `1`,
+  Orch-spawned type `2`, 30% player blindness for 60 ticks, mob-griefing-gated
+  web placement on impact, and 60 tick timeout web placement.
+- `com.dhanantry.scapeandrunparasites.client.renderer.entity.pure.RenderOrch`:
+  Orch texture paths, skin-to-texture mapping, and shadow radius `1.2`.
+- `com.dhanantry.scapeandrunparasites.client.model.entity.pure.ModelOrch`:
+  legacy `ModelRenderer` geometry and Java-authored pose methods. GeckoLib
+  conversion preserved 196 model bones and method-derived animation names
+  `animation.orch.func_78087_a` and
+  `animation.orch.setRotationAnglesCosmical`.
+- `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Orch
+  attributes before multipliers: `75` health, `10` armor, `25` attack damage,
+  `1.0` knockback resistance, and movement speed `0.2775`. The pure follow
+  range config default is `32`.
 
 ## Implemented In This Slice
 
@@ -127,6 +147,24 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   - wired client portal particles and a GeckoLib renderer to the converted
     legacy `ModelKirin` geometry, Java-authored animation resource, and legacy
     Kirin texture resource.
+- Added the next evidence-backed pure parasite entity slice:
+  - registered Orch under the legacy `monarch` visible entity id,
+  - registered the legacy `itemmobspawner_orch` spawn egg,
+  - preserved size `1.901 x 4.1`, eye height `3.5`, step height `1.0`,
+    parasite ID `84`, base health/armor/damage/speed/follow-range/knockback
+    attributes, and XP reward `75`,
+  - implemented climbing with a synced flag and wall-climber navigation,
+  - implemented water leap, AOE melee around the target, skill leap, evade dash,
+    webball projectile volley, and skin 1/7 texture variants,
+  - wired skin `1` to the legacy weak-variant attribute modifiers: half max
+    health and 1.5x attack damage,
+  - registered the legacy `webball` projectile with size `0.3 x 0.3`, Orch type
+    `2` spawning, 30% player blindness for 60 ticks, mob-griefing-gated web
+    placement, 60 tick timeout web placement, and a legacy texture billboard
+    renderer,
+  - wired a GeckoLib client renderer to the converted legacy `ModelOrch`
+    geometry, Java-authored animation resource, and three legacy Orch texture
+    resources.
 
 ## Explicit Gaps
 
@@ -141,6 +179,9 @@ own evidence-backed slices:
   overlays, viral transmission systems, and immunity interactions outside this
   Flog combat slice,
 - block registry and legacy block behavior,
+- SRP Web block variants and type-specific Webball web placement; until the
+  block system is migrated, Webball placement is represented by vanilla
+  `minecraft:cobweb`,
 - world evolution and phase systems,
 - adaptation systems,
 - bestiary GUI and networking,
