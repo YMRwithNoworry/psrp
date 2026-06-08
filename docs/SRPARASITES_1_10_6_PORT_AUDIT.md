@@ -76,6 +76,22 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   above `1` health, then spreads `CONTA_E` with the current duration and
   amplifier to all living entities in a `4 x 3 x 4` expanded box around the
   host, using the legacy `applyStackPotion` stacking rules.
+- `com.dhanantry.scapeandrunparasites.init.SRPPotions`: registers `DLER_E` as
+  `needler` with color `0xC7B403` and a potion type duration of `2400`.
+- `com.dhanantry.scapeandrunparasites.util.config.SRPConfigSystems`: defines
+  Needler defaults `needlerDamage = 0.4`, `needlerTerminal = 7`,
+  `needlerMaxDamPlayer = 1.0E9`, `needlerMaxDamMonster = 1.0E9`, empty
+  `needlerImmuneList`, and `needlerImmuneListWhite = false`.
+- `com.dhanantry.scapeandrunparasites.potion.PotionNeedler`: server-side
+  behavior gated by the shared `25 >> amplifier` cadence. Once the terminal
+  amplifier is reached, it removes the current Needler effect, checks the
+  immune list by entity id substring with whitelist inversion, reapplies
+  Needler for `400` ticks at reduced amplifier, subtracts configured
+  max-health-scaled damage from current health, broadcasts hurt particles,
+  creates a no-block-damage zero-radius explosion, consumes a held totem when
+  available, restores the host to `1` health with regeneration and absorption,
+  or kills without a totem through the old out-of-world death path
+  (`fellOutOfWorld` in the modern port).
 - `com.dhanantry.scapeandrunparasites.init.SRPPotions`: registers
   `THORNSHADE_THORNS_E` as `thornshade_thorns` with color `0x421F7E` and a
   potion type duration of `60`.
@@ -169,7 +185,10 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - Added NeoForge config values for the migrated status-effect defaults:
   `bleedingDamage = 0.06`, `bleedingDamageCap = 100.0`, `viralEnable = true`,
   `viralAmount = 0.5`, `corroValue = 3`, `corrNot = 0.1`,
-  `rageEnable = true`, `rageDamage = 0.1`, `rageSpeed = 0.1`, and an empty
+  `rageEnable = true`, `rageDamage = 0.1`, `rageSpeed = 0.1`,
+  `needlerDamage = 0.4`, `needlerTerminal = 7`,
+  `needlerMaxDamPlayer = 1.0E9`, `needlerMaxDamMonster = 1.0E9`, an empty
+  `needlerImmuneList`, `needlerImmuneListWhite = false`, and an empty
   `stackablePotionsLimit` list.
 - Added runtime attribute replacement through `ItemAttributeModifierEvent`.
 - Added `srpkills` and `srphits` persistence through 1.21 data components.
@@ -212,6 +231,14 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   additional 40 tick gate, self-damage while above `1` health, and current
   duration/amplifier spreading through the old `applyStackPotion` stacking rule
   to nearby living entities in the legacy `4 x 3 x 4` expanded area.
+- Registered evidence-backed `srparasites:needler` with legacy color
+  `0xC7B403` and ported the `PotionNeedler` runtime surface: terminal
+  amplifier checks, immune-list handling, `400` tick reapplication at reduced
+  amplifier, configured max-health-scaled direct health reduction, hurt event
+  byte broadcast, zero-radius no-block-damage explosion, held-totem scan and
+  consumption through NeoForge's totem hook, legacy regeneration and absorption
+  recovery, and no-totem death through the modern `fellOutOfWorld` damage
+  source.
 - Registered evidence-backed `srparasites:thornshade_thorns` with legacy color
   `0x421F7E` and no per-effect tick callback, matching
   `PotionThornshadeThorns`.
@@ -286,10 +313,11 @@ own evidence-backed slices:
   clone/shadow damage splitting, cosmical render layer behavior, NeuroLock,
   scary/void orb projectile entities, and related sound/particle polish,
 - remaining SRP status effects beyond the currently implemented viral, bleed,
-  corrosive, rage, vomit, senses, indeaf, overheating, conta, effectpos, and
-  effectneg effects and the newly implemented Thornshade Thorns handler; potion
-  item variants, brewing data, HUD/screen overlays, viral transmission systems,
-  and immunity interactions outside this Flog combat slice,
+  corrosive, rage, vomit, senses, indeaf, overheating, conta, needler,
+  effectpos, and effectneg effects and the newly implemented Thornshade Thorns
+  handler; potion item variants, brewing data, HUD/screen overlays, viral
+  transmission systems, and immunity interactions outside this Flog combat
+  slice,
 - block registry and legacy block behavior,
 - SRP Web block variants and type-specific Webball web placement; until the
   block system is migrated, Webball placement is represented by vanilla

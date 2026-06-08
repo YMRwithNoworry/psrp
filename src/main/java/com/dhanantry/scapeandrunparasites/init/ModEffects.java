@@ -7,6 +7,7 @@ import com.dhanantry.scapeandrunparasites.potion.CorrosiveMobEffect;
 import com.dhanantry.scapeandrunparasites.potion.EffectNegMobEffect;
 import com.dhanantry.scapeandrunparasites.potion.EffectPosMobEffect;
 import com.dhanantry.scapeandrunparasites.potion.IndeafMobEffect;
+import com.dhanantry.scapeandrunparasites.potion.NeedlerMobEffect;
 import com.dhanantry.scapeandrunparasites.potion.OverheatingMobEffect;
 import com.dhanantry.scapeandrunparasites.potion.RageMobEffect;
 import com.dhanantry.scapeandrunparasites.potion.SrpMobEffect;
@@ -40,6 +41,8 @@ public final class ModEffects {
         new OverheatingMobEffect(MobEffectCategory.HARMFUL, OverheatingMobEffect.LEGACY_COLOR));
     public static final DeferredHolder<MobEffect, ContaminationMobEffect> CONTAMINATION = EFFECTS.register("conta", () ->
         new ContaminationMobEffect(MobEffectCategory.HARMFUL, ContaminationMobEffect.LEGACY_COLOR));
+    public static final DeferredHolder<MobEffect, NeedlerMobEffect> NEEDLER = EFFECTS.register("needler", () ->
+        new NeedlerMobEffect(MobEffectCategory.BENEFICIAL, NeedlerMobEffect.LEGACY_COLOR));
     public static final DeferredHolder<MobEffect, EffectPosMobEffect> EFFECT_POS = EFFECTS.register("effectpos", () ->
         new EffectPosMobEffect(MobEffectCategory.HARMFUL, EffectPosMobEffect.LEGACY_COLOR));
     public static final DeferredHolder<MobEffect, EffectNegMobEffect> EFFECT_NEG = EFFECTS.register("effectneg", () ->

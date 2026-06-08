@@ -60,6 +60,12 @@ public final class SrpConfig {
     public static final ModConfigSpec.BooleanValue RAGE_ENABLE;
     public static final ModConfigSpec.DoubleValue RAGE_DAMAGE;
     public static final ModConfigSpec.DoubleValue RAGE_SPEED;
+    public static final ModConfigSpec.DoubleValue NEEDLER_DAMAGE;
+    public static final ModConfigSpec.IntValue NEEDLER_TERMINAL_AMPLIFIER;
+    public static final ModConfigSpec.DoubleValue NEEDLER_MAX_DAMAGE_PLAYER;
+    public static final ModConfigSpec.DoubleValue NEEDLER_MAX_DAMAGE_MONSTER;
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> NEEDLER_IMMUNE_LIST;
+    public static final ModConfigSpec.BooleanValue NEEDLER_IMMUNE_LIST_WHITE;
     public static final ModConfigSpec.ConfigValue<List<? extends String>> STACKABLE_POTIONS_LIMIT;
 
     public static final ModConfigSpec SPEC;
@@ -129,6 +135,18 @@ public final class SrpConfig {
             .defineInRange("rageDamage", 0.1D, 0.0D, 1000.0D);
         RAGE_SPEED = BUILDER.comment("Legacy SRPConfigSystems: Rage Speed. Total movement speed multiplier per amplifier level.")
             .defineInRange("rageSpeed", 0.1D, 0.0D, 1000.0D);
+        NEEDLER_DAMAGE = BUILDER.comment("Legacy SRPConfigSystems: Needler Damage. Fraction of the victim's max health dealt when the terminal amplifier is reached.")
+            .defineInRange("needlerDamage", 0.4D, 0.0D, 1.0D);
+        NEEDLER_TERMINAL_AMPLIFIER = BUILDER.comment("Legacy SRPConfigSystems: Needler Terminal Amplifier. Mobs reaching this amplifier will explode.")
+            .defineInRange("needlerTerminal", 7, 0, 100);
+        NEEDLER_MAX_DAMAGE_PLAYER = BUILDER.comment("Legacy SRPConfigSystems: Needler Maximum Damage Player.")
+            .defineInRange("needlerMaxDamPlayer", 1.0E9D, 0.0D, 2.0E9D);
+        NEEDLER_MAX_DAMAGE_MONSTER = BUILDER.comment("Legacy SRPConfigSystems: Needler Maximum Damage Monster.")
+            .defineInRange("needlerMaxDamMonster", 1.0E9D, 0.0D, 2.0E9D);
+        NEEDLER_IMMUNE_LIST = BUILDER.comment("Legacy SRPConfigSystems: Needler Immune Mob List. Entries match if contained in the entity id.")
+            .defineListAllowEmpty("needlerImmuneList", List.of(), value -> value instanceof String);
+        NEEDLER_IMMUNE_LIST_WHITE = BUILDER.comment("Legacy SRPConfigSystems: Needler Immune Mob List Inverted. True treats the list as a whitelist.")
+            .define("needlerImmuneListWhite", false);
         STACKABLE_POTIONS_LIMIT = BUILDER.comment("Legacy SRPConfig: Limit Potion Amplifiers entries formatted as namespace:effect;limit.")
             .defineListAllowEmpty("stackablePotionsLimit", List.of(), value -> value instanceof String);
         BUILDER.pop();
