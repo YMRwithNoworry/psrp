@@ -10,9 +10,11 @@ const required = [
   "src/main/java/com/dhanantry/scapeandrunparasites/init/ModEffects.java",
   "src/main/java/com/dhanantry/scapeandrunparasites/potion/SrpMobEffect.java",
   "src/main/java/com/dhanantry/scapeandrunparasites/potion/BleedMobEffect.java",
+  "src/main/java/com/dhanantry/scapeandrunparasites/potion/CorrosiveMobEffect.java",
   "src/main/java/com/dhanantry/scapeandrunparasites/potion/RageMobEffect.java",
   "src/main/java/com/dhanantry/scapeandrunparasites/potion/SrpEffectEvents.java",
   "src/main/java/com/dhanantry/scapeandrunparasites/util/config/SrpConfig.java",
+  "src/main/resources/assets/srparasites/textures/gui/potion_corrosive.png",
   "src/main/resources/assets/srparasites/textures/gui/potion_rage.png",
   "src/main/resources/assets/srparasites/lang/en_us.json"
 ];
@@ -28,6 +30,8 @@ for (const marker of [
   "new SrpMobEffect(MobEffectCategory.HARMFUL, 0x136334)",
   'EFFECTS.register("bleed"',
   "new BleedMobEffect(MobEffectCategory.HARMFUL, 0x5E0806)",
+  'EFFECTS.register("corrosive"',
+  "new CorrosiveMobEffect(MobEffectCategory.HARMFUL, CorrosiveMobEffect.LEGACY_COLOR)",
   'EFFECTS.register("rage"',
   "new RageMobEffect(MobEffectCategory.BENEFICIAL, RageMobEffect.LEGACY_COLOR)"
 ]) {
@@ -40,6 +44,10 @@ for (const marker of [
   'defineInRange("bleedingDamage", 0.06D',
   "BLEEDING_DAMAGE_CAP",
   'defineInRange("bleedingDamageCap", 100.0D',
+  "CORROSIVE_DAMAGE_VALUE",
+  'defineInRange("corroValue", 3',
+  "CORROSIVE_DURABILITY_THRESHOLD",
+  'defineInRange("corrNot", 0.1D',
   "VIRAL_ENABLE",
   'define("viralEnable", true)',
   "VIRAL_AMOUNT",
@@ -54,6 +62,32 @@ for (const marker of [
   "stackablePotionsLimit"
 ]) {
   if (!config.includes(marker)) throw new Error(`SrpConfig missing legacy status config marker: ${marker}`);
+}
+
+const corrosive = read("src/main/java/com/dhanantry/scapeandrunparasites/potion/CorrosiveMobEffect.java");
+for (const marker of [
+  "extends SrpMobEffect",
+  "LEGACY_COLOR = 0x7A605A",
+  "LEGACY_DEFAULT_DAMAGE_VALUE = 3",
+  "LEGACY_DEFAULT_DURABILITY_THRESHOLD = 0.1D",
+  "LEGACY_ARMOR_SLOTS",
+  "EquipmentSlot.HEAD",
+  "EquipmentSlot.CHEST",
+  "EquipmentSlot.LEGS",
+  "EquipmentSlot.FEET",
+  "shouldApplyEffectTickThisTick(int duration, int amplifier)",
+  "25 >> amplifier",
+  "applyEffectTick(LivingEntity entity, int amplifier)",
+  "!entity.level().isClientSide",
+  "stack.isDamageableItem()",
+  "stack.getMaxDamage() - stack.getDamageValue()",
+  "SrpConfig.CORROSIVE_DURABILITY_THRESHOLD.get()",
+  "stack.hurtAndBreak(SrpConfig.CORROSIVE_DAMAGE_VALUE.get(), entity, slot)"
+]) {
+  if (!corrosive.includes(marker)) throw new Error(`CorrosiveMobEffect missing legacy Corrosive marker: ${marker}`);
+}
+for (const forbidden of ["entity.hurt(", "getHandSlots()", "getAllSlots()"]) {
+  if (corrosive.includes(forbidden)) throw new Error(`CorrosiveMobEffect contains non-legacy behavior marker: ${forbidden}`);
 }
 
 const rage = read("src/main/java/com/dhanantry/scapeandrunparasites/potion/RageMobEffect.java");
@@ -98,11 +132,19 @@ for (const marker of ["LivingIncomingDamageEvent", "VIRAL_ENABLE", "VIRAL_AMOUNT
 }
 
 const lang = readJson("src/main/resources/assets/srparasites/lang/en_us.json");
+if (!lang["mob_effect.srparasites:corrosive"]) throw new Error("en_us.json missing legacy Corrosive mob effect translation");
+if (!String(lang["mob_effect.srparasites:corrosive"]).includes("Corrosion")) throw new Error("Unexpected Corrosive translation");
 if (!lang["mob_effect.srparasites:rage"]) throw new Error("en_us.json missing legacy Rage mob effect translation");
 if (!String(lang["mob_effect.srparasites:rage"]).includes("Rage")) throw new Error("Unexpected Rage translation");
 
 const audit = read("docs/SRPARASITES_1_10_6_PORT_AUDIT.md");
 for (const marker of [
+  "CORRO_E",
+  "0x7A605A",
+  "corroValue = 3",
+  "corrNot = 0.1",
+  "srparasites:corrosive",
+  "armor-only durability corrosion",
   "RAGE_E",
   "0xF84343",
   "rageEnable = true",

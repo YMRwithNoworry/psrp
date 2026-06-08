@@ -53,6 +53,8 @@ public final class SrpConfig {
 
     public static final ModConfigSpec.DoubleValue BLEEDING_DAMAGE;
     public static final ModConfigSpec.DoubleValue BLEEDING_DAMAGE_CAP;
+    public static final ModConfigSpec.IntValue CORROSIVE_DAMAGE_VALUE;
+    public static final ModConfigSpec.DoubleValue CORROSIVE_DURABILITY_THRESHOLD;
     public static final ModConfigSpec.BooleanValue VIRAL_ENABLE;
     public static final ModConfigSpec.DoubleValue VIRAL_AMOUNT;
     public static final ModConfigSpec.BooleanValue RAGE_ENABLE;
@@ -113,6 +115,10 @@ public final class SrpConfig {
             .defineInRange("bleedingDamage", 0.06D, 0.0D, 1.0D);
         BLEEDING_DAMAGE_CAP = BUILDER.comment("Legacy SRPConfigSystems: Bleeding Damage Limit.")
             .defineInRange("bleedingDamageCap", 100.0D, 0.0D, 1000.0D);
+        CORROSIVE_DAMAGE_VALUE = BUILDER.comment("Legacy SRPConfigSystems: Corrosive Damage Value. Durability damage dealt to each armor piece per effect tick.")
+            .defineInRange("corroValue", 3, 0, 100000);
+        CORROSIVE_DURABILITY_THRESHOLD = BUILDER.comment("Legacy SRPConfigSystems: Corrosive Percentage To Work. Armor is not damaged once remaining durability is at or below this fraction.")
+            .defineInRange("corrNot", 0.1D, 0.0D, 1.0D);
         VIRAL_ENABLE = BUILDER.comment("Legacy SRPConfigSystems: enable Viral damage amplification.")
             .define("viralEnable", true);
         VIRAL_AMOUNT = BUILDER.comment("Legacy SRPConfigSystems: Viral Amount. Extra incoming damage per amplifier level.")

@@ -2,6 +2,7 @@ package com.dhanantry.scapeandrunparasites.init;
 
 import com.dhanantry.scapeandrunparasites.SRPMain;
 import com.dhanantry.scapeandrunparasites.potion.BleedMobEffect;
+import com.dhanantry.scapeandrunparasites.potion.CorrosiveMobEffect;
 import com.dhanantry.scapeandrunparasites.potion.RageMobEffect;
 import com.dhanantry.scapeandrunparasites.potion.SrpMobEffect;
 import net.minecraft.core.registries.Registries;
@@ -18,6 +19,8 @@ public final class ModEffects {
         new SrpMobEffect(MobEffectCategory.HARMFUL, 0x136334));
     public static final DeferredHolder<MobEffect, BleedMobEffect> BLEED = EFFECTS.register("bleed", () ->
         new BleedMobEffect(MobEffectCategory.HARMFUL, 0x5E0806));
+    public static final DeferredHolder<MobEffect, CorrosiveMobEffect> CORROSIVE = EFFECTS.register("corrosive", () ->
+        new CorrosiveMobEffect(MobEffectCategory.HARMFUL, CorrosiveMobEffect.LEGACY_COLOR));
     public static final DeferredHolder<MobEffect, RageMobEffect> RAGE = EFFECTS.register("rage", () ->
         new RageMobEffect(MobEffectCategory.BENEFICIAL, RageMobEffect.LEGACY_COLOR));
 

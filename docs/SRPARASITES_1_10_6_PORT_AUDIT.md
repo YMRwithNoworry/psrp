@@ -26,6 +26,12 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   `bleed` with color `0x5E0806`, registers `VIRA_E` as `viral` with color
   `0x136334`, and defines the old `applyStackPotion` amplifier/duration
   stacking rules.
+- `com.dhanantry.scapeandrunparasites.init.SRPPotions`: registers `CORRO_E` as
+  `corrosive` with color `0x7A605A`.
+- `com.dhanantry.scapeandrunparasites.potion.PotionCorrosion`: server-side
+  armor durability corrosion. Every effect tick it scans armor slots, keeps only
+  non-empty damageable stacks, and damages them by `corroValue` while remaining
+  durability is above `maxDamage * corrNot`.
 - `com.dhanantry.scapeandrunparasites.init.SRPPotions`: registers `RAGE_E` as
   `rage` with color `0xF84343`. Legacy Rage is an `SRPEffectBase` with movement
   speed and attack damage attribute modifiers, both using operation `2`
@@ -38,6 +44,8 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - `com.dhanantry.scapeandrunparasites.event.SRPEventHandlerBus`: applies the
   `viralEnable` / `viralAmount` incoming damage multiplier while a victim has
   `VIRA_E`.
+- `com.dhanantry.scapeandrunparasites.util.config.SRPConfigSystems`: defines
+  Corrosive defaults `corroValue = 3` and `corrNot = 0.1`.
 - `com.dhanantry.scapeandrunparasites.util.config.SRPConfigSystems`: defines
   Rage defaults `rageEnable = true`, `rageDamage = 0.1`, and `rageSpeed = 0.1`.
   The legacy config text describes `rageEnable` as the switch controlling
@@ -116,8 +124,9 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - Added NeoForge config values that mirror the legacy `SRPConfig` gear defaults.
 - Added NeoForge config values for the migrated status-effect defaults:
   `bleedingDamage = 0.06`, `bleedingDamageCap = 100.0`, `viralEnable = true`,
-  `viralAmount = 0.5`, `rageEnable = true`, `rageDamage = 0.1`,
-  `rageSpeed = 0.1`, and an empty `stackablePotionsLimit` list.
+  `viralAmount = 0.5`, `corroValue = 3`, `corrNot = 0.1`,
+  `rageEnable = true`, `rageDamage = 0.1`, `rageSpeed = 0.1`, and an empty
+  `stackablePotionsLimit` list.
 - Added runtime attribute replacement through `ItemAttributeModifierEvent`.
 - Added `srpkills` and `srphits` persistence through 1.21 data components.
 - Added living-to-sentient upgrade hooks for weapons and armor.
@@ -127,6 +136,11 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - Implemented core `bleed` behavior: server-only damage indicator particles,
   `25 >> amplifier` tick cadence, max-health-scaled damage, movement scaling,
   and the legacy damage cap.
+- Registered and implemented evidence-backed `srparasites:corrosive` with
+  legacy color `0x7A605A`. It ports the old armor-only durability corrosion
+  behavior, including `25 >> amplifier` tick cadence, damageable-stack checks,
+  `corroValue` durability damage, and the `corrNot` remaining-durability
+  threshold.
 - Implemented core `viral` behavior: incoming damage amplification based on
   effect amplifier and the `viralAmount` config.
 - Registered evidence-backed `srparasites:rage` with legacy color `0xF84343`.
