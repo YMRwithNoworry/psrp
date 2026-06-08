@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "": {
+      "model": "srparasites:block/infestation_purifier"
+    }
+  },
+  "srparasites_legacy_variants": {
+    "normal": {
+      "model": "srparasites:infestation_purifier"
+    }
+  }
+}

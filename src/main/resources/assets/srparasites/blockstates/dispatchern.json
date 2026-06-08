@@ -1,0 +1,18 @@
+{
+  "variants": {
+    "": {
+      "model": "srparasites:block/dodn"
+    }
+  },
+  "srparasites_legacy_defaults": {
+    "model": "srparasites:dodn"
+  },
+  "srparasites_legacy_variants": {
+    "normal": {
+      "model": "srparasites:dodn"
+    },
+    "inventory": [
+      {}
+    ]
+  }
+}

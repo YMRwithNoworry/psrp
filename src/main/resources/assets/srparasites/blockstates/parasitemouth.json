@@ -1,0 +1,18 @@
+{
+  "variants": {
+    "": {
+      "model": "srparasites:block/parasitemouth"
+    }
+  },
+  "srparasites_legacy_defaults": {
+    "model": "srparasites:parasitemouth"
+  },
+  "srparasites_legacy_variants": {
+    "normal": {
+      "model": "srparasites:parasitemouth"
+    },
+    "inventory": [
+      {}
+    ]
+  }
+}

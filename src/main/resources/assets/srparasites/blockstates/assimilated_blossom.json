@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "srparasites:block/assimilated_blossom"
+      }
+    ]
+  },
+  "srparasites_legacy_variants": {
+    "normal": [
+      {
+        "model": "srparasites:assimilated_blossom"
+      }
+    ],
+    "inventory": [
+      {
+        "model": "srparasites:assimilated_blossom"
+      }
+    ]
+  }
+}

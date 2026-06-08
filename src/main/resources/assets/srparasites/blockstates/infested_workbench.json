@@ -1,0 +1,15 @@
+{
+  "variants": {
+    "": {
+      "model": "srparasites:block/infested_workbench"
+    }
+  },
+  "srparasites_legacy_variants": {
+    "normal": {
+      "model": "srparasites:infested_workbench"
+    },
+    "inventory": {
+      "model": "srparasites:infested_workbench"
+    }
+  }
+}

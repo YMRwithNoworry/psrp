@@ -1,0 +1,48 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "srparasites:block/tunnel"
+      },
+      {
+        "model": "srparasites:block/tunnel",
+        "y": 90
+      },
+      {
+        "model": "srparasites:block/tunnel",
+        "y": 180
+      },
+      {
+        "model": "srparasites:block/tunnel",
+        "y": 270
+      }
+    ]
+  },
+  "srparasites_legacy_defaults": {
+    "model": "srparasites:tunnel"
+  },
+  "srparasites_legacy_variants": {
+    "normal": [
+      {
+        "model": "srparasites:tunnel"
+      },
+      {
+        "model": "srparasites:tunnel",
+        "y": 90
+      },
+      {
+        "model": "srparasites:tunnel",
+        "y": 180
+      },
+      {
+        "model": "srparasites:tunnel",
+        "y": 270
+      }
+    ],
+    "inventory": [
+      {
+        "model": "srparasites:item/tunnel"
+      }
+    ]
+  }
+}

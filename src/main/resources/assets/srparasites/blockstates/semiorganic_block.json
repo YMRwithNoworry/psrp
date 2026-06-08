@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "": {
+      "model": "srparasites:block/semiorganic_block"
+    }
+  },
+  "srparasites_legacy_variants": {
+    "normal": {
+      "model": "srparasites:semiorganic_block"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "texture": "srparasites:blocks/infested_fence"
+  }
+}

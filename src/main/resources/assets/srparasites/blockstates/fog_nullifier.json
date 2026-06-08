@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "": {
+      "model": "srparasites:block/fog_nullifier"
+    }
+  },
+  "srparasites_legacy_variants": {
+    "normal": {
+      "model": "srparasites:fog_nullifier"
+    }
+  }
+}

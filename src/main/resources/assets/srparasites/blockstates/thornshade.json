@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "": {
+      "model": "srparasites:block/generated/thornshade_texture_fallback"
+    }
+  },
+  "srparasites_legacy_defaults": {
+    "model": "minecraft:cross"
+  },
+  "srparasites_legacy_variants": {
+    "stage": {
+      "stage0_ts": {
+        "textures": {
+          "cross": "srparasites:blocks/stage0_ts"
+        }
+      },
+      "stage0_ts_snow": {
+        "textures": {
+          "cross": "srparasites:blocks/stage0_ts_snow"
+        }
+      },
+      "stage1_ts": {
+        "textures": {
+          "cross": "srparasites:blocks/stage1_ts"
+        }
+      },
+      "stage1_ts_snow": {
+        "textures": {
+          "cross": "srparasites:blocks/stage1_ts_snow"
+        }
+      },
+      "stage2_ts": {
+        "textures": {
+          "cross": "srparasites:blocks/stage2_ts"
+        }
+      },
+      "stage2_ts_snow": {
+        "textures": {
+          "cross": "srparasites:blocks/stage2_ts_snow"
+        }
+      },
+      "stage2_ts_noberry": {
+        "textures": {
+          "cross": "srparasites:blocks/stage2_ts_noberry"
+        }
+      },
+      "stage2_ts_noberry_snow": {
+        "textures": {
+          "cross": "srparasites:blocks/stage2_ts_noberry_snow"
+        }
+      },
+      "dead_ts": {
+        "textures": {
+          "cross": "srparasites:blocks/dead_ts"
+        }
+      },
+      "dead_ts_snow": {
+        "textures": {
+          "cross": "srparasites:blocks/dead_ts_snow"
+        }
+      }
+    }
+  }
+}

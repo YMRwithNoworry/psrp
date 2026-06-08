@@ -1,0 +1,18 @@
+{
+  "variants": {
+    "": {
+      "model": "srparasites:block/reinforced_hivestone_slab"
+    }
+  },
+  "srparasites_legacy_defaults": {
+    "model": "srparasites:reinforced_hivestone_slab"
+  },
+  "srparasites_legacy_variants": {
+    "half=bottom,variant=default": {
+      "model": "srparasites:reinforced_hivestone_slab"
+    },
+    "half=top,variant=default": {
+      "model": "srparasites:reinforced_hivestone_slab_top"
+    }
+  }
+}

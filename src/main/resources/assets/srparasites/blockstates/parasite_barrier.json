@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "": {
+      "model": "srparasites:block/parasite_barrier"
+    }
+  },
+  "srparasites_legacy_variants": {
+    "normal": {
+      "model": "srparasites:parasite_barrier"
+    }
+  }
+}

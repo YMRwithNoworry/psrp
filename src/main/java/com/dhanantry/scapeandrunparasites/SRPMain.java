@@ -1,11 +1,13 @@
 package com.dhanantry.scapeandrunparasites;
 
+import com.dhanantry.scapeandrunparasites.init.ModBlocks;
 import com.dhanantry.scapeandrunparasites.init.ModCreativeTabs;
 import com.dhanantry.scapeandrunparasites.init.ModEntities;
 import com.dhanantry.scapeandrunparasites.init.ModEntityEvents;
 import com.dhanantry.scapeandrunparasites.init.ModEffects;
 import com.dhanantry.scapeandrunparasites.init.ModItems;
 import com.dhanantry.scapeandrunparasites.init.ModPotions;
+import com.dhanantry.scapeandrunparasites.init.ModSounds;
 import com.dhanantry.scapeandrunparasites.item.SrpEquipmentEvents;
 import com.dhanantry.scapeandrunparasites.potion.SignEffectEvents;
 import com.dhanantry.scapeandrunparasites.potion.SrpEffectEvents;
@@ -29,6 +31,8 @@ public final class SRPMain {
         ModEntities.register(modEventBus);
         ModEffects.register(modEventBus);
         ModPotions.register(modEventBus);
+        ModSounds.register(modEventBus);
+        ModBlocks.register(modEventBus);
         ModItems.register(modEventBus);
         ModCreativeTabs.register(modEventBus);
         modEventBus.register(ModEntityEvents.class);

@@ -1,0 +1,25 @@
+{
+  "variants": {
+    "": {
+      "model": "srparasites:block/tresses_hair_bottom"
+    }
+  },
+  "srparasites_legacy_multipart": [
+    {
+      "when": {
+        "half": "lower"
+      },
+      "apply": {
+        "model": "srparasites:tresses_hair_bottom"
+      }
+    },
+    {
+      "when": {
+        "half": "upper"
+      },
+      "apply": {
+        "model": "srparasites:tresses_hair_top"
+      }
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "": {
+      "model": "srparasites:block/diseased_sponge"
+    }
+  },
+  "srparasites_legacy_variants": {
+    "normal": {
+      "model": "srparasites:diseased_sponge"
+    }
+  }
+}

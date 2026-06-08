@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "srparasites:block/consumed_pot"
+      }
+    ]
+  },
+  "srparasites_legacy_variants": {
+    "normal": [
+      {
+        "model": "srparasites:consumed_pot"
+      }
+    ],
+    "inventory": [
+      {
+        "model": "srparasites:consumed_pot"
+      }
+    ]
+  }
+}

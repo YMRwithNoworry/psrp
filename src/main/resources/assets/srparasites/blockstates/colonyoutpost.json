@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "": {
+      "model": "srparasites:block/colonyoutpost"
+    }
+  },
+  "srparasites_legacy_defaults": {
+    "model": "srparasites:colonyoutpost"
+  },
+  "srparasites_legacy_variants": {
+    "normal": {
+      "model": "srparasites:colonyoutpost"
+    },
+    "active=0": {
+      "model": "srparasites:colonyoutpost"
+    },
+    "active=1": {
+      "model": "srparasites:colonyoutpost"
+    },
+    "active=2": {
+      "model": "srparasites:colonyoutpost"
+    },
+    "active=3": {
+      "model": "srparasites:colonyoutpost"
+    },
+    "inventory": [
+      {}
+    ]
+  }
+}

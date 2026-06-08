@@ -1,0 +1,18 @@
+{
+  "variants": {
+    "": {
+      "model": "srparasites:block/weathered_cobblestone_slab"
+    }
+  },
+  "srparasites_legacy_defaults": {
+    "model": "srparasites:weathered_cobblestone_slab"
+  },
+  "srparasites_legacy_variants": {
+    "half=bottom,variant=default": {
+      "model": "srparasites:weathered_cobblestone_slab"
+    },
+    "half=top,variant=default": {
+      "model": "srparasites:weathered_cobblestone_slab_top"
+    }
+  }
+}

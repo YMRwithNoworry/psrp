@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "srparasites:block/residue_block_base"
+      }
+    ]
+  },
+  "srparasites_legacy_variants": {
+    "normal": [
+      {
+        "model": "srparasites:residue_block_base"
+      }
+    ]
+  }
+}

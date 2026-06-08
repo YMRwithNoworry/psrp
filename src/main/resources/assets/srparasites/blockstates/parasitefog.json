@@ -1,0 +1,32 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "srparasites:block/parasite_fog"
+      }
+    ]
+  },
+  "srparasites_legacy_defaults": {
+    "model": "srparasites:parasite_fog"
+  },
+  "srparasites_legacy_variants": {
+    "air=0": [
+      {
+        "model": "srparasites:parasite_fog"
+      }
+    ],
+    "air=1": [
+      {
+        "model": "srparasites:parasite_fog"
+      }
+    ],
+    "air=2": [
+      {
+        "model": "srparasites:parasite_fog"
+      }
+    ],
+    "inventory": [
+      {}
+    ]
+  }
+}

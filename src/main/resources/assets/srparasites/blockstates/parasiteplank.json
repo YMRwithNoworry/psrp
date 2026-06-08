@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "srparasites:block/parasiteplank_deadhead"
+      }
+    ]
+  },
+  "srparasites_legacy_defaults": {
+    "model": "srparasites:parasiteplank_deadhead"
+  },
+  "srparasites_legacy_variants": {
+    "variant=deadhead": [
+      {
+        "model": "srparasites:parasiteplank_deadhead"
+      }
+    ],
+    "variant=deadheads": [
+      {
+        "model": "srparasites:parasiteplank_deadheads"
+      }
+    ],
+    "inventory": [
+      {}
+    ]
+  }
+}

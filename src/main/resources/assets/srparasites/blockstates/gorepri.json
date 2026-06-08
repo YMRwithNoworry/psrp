@@ -1,0 +1,80 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "srparasites:block/gore_pri_flat"
+      },
+      {
+        "model": "srparasites:block/gore_pri_flat",
+        "y": 90
+      },
+      {
+        "model": "srparasites:block/gore_pri_flat",
+        "y": 180
+      },
+      {
+        "model": "srparasites:block/gore_pri_flat",
+        "y": 270
+      }
+    ]
+  },
+  "srparasites_legacy_defaults": {
+    "model": "srparasites:gore_pri_small"
+  },
+  "srparasites_legacy_variants": {
+    "variant=flat": [
+      {
+        "model": "srparasites:gore_pri_flat"
+      },
+      {
+        "model": "srparasites:gore_pri_flat",
+        "y": 90
+      },
+      {
+        "model": "srparasites:gore_pri_flat",
+        "y": 180
+      },
+      {
+        "model": "srparasites:gore_pri_flat",
+        "y": 270
+      }
+    ],
+    "variant=small": [
+      {
+        "model": "srparasites:gore_pri_small"
+      },
+      {
+        "model": "srparasites:gore_pri_small",
+        "y": 90
+      },
+      {
+        "model": "srparasites:gore_pri_small",
+        "y": 180
+      },
+      {
+        "model": "srparasites:gore_pri_small",
+        "y": 270
+      }
+    ],
+    "variant=big": [
+      {
+        "model": "srparasites:gore_pri_big"
+      },
+      {
+        "model": "srparasites:gore_pri_big",
+        "y": 90
+      },
+      {
+        "model": "srparasites:gore_pri_big",
+        "y": 180
+      },
+      {
+        "model": "srparasites:gore_pri_big",
+        "y": 270
+      }
+    ],
+    "inventory": [
+      {}
+    ]
+  }
+}

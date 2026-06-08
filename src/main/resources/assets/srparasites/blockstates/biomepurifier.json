@@ -1,0 +1,18 @@
+{
+  "variants": {
+    "": {
+      "model": "srparasites:block/biomepurifier"
+    }
+  },
+  "srparasites_legacy_defaults": {
+    "model": "srparasites:biomepurifier"
+  },
+  "srparasites_legacy_variants": {
+    "normal": {
+      "model": "srparasites:biomepurifier"
+    },
+    "inventory": [
+      {}
+    ]
+  }
+}

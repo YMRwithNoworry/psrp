@@ -1,0 +1,24 @@
+{
+  "variants": {
+    "": {
+      "model": "srparasites:block/infuser_furnace"
+    }
+  },
+  "srparasites_legacy_variants": {
+    "facing=north": {
+      "model": "srparasites:infuser_furnace"
+    },
+    "facing=south": {
+      "model": "srparasites:infuser_furnace",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "srparasites:infuser_furnace",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "srparasites:infuser_furnace",
+      "y": 90
+    }
+  }
+}

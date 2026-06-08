@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "": {
+      "model": "srparasites:block/parasitestain_dirt"
+    }
+  },
+  "srparasites_legacy_defaults": {
+    "model": "srparasites:parasitestain_dirt"
+  },
+  "srparasites_legacy_variants": {
+    "normal": {
+      "model": "srparasites:parasitestain_dirt"
+    },
+    "active=0": {
+      "model": "srparasites:parasitestain_dirt"
+    },
+    "active=1": {
+      "model": "srparasites:parasitestain_dirt"
+    },
+    "active=2": {
+      "model": "srparasites:parasitestain_dirt"
+    },
+    "active=3": {
+      "model": "srparasites:parasitestain_dirt"
+    },
+    "inventory": [
+      {}
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "variants": {
+    "": {
+      "model": "srparasites:block/infested_cobblestone_slab"
+    }
+  },
+  "srparasites_legacy_defaults": {
+    "model": "srparasites:infested_cobblestone_slab"
+  },
+  "srparasites_legacy_variants": {
+    "half=bottom,variant=default": {
+      "model": "srparasites:infested_cobblestone_slab"
+    },
+    "half=top,variant=default": {
+      "model": "srparasites:infested_cobblestone_slab_top"
+    }
+  }
+}

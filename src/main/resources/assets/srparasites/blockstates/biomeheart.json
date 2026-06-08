@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "": {
+      "model": "srparasites:block/biomeheart"
+    }
+  },
+  "srparasites_legacy_defaults": {
+    "model": "srparasites:biomeheart"
+  },
+  "srparasites_legacy_variants": {
+    "normal": {
+      "model": "srparasites:biomeheart"
+    },
+    "active=0": {
+      "model": "srparasites:biomeheart"
+    },
+    "active=1": {
+      "model": "srparasites:biomeheart"
+    },
+    "active=2": {
+      "model": "srparasites:biomeheart"
+    },
+    "active=3": {
+      "model": "srparasites:biomeheart"
+    },
+    "inventory": [
+      {}
+    ]
+  }
+}

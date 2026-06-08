@@ -1,0 +1,18 @@
+{
+  "variants": {
+    "": {
+      "model": "srparasites:block/parasitecanister_cysta"
+    }
+  },
+  "srparasites_legacy_defaults": {
+    "model": "srparasites:parasitecanister_cysta"
+  },
+  "srparasites_legacy_variants": {
+    "normal": {
+      "model": "srparasites:parasitecanister_cysta"
+    },
+    "inventory": [
+      {}
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "srparasites:block/esca_bulb_orange"
+      }
+    ]
+  },
+  "srparasites_legacy_variants": {
+    "normal": [
+      {
+        "model": "srparasites:esca_bulb_orange"
+      }
+    ]
+  }
+}

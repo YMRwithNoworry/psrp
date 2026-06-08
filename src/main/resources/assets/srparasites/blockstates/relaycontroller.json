@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "": {
+      "model": "srparasites:block/relaycontroller"
+    }
+  },
+  "srparasites_legacy_defaults": {
+    "model": "srparasites:relaycontroller"
+  },
+  "srparasites_legacy_variants": {
+    "normal": {
+      "model": "srparasites:relaycontroller"
+    },
+    "facing=north": {
+      "model": "srparasites:relaycontroller"
+    },
+    "facing=east": {
+      "model": "srparasites:relaycontroller"
+    },
+    "facing=south": {
+      "model": "srparasites:relaycontroller"
+    },
+    "facing=west": {
+      "model": "srparasites:relaycontroller"
+    }
+  }
+}

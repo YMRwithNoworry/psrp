@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "": {
+      "model": "minecraft:block/stone"
+    }
+  },
+  "srparasites_legacy_variants": {
+    "normal": {
+      "model": "minecraft:stone"
+    }
+  }
+}

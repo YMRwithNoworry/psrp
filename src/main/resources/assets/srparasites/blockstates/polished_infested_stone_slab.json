@@ -1,0 +1,18 @@
+{
+  "variants": {
+    "": {
+      "model": "srparasites:block/polished_infested_stone_slab"
+    }
+  },
+  "srparasites_legacy_defaults": {
+    "model": "srparasites:polished_infested_stone_slab"
+  },
+  "srparasites_legacy_variants": {
+    "half=bottom,variant=default": {
+      "model": "srparasites:polished_infested_stone_slab"
+    },
+    "half=top,variant=default": {
+      "model": "srparasites:polished_infested_stone_slab_top"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": {
+      "model": "srparasites:block/hair_follicle_block"
+    }
+  },
+  "srparasites_legacy_variants": {
+    "axis=y": {
+      "model": "srparasites:hair_follicle_block"
+    },
+    "axis=x": {
+      "model": "srparasites:hair_follicle_block",
+      "x": 90,
+      "y": 90
+    },
+    "axis=z": {
+      "model": "srparasites:hair_follicle_block",
+      "x": 90
+    }
+  }
+}

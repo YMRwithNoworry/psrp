@@ -1,0 +1,18 @@
+{
+  "variants": {
+    "": {
+      "model": "srparasites:block/parasitic_compressed_colony_stone_slab"
+    }
+  },
+  "srparasites_legacy_defaults": {
+    "model": "srparasites:parasitic_compressed_colony_stone_slab"
+  },
+  "srparasites_legacy_variants": {
+    "half=bottom,variant=default": {
+      "model": "srparasites:parasitic_compressed_colony_stone_slab"
+    },
+    "half=top,variant=default": {
+      "model": "srparasites:parasitic_compressed_colony_stone_slab_top"
+    }
+  }
+}

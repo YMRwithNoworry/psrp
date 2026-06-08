@@ -16,7 +16,10 @@ public final class ModCreativeTabs {
         .title(Component.translatable("itemGroup.srparasites"))
         .withTabsBefore(CreativeModeTabs.COMBAT)
         .icon(() -> ModItems.ASSIMILATED_FLESH.get().getDefaultInstance())
-        .displayItems((parameters, output) -> ModItems.CREATIVE_TAB_ITEMS.forEach(item -> output.accept(item.get())))
+        .displayItems((parameters, output) -> {
+            ModItems.CREATIVE_TAB_ITEMS.forEach(item -> output.accept(item.get()));
+            ModBlocks.CREATIVE_TAB_BLOCK_ITEMS.forEach(item -> output.accept(item.get()));
+        })
         .build());
 
     private ModCreativeTabs() {

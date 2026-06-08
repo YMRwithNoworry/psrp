@@ -1,0 +1,18 @@
+{
+  "variants": {
+    "": {
+      "model": "srparasites:block/consumed_plank_slab"
+    }
+  },
+  "srparasites_legacy_defaults": {
+    "model": "srparasites:consumed_plank_slab"
+  },
+  "srparasites_legacy_variants": {
+    "half=bottom,variant=default": {
+      "model": "srparasites:consumed_plank_slab"
+    },
+    "half=top,variant=default": {
+      "model": "srparasites:consumed_plank_slab_top"
+    }
+  }
+}

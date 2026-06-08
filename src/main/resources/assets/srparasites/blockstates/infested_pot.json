@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "srparasites:block/infested_pot"
+      }
+    ]
+  },
+  "srparasites_legacy_variants": {
+    "normal": [
+      {
+        "model": "srparasites:infested_pot"
+      }
+    ],
+    "inventory": [
+      {
+        "model": "srparasites:infested_pot"
+      }
+    ]
+  }
+}

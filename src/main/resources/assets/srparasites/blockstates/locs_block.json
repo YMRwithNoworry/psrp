@@ -1,0 +1,15 @@
+{
+  "variants": {
+    "": {
+      "model": "srparasites:block/locs_block"
+    }
+  },
+  "srparasites_legacy_variants": {
+    "snowy=false": {
+      "model": "srparasites:locs_block"
+    },
+    "snowy=true": {
+      "model": "srparasites:locs_block_snowy"
+    }
+  }
+}

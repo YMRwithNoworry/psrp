@@ -1,0 +1,18 @@
+{
+  "variants": {
+    "": {
+      "model": "srparasites:block/poland_skin_slab"
+    }
+  },
+  "srparasites_legacy_defaults": {
+    "model": "srparasites:poland_skin_slab"
+  },
+  "srparasites_legacy_variants": {
+    "half=bottom,variant=default": {
+      "model": "srparasites:poland_skin_slab"
+    },
+    "half=top,variant=default": {
+      "model": "srparasites:poland_skin_slab_top"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "variants": {
+    "": {
+      "model": "srparasites:block/cooked_flesh_slab"
+    }
+  },
+  "srparasites_legacy_defaults": {
+    "model": "srparasites:cooked_flesh_slab"
+  },
+  "srparasites_legacy_variants": {
+    "half=bottom,variant=default": {
+      "model": "srparasites:cooked_flesh_slab"
+    },
+    "half=top,variant=default": {
+      "model": "srparasites:cooked_flesh_slab_top"
+    }
+  }
+}
