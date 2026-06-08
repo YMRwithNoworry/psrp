@@ -26,6 +26,10 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   `bleed` with color `0x5E0806`, registers `VIRA_E` as `viral` with color
   `0x136334`, and defines the old `applyStackPotion` amplifier/duration
   stacking rules.
+- `com.dhanantry.scapeandrunparasites.init.SRPPotions`: registers `RAGE_E` as
+  `rage` with color `0xF84343`. Legacy Rage is an `SRPEffectBase` with movement
+  speed and attack damage attribute modifiers, both using operation `2`
+  (`ADD_MULTIPLIED_TOTAL` in modern terms).
 - `com.dhanantry.scapeandrunparasites.potion.SRPEffectBase`: clears curative
   items and applies non-bleed effect ticks every `25 >> amplifier` ticks.
 - `com.dhanantry.scapeandrunparasites.potion.PotionBleed`: server-side bleeding
@@ -34,6 +38,10 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - `com.dhanantry.scapeandrunparasites.event.SRPEventHandlerBus`: applies the
   `viralEnable` / `viralAmount` incoming damage multiplier while a victim has
   `VIRA_E`.
+- `com.dhanantry.scapeandrunparasites.util.config.SRPConfigSystems`: defines
+  Rage defaults `rageEnable = true`, `rageDamage = 0.1`, and `rageSpeed = 0.1`.
+  The legacy config text describes `rageEnable` as the switch controlling
+  whether parasites spawn with or give the Rage effect.
 - `com.dhanantry.scapeandrunparasites.entity.monster.pure.EntityFlog`: Grunt /
   Flog entity size, legacy parasite ID `60`, climb flag, swim and water leap
   goals, AOE melee attack, skill leap, evade dash, variant skin selection, and
@@ -108,7 +116,8 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - Added NeoForge config values that mirror the legacy `SRPConfig` gear defaults.
 - Added NeoForge config values for the migrated status-effect defaults:
   `bleedingDamage = 0.06`, `bleedingDamageCap = 100.0`, `viralEnable = true`,
-  `viralAmount = 0.5`, and an empty `stackablePotionsLimit` list.
+  `viralAmount = 0.5`, `rageEnable = true`, `rageDamage = 0.1`,
+  `rageSpeed = 0.1`, and an empty `stackablePotionsLimit` list.
 - Added runtime attribute replacement through `ItemAttributeModifierEvent`.
 - Added `srpkills` and `srphits` persistence through 1.21 data components.
 - Added living-to-sentient upgrade hooks for weapons and armor.
@@ -120,6 +129,10 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   and the legacy damage cap.
 - Implemented core `viral` behavior: incoming damage amplification based on
   effect amplifier and the `viralAmount` config.
+- Registered evidence-backed `srparasites:rage` with legacy color `0xF84343`.
+  The effect ports the old movement speed and attack damage attribute modifiers
+  using total multiplicative modifiers that scale with amplifier and read the
+  modern config values at application time.
 - Added the first evidence-backed parasite entity slice:
   - registered the Grunt/Flog entity under the legacy `grunt` visible entity id,
   - registered the legacy `itemmobspawner_flog` spawn egg,

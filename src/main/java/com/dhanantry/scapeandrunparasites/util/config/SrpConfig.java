@@ -55,6 +55,9 @@ public final class SrpConfig {
     public static final ModConfigSpec.DoubleValue BLEEDING_DAMAGE_CAP;
     public static final ModConfigSpec.BooleanValue VIRAL_ENABLE;
     public static final ModConfigSpec.DoubleValue VIRAL_AMOUNT;
+    public static final ModConfigSpec.BooleanValue RAGE_ENABLE;
+    public static final ModConfigSpec.DoubleValue RAGE_DAMAGE;
+    public static final ModConfigSpec.DoubleValue RAGE_SPEED;
     public static final ModConfigSpec.ConfigValue<List<? extends String>> STACKABLE_POTIONS_LIMIT;
 
     public static final ModConfigSpec SPEC;
@@ -114,6 +117,12 @@ public final class SrpConfig {
             .define("viralEnable", true);
         VIRAL_AMOUNT = BUILDER.comment("Legacy SRPConfigSystems: Viral Amount. Extra incoming damage per amplifier level.")
             .defineInRange("viralAmount", 0.5D, 0.0D, 1000.0D);
+        RAGE_ENABLE = BUILDER.comment("Legacy SRPConfigSystems: Rage Activated. Future entity skills should check this before applying Rage.")
+            .define("rageEnable", true);
+        RAGE_DAMAGE = BUILDER.comment("Legacy SRPConfigSystems: Rage Damage. Total attack damage multiplier per amplifier level.")
+            .defineInRange("rageDamage", 0.1D, 0.0D, 1000.0D);
+        RAGE_SPEED = BUILDER.comment("Legacy SRPConfigSystems: Rage Speed. Total movement speed multiplier per amplifier level.")
+            .defineInRange("rageSpeed", 0.1D, 0.0D, 1000.0D);
         STACKABLE_POTIONS_LIMIT = BUILDER.comment("Legacy SRPConfig: Limit Potion Amplifiers entries formatted as namespace:effect;limit.")
             .defineListAllowEmpty("stackablePotionsLimit", List.of(), value -> value instanceof String);
         BUILDER.pop();
