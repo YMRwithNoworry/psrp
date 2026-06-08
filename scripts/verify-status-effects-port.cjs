@@ -12,6 +12,7 @@ const required = [
   "src/main/java/com/dhanantry/scapeandrunparasites/potion/BleedMobEffect.java",
   "src/main/java/com/dhanantry/scapeandrunparasites/potion/ContaminationMobEffect.java",
   "src/main/java/com/dhanantry/scapeandrunparasites/potion/CorrosiveMobEffect.java",
+  "src/main/java/com/dhanantry/scapeandrunparasites/potion/DodSmokeTrailMobEffect.java",
   "src/main/java/com/dhanantry/scapeandrunparasites/potion/EffectNegMobEffect.java",
   "src/main/java/com/dhanantry/scapeandrunparasites/potion/EffectPosMobEffect.java",
   "src/main/java/com/dhanantry/scapeandrunparasites/potion/IndeafMobEffect.java",
@@ -22,6 +23,7 @@ const required = [
   "src/main/java/com/dhanantry/scapeandrunparasites/util/config/SrpConfig.java",
   "src/main/resources/assets/srparasites/textures/gui/potion_conta.png",
   "src/main/resources/assets/srparasites/textures/gui/potion_corrosive.png",
+  "src/main/resources/assets/srparasites/textures/gui/potion_dod_smoke_trail.png",
   "src/main/resources/assets/srparasites/textures/gui/potion_effectneg.png",
   "src/main/resources/assets/srparasites/textures/gui/potion_effectpos.png",
   "src/main/resources/assets/srparasites/textures/gui/potion_indeaf.png",
@@ -43,6 +45,8 @@ for (const marker of [
   "new SrpMobEffect(MobEffectCategory.HARMFUL, 0x136334)",
   'EFFECTS.register("bleed"',
   "new BleedMobEffect(MobEffectCategory.HARMFUL, 0x5E0806)",
+  'EFFECTS.register("dod_smoke_trail"',
+  "new DodSmokeTrailMobEffect(MobEffectCategory.BENEFICIAL, DodSmokeTrailMobEffect.LEGACY_COLOR)",
   'EFFECTS.register("corrosive"',
   "new CorrosiveMobEffect(MobEffectCategory.HARMFUL, CorrosiveMobEffect.LEGACY_COLOR)",
   'EFFECTS.register("vomit"',
@@ -153,6 +157,27 @@ for (const marker of ["25 >> amplifier", "DAMAGE_INDICATOR", "BLEEDING_DAMAGE", 
   if (!bleed.includes(marker)) throw new Error(`BleedMobEffect missing legacy bleed marker: ${marker}`);
 }
 
+const dodSmokeTrail = read("src/main/java/com/dhanantry/scapeandrunparasites/potion/DodSmokeTrailMobEffect.java");
+for (const marker of [
+  "extends SrpMobEffect",
+  "LEGACY_COLOR = 0x404040",
+  "LEGACY_GROUND_REMOVE_DURATION = 10",
+  "LEGACY_PARTICLE_COUNT = 6",
+  "LEGACY_PARTICLE_OFFSET = 0.15D",
+  "LEGACY_PARTICLE_SPEED = 0.02D",
+  "shouldApplyEffectTickThisTick(int duration, int amplifier)",
+  "return true",
+  "entity.level() instanceof ServerLevel serverLevel",
+  "entity.getEffect(ModEffects.DOD_SMOKE_TRAIL)",
+  "entity.onGround() && duration <= LEGACY_GROUND_REMOVE_DURATION",
+  "entity.removeEffect(ModEffects.DOD_SMOKE_TRAIL)",
+  "ParticleTypes.SMOKE",
+  "entity.getY() + entity.getEyeHeight()",
+  "serverLevel.sendParticles("
+]) {
+  if (!dodSmokeTrail.includes(marker)) throw new Error(`DodSmokeTrailMobEffect missing legacy smoke-trail marker: ${marker}`);
+}
+
 const sensing = read("src/main/java/com/dhanantry/scapeandrunparasites/potion/SrpSensingMobEffect.java");
 for (const marker of [
   "extends SrpMobEffect",
@@ -261,6 +286,7 @@ if (!String(lang["mob_effect.srparasites:corrosive"]).includes("Corrosion")) thr
 if (!lang["mob_effect.srparasites:rage"]) throw new Error("en_us.json missing legacy Rage mob effect translation");
 if (!String(lang["mob_effect.srparasites:rage"]).includes("Rage")) throw new Error("Unexpected Rage translation");
 for (const [id, expected] of [
+  ["dod_smoke_trail", "Smoke Trail"],
   ["vomit", "Vomit"],
   ["senses", "Heightened Senses"],
   ["indeaf", "Indeaf"],
@@ -289,6 +315,11 @@ for (const marker of [
   "rageSpeed = 0.1",
   "srparasites:rage",
   "movement speed and attack damage",
+  "DOD_SMOKE_TRAIL_E",
+  "EffectDodSmokeTrail",
+  "0x404040",
+  "SMOKE_NORMAL",
+  "srparasites:dod_smoke_trail",
   "VOMIT_E",
   "0x726C41",
   "SENS_E",

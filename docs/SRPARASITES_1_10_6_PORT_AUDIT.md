@@ -26,6 +26,14 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   `bleed` with color `0x5E0806`, registers `VIRA_E` as `viral` with color
   `0x136334`, and defines the old `applyStackPotion` amplifier/duration
   stacking rules.
+- `com.dhanantry.scapeandrunparasites.init.SRPPotions`: registers
+  `DOD_SMOKE_TRAIL_E` through `EffectDodSmokeTrail` as `dod_smoke_trail` with
+  color `0x404040`.
+- `com.dhanantry.scapeandrunparasites.potion.EffectDodSmokeTrail`: server-side
+  smoke trail behavior. It ticks every tick, removes itself when the host is
+  grounded with `<= 10` ticks remaining, and otherwise sends `6` `SMOKE_NORMAL`
+  particles at eye height with `0.15` position offsets and `0.02` particle
+  speed.
 - `com.dhanantry.scapeandrunparasites.init.SRPPotions`: registers `CORRO_E` as
   `corrosive` with color `0x7A605A`.
 - `com.dhanantry.scapeandrunparasites.potion.PotionCorrosion`: server-side
@@ -199,6 +207,11 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - Implemented core `bleed` behavior: server-only damage indicator particles,
   `25 >> amplifier` tick cadence, max-health-scaled damage, movement scaling,
   and the legacy damage cap.
+- Registered evidence-backed `srparasites:dod_smoke_trail` with legacy color
+  `0x404040` and ported the old `EffectDodSmokeTrail` runtime surface:
+  every-tick server-side smoke trail particles at eye height, legacy particle
+  count/offset/speed, and self-removal when grounded with `10` or fewer ticks
+  remaining.
 - Registered and implemented evidence-backed `srparasites:corrosive` with
   legacy color `0x7A605A`. It ports the old armor-only durability corrosion
   behavior, including `25 >> amplifier` tick cadence, damageable-stack checks,
@@ -313,11 +326,11 @@ own evidence-backed slices:
   clone/shadow damage splitting, cosmical render layer behavior, NeuroLock,
   scary/void orb projectile entities, and related sound/particle polish,
 - remaining SRP status effects beyond the currently implemented viral, bleed,
-  corrosive, rage, vomit, senses, indeaf, overheating, conta, needler,
-  effectpos, and effectneg effects and the newly implemented Thornshade Thorns
-  handler; potion item variants, brewing data, HUD/screen overlays, viral
-  transmission systems, and immunity interactions outside this Flog combat
-  slice,
+  dod_smoke_trail, corrosive, rage, vomit, senses, indeaf, overheating, conta,
+  needler, effectpos, and effectneg effects and the newly implemented
+  Thornshade Thorns handler; potion item variants, brewing data, HUD/screen
+  overlays, viral transmission systems, and immunity interactions outside this
+  Flog combat slice,
 - block registry and legacy block behavior,
 - SRP Web block variants and type-specific Webball web placement; until the
   block system is migrated, Webball placement is represented by vanilla

@@ -4,6 +4,7 @@ import com.dhanantry.scapeandrunparasites.SRPMain;
 import com.dhanantry.scapeandrunparasites.potion.BleedMobEffect;
 import com.dhanantry.scapeandrunparasites.potion.ContaminationMobEffect;
 import com.dhanantry.scapeandrunparasites.potion.CorrosiveMobEffect;
+import com.dhanantry.scapeandrunparasites.potion.DodSmokeTrailMobEffect;
 import com.dhanantry.scapeandrunparasites.potion.EffectNegMobEffect;
 import com.dhanantry.scapeandrunparasites.potion.EffectPosMobEffect;
 import com.dhanantry.scapeandrunparasites.potion.IndeafMobEffect;
@@ -27,6 +28,8 @@ public final class ModEffects {
         new SrpMobEffect(MobEffectCategory.HARMFUL, 0x136334));
     public static final DeferredHolder<MobEffect, BleedMobEffect> BLEED = EFFECTS.register("bleed", () ->
         new BleedMobEffect(MobEffectCategory.HARMFUL, 0x5E0806));
+    public static final DeferredHolder<MobEffect, DodSmokeTrailMobEffect> DOD_SMOKE_TRAIL = EFFECTS.register("dod_smoke_trail", () ->
+        new DodSmokeTrailMobEffect(MobEffectCategory.BENEFICIAL, DodSmokeTrailMobEffect.LEGACY_COLOR));
     public static final DeferredHolder<MobEffect, CorrosiveMobEffect> CORROSIVE = EFFECTS.register("corrosive", () ->
         new CorrosiveMobEffect(MobEffectCategory.HARMFUL, CorrosiveMobEffect.LEGACY_COLOR));
     public static final DeferredHolder<MobEffect, SrpSensingMobEffect> VOMIT = EFFECTS.register("vomit", () ->
