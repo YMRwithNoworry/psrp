@@ -15,5 +15,6 @@ public final class ModClientEvents {
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntities.GRUNT.get(), FlogRenderer::new);
+        event.registerEntityRenderer(ModEntities.KIRIN.get(), KirinRenderer::new);
     }
 }

@@ -1,6 +1,7 @@
 package com.dhanantry.scapeandrunparasites.init;
 
 import com.dhanantry.scapeandrunparasites.SRPMain;
+import com.dhanantry.scapeandrunparasites.entity.monster.derived.KirinEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.FlogEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
@@ -18,6 +19,12 @@ public final class ModEntities {
             .eyeHeight(1.73F)
             .clientTrackingRange(10)
             .build(SRPMain.MODID + ":grunt"));
+    public static final DeferredHolder<EntityType<?>, EntityType<KirinEntity>> KIRIN = ENTITIES.register("kirin", () ->
+        EntityType.Builder.of(KirinEntity::new, MobCategory.MONSTER)
+            .sized(KirinEntity.LEGACY_WIDTH, KirinEntity.LEGACY_HEIGHT)
+            .eyeHeight(KirinEntity.LEGACY_EYE_HEIGHT)
+            .clientTrackingRange(10)
+            .build(SRPMain.MODID + ":kirin"));
 
     private ModEntities() {
     }

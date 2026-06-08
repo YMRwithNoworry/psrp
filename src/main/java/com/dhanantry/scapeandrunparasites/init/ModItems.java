@@ -93,6 +93,8 @@ public final class ModItems {
     public static final DeferredItem<LivingArmorItem> ARMOR_BOOTS_SENTIENT = livingArmor("armor_boots_sentient", true, ArmorItem.Type.BOOTS);
     public static final DeferredItem<DeferredSpawnEggItem> ITEMMOBSPAWNER_FLOG = register("itemmobspawner_flog", () ->
         new DeferredSpawnEggItem(ModEntities.GRUNT, 0x2A1714, 0xA62A2A, new Item.Properties()));
+    public static final DeferredItem<DeferredSpawnEggItem> ITEMMOBSPAWNER_KIRIN = register("itemmobspawner_kirin", () ->
+        new DeferredSpawnEggItem(ModEntities.KIRIN, 0x2B111E, 0x3157A5, new Item.Properties()));
 
     private ModItems() {
     }

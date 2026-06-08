@@ -49,6 +49,29 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Flog
   attributes before multipliers: `20` health, `7` armor, `13` attack damage,
   `0.4` knockback resistance, and movement speed `0.274172325`.
+- `com.dhanantry.scapeandrunparasites.entity.monster.derived.EntityKirin`:
+  Derived Kirin entity size `2.1271334 x 7.1`, eye height `5.7`, step height
+  `1.0`, parasite ID `67`, floating movement, portal particles, and special
+  summon hook for the legacy void orb.
+- `com.dhanantry.scapeandrunparasites.entity.ai.EntityAIKirinBlink`: Kirin
+  blink attack evidence: target must be outdoors, visible, and farther than
+  distance squared `256`; charge lasts `60` ticks, cooldown is `200` ticks,
+  blink spot search tries `64` positions at radius `1.5 + random * 22.5`, and
+  post-blink life steal checks a `5` block radius, halves the first valid
+  non-SRP victim's current health, and heals Kirin by the stolen amount.
+- `com.dhanantry.scapeandrunparasites.client.renderer.entity.derived.RenderKirin`:
+  legacy renderer uses shadow radius `1.3`, normal texture
+  `srparasites:textures/entity/monster/kirin.png`, and cosmical texture
+  `srparasites:textures/entity/monster/testb.png`.
+- `com.dhanantry.scapeandrunparasites.client.model.entity.derived.ModelKirin`:
+  legacy `ModelRenderer` geometry and Java-authored pose methods. GeckoLib
+  conversion preserved method-derived animation names
+  `animation.kirin.func_78087_a` and
+  `animation.kirin.setRotationAnglesCosmical`.
+- `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Kirin
+  attributes before multipliers: `410` health, `30` armor, `155` attack damage,
+  `1.0` knockback resistance, and movement speed `0.24`. The derived follow
+  range config default is `80`.
 
 ## Implemented In This Slice
 
@@ -90,6 +113,20 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   - wired a GeckoLib client renderer to the converted legacy `ModelFlog`
     geometry, Java-authored animation resource, and four legacy Flog texture
     resources.
+- Added the first evidence-backed derived parasite entity slice:
+  - registered Kirin under the legacy `kirin` visible entity id,
+  - registered the legacy `itemmobspawner_kirin` spawn egg,
+  - preserved size `2.1271334 x 7.1`, eye height `5.7`, step height `1.0`,
+    parasite ID `67`, base health/armor/damage/speed/follow-range/knockback
+    attributes,
+  - implemented Kirin's always-floating movement over nearby ground and its
+    no-ground recovery blink search,
+  - implemented the legacy long-range blink attack with 60 tick charge, 200 tick
+    cooldown, outdoor/line-of-sight/distance checks, blink-warning sync data,
+    and post-blink life steal,
+  - wired client portal particles and a GeckoLib renderer to the converted
+    legacy `ModelKirin` geometry, Java-authored animation resource, and legacy
+    Kirin texture resource.
 
 ## Explicit Gaps
 
@@ -97,6 +134,9 @@ This is not a complete mod port yet. The following systems still require their
 own evidence-backed slices:
 
 - the remaining parasite entities, AI goals, attributes, and animations,
+- broader `EntityPCosmical` systems used by Kirin and other cosmical parasites:
+  clone/shadow damage splitting, cosmical render layer behavior, NeuroLock,
+  scary/void orb projectile entities, and related sound/particle polish,
 - remaining SRP status effects, potion item variants, brewing data, HUD/screen
   overlays, viral transmission systems, and immunity interactions outside this
   Flog combat slice,
