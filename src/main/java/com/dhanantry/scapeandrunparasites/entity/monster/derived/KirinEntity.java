@@ -117,15 +117,8 @@ public class KirinEntity extends SrpParasiteMob implements GeoEntity {
         this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.0D, true));
         this.goalSelector.addGoal(6, new RandomStrollGoal(this, 0.8D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 16.0F));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true, this::canTargetLiving));
         this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, true, false, this::canTargetLiving));
-    }
-
-    private boolean canTargetLiving(LivingEntity target) {
-        if (target == this || !target.isAlive() || isParasiteAlly(target)) {
-            return false;
-        }
-        return !(target instanceof Player player) || !player.isCreative();
     }
 
     @Override
@@ -415,7 +408,7 @@ public class KirinEntity extends SrpParasiteMob implements GeoEntity {
         }
 
         private boolean canStealFrom(LivingEntity target) {
-            return target != null && target != this.kirin && target.isAlive() && !this.kirin.isParasiteAlly(target);
+            return this.kirin.canHarmLiving(target);
         }
     }
 }

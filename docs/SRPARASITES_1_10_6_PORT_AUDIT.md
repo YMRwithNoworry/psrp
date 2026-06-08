@@ -110,11 +110,29 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   `CORRO_P` as registry id `srparasites:corro` with potion name
   `srparasites:corrosive`, `VIRA_P` as `srparasites:vira` with
   `srparasites:viral`, and `VOMIT_P`, `RAGE_P`, `SENS_P`, `INDEAF_P`,
-  `OVERHEATING_P`, `CONTA_P`, `EFFECTPOS_P`, and `EFFECTNEG_P` using matching
-  registry/name paths. These use duration `2400`. `THORNSHADE_THORNS_P` uses
-  registry/name `srparasites:thornshade_thorns` with duration `60`.
+  `OVERHEATING_P`, `CONTA_P`, `EFFECTPOS_P`, `EFFECTNEG_P`, and `THE_SIGN_P`
+  using matching registry/name paths. These use duration `2400`.
+  `THORNSHADE_THORNS_P` uses registry/name `srparasites:thornshade_thorns`
+  with duration `60`.
 - `com.dhanantry.scapeandrunparasites.init.SRPPotions`: current bytecode
   evidence has no `DOD_SMOKE_TRAIL_P` or `DLER_P` legacy `PotionType` field.
+- `com.dhanantry.scapeandrunparasites.potion.PotionTheSign`: registers the
+  no-tick `the_sign` effect with color `0x88E1FF` (`8970751`), translation key
+  `mob_effect.srparasites.the_sign`, and a legacy custom HUD/inventory icon at
+  `textures/gui/the_sign.png`.
+- `com.dhanantry.scapeandrunparasites.item.ItemTheSignCharm`: registers
+  `srparasites:the_sign_charm` with stack size `1` and appends three tooltip
+  lines: `tooltip.srparasites.the_sign_charm.red` in red,
+  `tooltip.srparasites.the_sign_charm.white` in white, and
+  `tooltip.srparasites.the_sign_charm.gray` in gray italic.
+- `com.dhanantry.scapeandrunparasites.events.SignEffectHandler`: on server-side
+  player tick END it checks the main inventory, offhand, and armor slots for
+  `srparasites:the_sign_charm` and applies `THE_SIGN_E` for `40` ticks at
+  amplifier `0` with ambient `false` and visible `false`.
+- `com.dhanantry.scapeandrunparasites.entity.ai.misc.EntityParasiteBase`: clears
+  current player targets that have `THE_SIGN_E`, stops navigation, and its
+  `func_70624_b` / `setAttackTarget` path refuses protected player targets by
+  forwarding `null` to the base mob target setter.
 - `com.dhanantry.scapeandrunparasites.potion.PotionThornshadeThorns`: defines
   no ticking behavior; `applyEffectTick` returns immediately and
   `shouldApplyEffectTickThisTick` returns `false`.
@@ -269,11 +287,25 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   `PotionThornshadeThorns`.
 - Registered modern 1.21.1 `Registries.POTION` entries for the implemented
   legacy potion subset: `corro`, `vira`, `vomit`, `rage`, `senses`, `indeaf`,
-  `overheating`, `conta`, `effectpos`, `effectneg`, and `thornshade_thorns`.
-  The normal potion durations preserve the legacy `2400` ticks, and
-  Thornshade Thorns preserves `60` ticks. Modern potion, splash potion,
-  lingering potion, and tipped arrow translation keys were added for those
-  registered names.
+  `overheating`, `conta`, `effectpos`, `effectneg`, `the_sign`, and
+  `thornshade_thorns`. The normal potion durations preserve the legacy `2400`
+  ticks, and Thornshade Thorns preserves `60` ticks. Modern potion, splash
+  potion, lingering potion, and tipped arrow translation keys were added for
+  those registered names.
+- Registered evidence-backed `srparasites:the_sign` with legacy color
+  `0x88E1FF` and no per-effect tick callback, matching `PotionTheSign`.
+- Added the legacy `srparasites:the_sign_charm` item with stack size `1`, the
+  legacy item texture/model surface, and the three styled tooltip lines from
+  `ItemTheSignCharm`.
+- Ported the core `SignEffectHandler` runtime surface: server-side
+  `PlayerTickEvent.Post` scans main inventory, offhand, and armor slots for the
+  charm, then applies The Sign for `40` ticks with amplifier `0`, ambient
+  `false`, and visible `false`.
+- Ported the first parasite-side target immunity surface from
+  `EntityParasiteBase`: shared parasite target selection now rejects players
+  with The Sign, direct `setTarget` clears protected player targets, and the
+  migrated Flog, Orch, and Kirin AOE / life-steal helper paths use the shared
+  protection predicate.
 - Added the legacy `srparasites:thornshade_decanter` drink item with stack size
   `16`, `32` tick use duration, drink animation, creative-mode consumption
   bypass, and `400` tick Thornshade application.
@@ -346,11 +378,12 @@ own evidence-backed slices:
   scary/void orb projectile entities, and related sound/particle polish,
 - remaining SRP status effects beyond the currently implemented viral, bleed,
   dod_smoke_trail, corrosive, rage, vomit, senses, indeaf, overheating, conta,
-  needler, effectpos, and effectneg effects and the newly implemented
+  needler, effectpos, effectneg, the_sign, and the newly implemented
   Thornshade Thorns handler; potion item variants for unimplemented effects,
-  brewing data, HUD/screen overlays, viral transmission systems, and immunity
-  interactions outside this Flog combat slice. Current legacy bytecode evidence
-  has no Needler or Dod Smoke Trail potion type to mirror,
+  brewing data, HUD/screen overlays, viral transmission systems, DDP/sign
+  renderer systems, and immunity interactions outside the migrated Flog, Orch,
+  and Kirin combat slices. Current legacy bytecode evidence has no Needler or
+  Dod Smoke Trail potion type to mirror,
 - block registry and legacy block behavior,
 - SRP Web block variants and type-specific Webball web placement; until the
   block system is migrated, Webball placement is represented by vanilla

@@ -27,6 +27,7 @@ public final class ModPotions {
     public static final DeferredHolder<Potion, Potion> EFFECT_POS = register("effectpos", "srparasites:effectpos", ModEffects.EFFECT_POS, LEGACY_DEFAULT_DURATION);
     public static final DeferredHolder<Potion, Potion> EFFECT_NEG = register("effectneg", "srparasites:effectneg", ModEffects.EFFECT_NEG, LEGACY_DEFAULT_DURATION);
     public static final DeferredHolder<Potion, Potion> THORNSHADE_THORNS = register("thornshade_thorns", "srparasites:thornshade_thorns", ModEffects.THORNSHADE_THORNS, LEGACY_THORNSHADE_THORNS_DURATION);
+    public static final DeferredHolder<Potion, Potion> THE_SIGN = register("the_sign", "srparasites:the_sign", ModEffects.THE_SIGN, LEGACY_DEFAULT_DURATION);
 
     private ModPotions() {
     }

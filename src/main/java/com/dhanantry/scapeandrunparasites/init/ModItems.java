@@ -4,6 +4,7 @@ import com.dhanantry.scapeandrunparasites.SRPMain;
 import com.dhanantry.scapeandrunparasites.item.LivingArmorItem;
 import com.dhanantry.scapeandrunparasites.item.LivingBowItem;
 import com.dhanantry.scapeandrunparasites.item.LivingMeleeWeaponItem;
+import com.dhanantry.scapeandrunparasites.item.TheSignCharmItem;
 import com.dhanantry.scapeandrunparasites.item.ThornshadeDecanterItem;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,8 @@ public final class ModItems {
     public static final DeferredItem<Item> ADA_VERMIN_DROP = basic("ada_vermin_drop", 64);
     public static final DeferredItem<Item> ADA_VISCERA_DROP = basic("ada_viscera_drop", 64);
     public static final DeferredItem<Item> ADA_YELLOWEYE_DROP = basic("ada_yelloweye_drop", 64);
+    public static final DeferredItem<TheSignCharmItem> THE_SIGN_CHARM = register("the_sign_charm", () ->
+        new TheSignCharmItem(new Item.Properties().stacksTo(TheSignCharmItem.LEGACY_STACK_SIZE)));
     public static final DeferredItem<ThornshadeDecanterItem> THORNSHADE_DECANTER = register("thornshade_decanter", () ->
         new ThornshadeDecanterItem(new Item.Properties().stacksTo(ThornshadeDecanterItem.LEGACY_STACK_SIZE)));
 

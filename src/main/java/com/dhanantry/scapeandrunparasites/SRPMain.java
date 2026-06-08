@@ -7,6 +7,7 @@ import com.dhanantry.scapeandrunparasites.init.ModEffects;
 import com.dhanantry.scapeandrunparasites.init.ModItems;
 import com.dhanantry.scapeandrunparasites.init.ModPotions;
 import com.dhanantry.scapeandrunparasites.item.SrpEquipmentEvents;
+import com.dhanantry.scapeandrunparasites.potion.SignEffectEvents;
 import com.dhanantry.scapeandrunparasites.potion.SrpEffectEvents;
 import com.dhanantry.scapeandrunparasites.potion.ThornshadeThornsEvents;
 import com.dhanantry.scapeandrunparasites.util.config.SrpConfig;
@@ -34,6 +35,7 @@ public final class SRPMain {
         modEventBus.addListener(this::commonSetup);
 
         NeoForge.EVENT_BUS.register(SrpEquipmentEvents.class);
+        NeoForge.EVENT_BUS.register(SignEffectEvents.class);
         NeoForge.EVENT_BUS.register(SrpEffectEvents.class);
         NeoForge.EVENT_BUS.register(ThornshadeThornsEvents.class);
         modContainer.registerConfig(ModConfig.Type.COMMON, SrpConfig.SPEC);

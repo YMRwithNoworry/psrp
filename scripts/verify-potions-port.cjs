@@ -41,6 +41,7 @@ const expected = [
   ["conta", "srparasites:conta", "ModEffects.CONTAMINATION", "LEGACY_DEFAULT_DURATION"],
   ["effectpos", "srparasites:effectpos", "ModEffects.EFFECT_POS", "LEGACY_DEFAULT_DURATION"],
   ["effectneg", "srparasites:effectneg", "ModEffects.EFFECT_NEG", "LEGACY_DEFAULT_DURATION"],
+  ["the_sign", "srparasites:the_sign", "ModEffects.THE_SIGN", "LEGACY_DEFAULT_DURATION"],
   ["thornshade_thorns", "srparasites:thornshade_thorns", "ModEffects.THORNSHADE_THORNS", "LEGACY_THORNSHADE_THORNS_DURATION"]
 ];
 
@@ -134,6 +135,8 @@ for (const marker of [
   "CONTA_P",
   "EFFECTPOS_P",
   "EFFECTNEG_P",
+  "THE_SIGN_P",
+  "srparasites:the_sign",
   "THORNSHADE_THORNS_P",
   "duration `2400`",
   "duration `60`",

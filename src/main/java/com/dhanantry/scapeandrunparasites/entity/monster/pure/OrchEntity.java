@@ -135,7 +135,7 @@ public class OrchEntity extends SrpParasiteMob implements GeoEntity {
         this.goalSelector.addGoal(4, new WebballVolleyGoal(this));
         this.goalSelector.addGoal(6, new RandomStrollGoal(this, 0.9D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 10.0F));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true, this::canTargetLiving));
         this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, true, false, this::canTargetLiving));
     }
 
@@ -203,17 +203,7 @@ public class OrchEntity extends SrpParasiteMob implements GeoEntity {
     }
 
     private boolean canAoeHit(LivingEntity candidate) {
-        if (candidate == this || !candidate.isAlive() || isParasiteAlly(candidate)) {
-            return false;
-        }
-        return this.hasLineOfSight(candidate);
-    }
-
-    private boolean canTargetLiving(LivingEntity target) {
-        if (target == this || !target.isAlive() || isParasiteAlly(target)) {
-            return false;
-        }
-        return !(target instanceof Player player) || !player.isCreative();
+        return canHarmLiving(candidate) && this.hasLineOfSight(candidate);
     }
 
     private void tickAttackTimer() {

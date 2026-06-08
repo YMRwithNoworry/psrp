@@ -115,7 +115,7 @@ public class FlogEntity extends SrpParasiteMob implements GeoEntity {
         this.goalSelector.addGoal(3, new FlogAoeMeleeGoal(this));
         this.goalSelector.addGoal(6, new RandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true, this::canTargetLiving));
     }
 
     @Override
@@ -181,10 +181,7 @@ public class FlogEntity extends SrpParasiteMob implements GeoEntity {
     }
 
     private boolean canAoeHit(LivingEntity candidate) {
-        if (candidate == this || !candidate.isAlive() || isParasiteAlly(candidate)) {
-            return false;
-        }
-        return this.hasLineOfSight(candidate);
+        return canHarmLiving(candidate) && this.hasLineOfSight(candidate);
     }
 
     private void applyLegacyVariantEffect(LivingEntity target) {
