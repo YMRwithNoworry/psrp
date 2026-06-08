@@ -1,20 +1,26 @@
 package com.dhanantry.scapeandrunparasites.item;
 
 import com.dhanantry.scapeandrunparasites.init.ModItems;
+import com.dhanantry.scapeandrunparasites.init.ModEffects;
 import com.dhanantry.scapeandrunparasites.util.config.SrpConfig;
 import java.util.List;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TippedArrowItem;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
 public class LivingBowItem extends BowItem {
     private static final ThreadLocal<Integer> DRAW_TICKS = new ThreadLocal<>();
+    private static final int LEGACY_TIPPED_ARROW_EFFECT_TICKS = 200;
+    private static final int LEGACY_TIPPED_ARROW_EFFECT_AMPLIFIER = 0;
 
     private final boolean sentient;
 
@@ -39,6 +45,16 @@ public class LivingBowItem extends BowItem {
         } finally {
             DRAW_TICKS.remove();
         }
+    }
+
+    @Override
+    public AbstractArrow customArrow(AbstractArrow arrow, ItemStack projectileStack, ItemStack weaponStack) {
+        AbstractArrow customized = super.customArrow(arrow, projectileStack, weaponStack);
+        if (projectileStack.getItem() instanceof TippedArrowItem && customized instanceof Arrow tippedArrow) {
+            tippedArrow.addEffect(new MobEffectInstance(ModEffects.BLEED, LEGACY_TIPPED_ARROW_EFFECT_TICKS, LEGACY_TIPPED_ARROW_EFFECT_AMPLIFIER, false, true));
+            tippedArrow.addEffect(new MobEffectInstance(ModEffects.DOD_SMOKE_TRAIL, LEGACY_TIPPED_ARROW_EFFECT_TICKS, LEGACY_TIPPED_ARROW_EFFECT_AMPLIFIER, false, true));
+        }
+        return customized;
     }
 
     @Override

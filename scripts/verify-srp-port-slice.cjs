@@ -36,7 +36,10 @@ for (const marker of [
   "WEAPON_BOW_DAMAGE_CAP",
   "WEAPON_BOW_SENTIENT_DAMAGE_CAP",
   "Math.min((double) damage * cap, drawSeconds() * (double) bonus)",
-  "arrow.setBaseDamage(arrow.getBaseDamage() * multiplier + damage)"
+  "arrow.setBaseDamage(arrow.getBaseDamage() * multiplier + damage)",
+  "projectileStack.getItem() instanceof TippedArrowItem",
+  "tippedArrow.addEffect(new MobEffectInstance(ModEffects.BLEED, LEGACY_TIPPED_ARROW_EFFECT_TICKS, LEGACY_TIPPED_ARROW_EFFECT_AMPLIFIER, false, true))",
+  "tippedArrow.addEffect(new MobEffectInstance(ModEffects.DOD_SMOKE_TRAIL, LEGACY_TIPPED_ARROW_EFFECT_TICKS, LEGACY_TIPPED_ARROW_EFFECT_AMPLIFIER, false, true))"
 ]) {
   if (!bow.includes(marker)) throw new Error(`LivingBowItem is missing legacy bow damage marker ${marker}`);
 }
