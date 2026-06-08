@@ -105,17 +105,40 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - `com.dhanantry.scapeandrunparasites.init.SRPPotions`: registers
   `THORNSHADE_THORNS_E` as `thornshade_thorns` with color `0x421F7E` and a
   potion type duration of `60`.
+- `com.dhanantry.scapeandrunparasites.init.SRPPotions`: registers marker/basic
+  `SRPEffectBase` effects with no dedicated effect subclass in this bytecode:
+  `FEAR_E` as `fear` with color `0x111114`, `RES_E` as `antimall` with color
+  `0x88626C`, `EPEL_E` as `repel` with color `0x43AC30`, `DEBAR_E` as `debar`
+  with color `0x9E134B`, `LINK_E` as `link` with color `0xFF7595`, `PIVOT_E`
+  as `pivot` with color `0xFFB1C3`, `JUGG_E` as `jugg` with color `0xBDB885`,
+  `PARATE_E` as `parate` with color `0xB35736`, `KILLPRI_E` as `primitive`
+  with color `0x8F4C45`, `KILLADA_E` as `adapted` with color `0x7F584E`,
+  `KILLPUR_E` as `pure` with color `0x0DA532`, `KILLCRU_E` as `crude` with
+  color `0x0DA532`, `KILLFER_E` as `feral` with color `0x993030`,
+  `KILLNEX_E` as `nexus` with color `0x487848`, `BRAINING_E` as `braining`
+  with color `0x796E85`, `NOVISION_E` as `novision` with color `0x182639`,
+  and `MUSCLEOUT_E` as `muscleout` with color `0xEC7F82`. The legacy harmful
+  flag is set only for `antimall` and `muscleout` in this marker/basic subset.
 - `com.dhanantry.scapeandrunparasites.init.SRPPotions`: registers legacy
   `PotionType` fields for the already implemented potion subset:
-  `CORRO_P` as registry id `srparasites:corro` with potion name
-  `srparasites:corrosive`, `VIRA_P` as `srparasites:vira` with
-  `srparasites:viral`, and `VOMIT_P`, `RAGE_P`, `SENS_P`, `INDEAF_P`,
-  `OVERHEATING_P`, `CONTA_P`, `EFFECTPOS_P`, `EFFECTNEG_P`, and `THE_SIGN_P`
-  using matching registry/name paths. These use duration `2400`.
+  `FEAR_P` as `srparasites:fear`, `RES_P` as registry id `srparasites:res`
+  with potion name `srparasites:antimall`, `CORRO_P` as registry id
+  `srparasites:corro` with potion name `srparasites:corrosive`, `VIRA_P` as
+  `srparasites:vira` with `srparasites:viral`, `VOMIT_P`, `RAGE_P`, `EPEL_P`
+  as `srparasites:repel`, `SENS_P`, `DEBAR_P`, `LINK_P`, `PIVOT_P`, `JUGG_P`,
+  `PARATE_P`, `KILLPRI_P`, `KILLADA_P`, `KILLPUR_P`, `KILLCRU_P`,
+  `KILLFER_P`, `KILLNEX_P`, `BRAINING_P`, `NOVISION_P`, `INDEAF_P`,
+  `OVERHEATING_P`, `CONTA_P`, `MUSCLEOUT_P`, `EFFECTPOS_P`, `EFFECTNEG_P`,
+  and `THE_SIGN_P` using matching registry/name paths unless noted above.
+  These use duration `2400`.
   `THORNSHADE_THORNS_P` uses registry/name `srparasites:thornshade_thorns`
   with duration `60`.
 - `com.dhanantry.scapeandrunparasites.init.SRPPotions`: current bytecode
   evidence has no `DOD_SMOKE_TRAIL_P` or `DLER_P` legacy `PotionType` field.
+  Although the same legacy class also defines complex `COTH_P`, `FOSTER_P`,
+  and `SPOT_P` potion types, their effect behavior depends on separate world
+  infection, resistance, conversion, spawning, and mob-cap systems and is left
+  to a later behavior slice.
 - `com.dhanantry.scapeandrunparasites.potion.PotionTheSign`: registers the
   no-tick `the_sign` effect with color `0x88E1FF` (`8970751`), translation key
   `mob_effect.srparasites.the_sign`, and a legacy custom HUD/inventory icon at
@@ -285,6 +308,16 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - Registered evidence-backed `srparasites:thornshade_thorns` with legacy color
   `0x421F7E` and no per-effect tick callback, matching
   `PotionThornshadeThorns`.
+- Registered evidence-backed marker/basic `SRPEffectBase` effects with legacy
+  colors and categories: `srparasites:fear`, `srparasites:antimall`,
+  `srparasites:repel`, `srparasites:debar`, `srparasites:link`,
+  `srparasites:pivot`, `srparasites:jugg`, `srparasites:parate`,
+  `srparasites:primitive`, `srparasites:adapted`, `srparasites:pure`,
+  `srparasites:crude`, `srparasites:feral`, `srparasites:nexus`,
+  `srparasites:braining`, `srparasites:novision`, and
+  `srparasites:muscleout`. This slice intentionally preserves their registry,
+  color, category, translation, GUI icon, and potion item surfaces only; their
+  external gameplay hooks are tracked as explicit gaps below.
 - Registered modern 1.21.1 `Registries.POTION` entries for the implemented
   legacy potion subset: `corro`, `vira`, `vomit`, `rage`, `senses`, `indeaf`,
   `overheating`, `conta`, `effectpos`, `effectneg`, `the_sign`, and
@@ -292,6 +325,13 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   ticks, and Thornshade Thorns preserves `60` ticks. Modern potion, splash
   potion, lingering potion, and tipped arrow translation keys were added for
   those registered names.
+- Registered modern 1.21.1 `Registries.POTION` entries for the marker/basic
+  legacy potion subset: `fear`, `res` (potion name `srparasites:antimall`),
+  `repel`, `debar`, `link`, `pivot`, `jugg`, `parate`, `primitive`,
+  `adapted`, `pure`, `crude`, `feral`, `nexus`, `braining`, `novision`, and
+  `muscleout`, all preserving the legacy `2400` tick duration. Modern potion,
+  splash potion, lingering potion, and tipped arrow translation keys were added
+  for those registered potion names.
 - Registered evidence-backed `srparasites:the_sign` with legacy color
   `0x88E1FF` and no per-effect tick callback, matching `PotionTheSign`.
 - Added the legacy `srparasites:the_sign_charm` item with stack size `1`, the
@@ -376,14 +416,28 @@ own evidence-backed slices:
 - broader `EntityPCosmical` systems used by Kirin and other cosmical parasites:
   clone/shadow damage splitting, cosmical render layer behavior, NeuroLock,
   scary/void orb projectile entities, and related sound/particle polish,
-- remaining SRP status effects beyond the currently implemented viral, bleed,
-  dod_smoke_trail, corrosive, rage, vomit, senses, indeaf, overheating, conta,
-  needler, effectpos, effectneg, the_sign, and the newly implemented
-  Thornshade Thorns handler; potion item variants for unimplemented effects,
-  brewing data, HUD/screen overlays, viral transmission systems, DDP/sign
-  renderer systems, and immunity interactions outside the migrated Flog, Orch,
-  and Kirin combat slices. Current legacy bytecode evidence has no Needler or
-  Dod Smoke Trail potion type to mirror,
+- remaining SRP status-effect behavior beyond the currently implemented viral,
+  bleed, dod_smoke_trail, corrosive, rage, vomit, senses, indeaf, overheating,
+  conta, needler, effectpos, effectneg, the_sign, and Thornshade Thorns handler.
+  The marker/basic effects `fear`, `antimall`, `repel`, `debar`, `link`,
+  `pivot`, `jugg`, `parate`, `primitive`, `adapted`, `pure`, `crude`, `feral`,
+  `nexus`, `braining`, `novision`, and `muscleout` currently have their
+  registry/potion surface only,
+- DEBAR/PIVOT/JUGG/PARATE/EPEL external interactions from old parasite and
+  effect systems are not implemented yet: evolution point and XP changes,
+  damage redirection, death/dislodgement reactions, attribute-transfer
+  interactions, and COTH infection blocking still need dedicated evidence-backed
+  slices,
+- COTH, FOSTER, PREY, and SPOTTED remain separate complex systems. They require
+  infection NBT/immunity, world evolution and aura logic, malleable resistance
+  changes, scent entities, origin/mob-cap-aware parasite spawning, and related
+  particles before their old potion types should be mirrored in this modern
+  port,
+- potion item variants for unimplemented effects, brewing data, HUD/screen
+  overlays, viral transmission systems, DDP/sign renderer systems, and immunity
+  interactions outside the migrated Flog, Orch, and Kirin combat slices. Current
+  legacy bytecode evidence has no Needler or Dod Smoke Trail potion type to
+  mirror,
 - block registry and legacy block behavior,
 - SRP Web block variants and type-specific Webball web placement; until the
   block system is migrated, Webball placement is represented by vanilla
