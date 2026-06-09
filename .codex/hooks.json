@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File \".\\.codex\\hooks\\auto-push-on-stop.ps1\"",
+            "commandWindows": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File \".\\.codex\\hooks\\auto-push-on-stop.ps1\"",
+            "timeout": 300,
+            "statusMessage": "Auto-committing and pushing repository changes"
+          }
+        ]
+      }
+    ]
+  }
+}
