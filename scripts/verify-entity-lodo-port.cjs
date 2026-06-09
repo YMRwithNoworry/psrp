@@ -78,10 +78,17 @@ for (const marker of [
   "ModSounds.LODO_HURT",
   "ModSounds.LODO_DEATH",
   "ModSounds.LODO_MUDO",
+  "ModEntities.MUDO",
+  "MudoEntity mudo",
+  "addFreshEntity(mudo)",
+  "discard()",
   "BlockParticleOption",
   "ParticleTypes.BLOCK"
 ]) {
   if (!lodo.includes(marker)) throw new Error(`LodoEntity missing legacy behavior marker: ${marker}`);
+}
+if (lodo.includes("EntityMudo remains a later migration slice") || lodo.includes("loggedMissingMudo")) {
+  throw new Error("LodoEntity still contains the old missing-Mudo placeholder path");
 }
 
 const renderer = read("src/main/java/com/dhanantry/scapeandrunparasites/client/LodoRenderer.java");

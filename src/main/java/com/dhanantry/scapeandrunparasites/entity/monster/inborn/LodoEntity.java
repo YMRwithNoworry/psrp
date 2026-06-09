@@ -1,7 +1,7 @@
 package com.dhanantry.scapeandrunparasites.entity.monster.inborn;
 
-import com.dhanantry.scapeandrunparasites.SRPMain;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.SrpParasiteMob;
+import com.dhanantry.scapeandrunparasites.init.ModEntities;
 import com.dhanantry.scapeandrunparasites.init.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -63,7 +63,6 @@ public class LodoEntity extends SrpParasiteMob implements GeoEntity {
     private final AnimatableInstanceCache animationCache = GeckoLibUtil.createInstanceCache(this);
     private int totalGrowTime = 10;
     private int actualGrowTime;
-    private boolean loggedMissingMudo;
 
     public LodoEntity(EntityType<? extends LodoEntity> entityType, Level level) {
         super(entityType, level);
@@ -212,10 +211,17 @@ public class LodoEntity extends SrpParasiteMob implements GeoEntity {
     }
 
     private void growStage() {
-        if (!this.level().isClientSide && this.actualGrowTime > this.totalGrowTime && !this.loggedMissingMudo) {
-            this.playSound(ModSounds.LODO_MUDO.get(), 1.0F, 1.0F);
-            SRPMain.LOGGER.debug("Lodo at {} reached legacy Mudo growth threshold; EntityMudo remains a later migration slice.", blockPosition());
-            this.loggedMissingMudo = true;
+        if (!this.level().isClientSide && this.actualGrowTime > this.totalGrowTime) {
+            MudoEntity mudo = ModEntities.MUDO.get().create(this.level());
+            if (mudo != null) {
+                this.playSound(ModSounds.LODO_MUDO.get(), 1.0F, 1.0F);
+                mudo.moveTo(getX(), getY(), getZ(), getYRot(), getXRot());
+                if (isPersistenceRequired()) {
+                    mudo.setPersistenceRequired();
+                }
+                this.level().addFreshEntity(mudo);
+                discard();
+            }
         }
     }
 

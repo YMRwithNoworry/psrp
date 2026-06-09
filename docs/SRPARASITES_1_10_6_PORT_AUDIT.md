@@ -279,6 +279,40 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Lodo
   attributes before multipliers: `7` health, `1.5` armor, `3` attack damage,
   `0.05` knockback resistance, and movement speed `0.2`.
+- `com.dhanantry.scapeandrunparasites.entity.monster.inborn.EntityMudo`: Rupter
+  / Mudo entity size `0.85 x 1.0`, eye height `0.8`, parasite ID `12`,
+  little-tier XP, `type = 5`, climb flag with `PathNavigateClimber`, skin data
+  values `5` and `6`, melee status speed `1.3`, `EntityAISkill` cooldown
+  `40..100` with windup `5` and status/event `14`, leap values `0.7` and
+  `2.5`, `LeapAtTarget` power `0.4`, and fall damage only after fall distance
+  reaches `60`.
+- `com.dhanantry.scapeandrunparasites.entity.monster.inborn.EntityMudo`: skin
+  `5` applies `VIRA_E` for `100` ticks at amplifier `0` when hitting a
+  non-parasite living target. Its complex COTH cloud, tunnel generation,
+  Nuuh evolution, and death-to-Lodo colony behavior depend on separate legacy
+  world/infection/evolution systems and are not mirrored in this slice.
+- `com.dhanantry.scapeandrunparasites.entity.monster.inborn.EntityMudo$1` through
+  `$4`: target/avoid predicates exclude water mobs, animals, villagers, SRP
+  parasites, and blacklist categories in different legacy targeting phases.
+  The modern slice ports the safe baseline hostile targeting surface and
+  leaves phase/config-specific targeting to the evolution/world-system work.
+- `com.dhanantry.scapeandrunparasites.client.renderer.entity.inborn.RenderMudo`:
+  renderer shadow radius `0.5`, normal texture
+  `srparasites:textures/entity/monster/mudo.png`, variant textures
+  `mudov.png` and `mudob.png`, and alternate `smudo.png`. The provided 1.10.6
+  jar does not contain `smudo.png`, so the modern renderer intentionally does
+  not select that missing path.
+- `com.dhanantry.scapeandrunparasites.client.model.entity.inborn.ModelMudo`:
+  legacy `ModelRenderer` geometry and Java-authored pose methods. GeckoLib
+  conversion preserved 113 model bones and method-derived animation names
+  `animation.mudo.func_78087_a` and
+  `animation.mudo.setRotationAnglesCosmical`.
+- `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Mudo
+  attributes before multipliers: `10` health, `5` armor, `5` attack damage,
+  and `0.2` knockback resistance. The inspected legacy bytecode did not expose
+  a distinct Mudo movement-speed field in `SRPAttributes`; the modern slice uses
+  a conservative small-climber movement speed constant and records this evidence
+  boundary here.
 
 ## Implemented In This Slice
 
@@ -497,10 +531,28 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
     floor timer event `50`, freeze-while-buried behavior, and block crack
     particle surface,
   - wired legacy Lodo growl/hurt/death and grow-to-Mudo sound events,
+  - replaced the temporary grow-to-Mudo placeholder with real Mudo spawning at
+    the Lodo position followed by Lodo removal,
   - wired a GeckoLib client renderer to the converted legacy `ModelLodo`
     geometry, Java-authored animation resource, and legacy Lodo texture. The
     old renderer's missing `slodo.png` alternate path is intentionally not
     selected in the modern renderer.
+- Added the second evidence-backed inborn parasite entity slice:
+  - registered Mudo / Rupter under the visible entity id `mudo`,
+  - upgraded the legacy `itemmobspawner_mudo` item into a real modern spawn egg,
+  - preserved size `0.85 x 1.0`, eye height `0.8`, parasite ID `12`,
+    health/armor/damage/knockback attributes, little-tier XP, climbing
+    navigation, climb-state sync, and fall-damage threshold `60`,
+  - ported the old melee speed `1.3`, LeapAtTarget power `0.4`, and skill leap
+    timing/power surface (`40..100` cooldown, `5` windup, event `14`, `0.7`
+    vertical power, and `2.5` leap speed),
+  - preserved skin `5` / `6` variant selection and skin `5` viral-on-hit
+    behavior for `100` ticks at amplifier `0`,
+  - wired legacy Mudo growl/hurt/death and small-step sounds,
+  - wired a GeckoLib client renderer to the converted legacy `ModelMudo`
+    geometry, Java-authored animation resource, and the three jar-backed Mudo
+    texture resources. The old renderer's missing `smudo.png` alternate path is
+    intentionally not selected in the modern renderer.
 
 ## Explicit Gaps
 
@@ -542,13 +594,12 @@ own evidence-backed slices:
 - SRP Web block variants and type-specific Webball web placement; until the
   block system is migrated, Webball placement is represented by vanilla
   `minecraft:cobweb`,
-- Lodo's grow-to-Mudo replacement is not complete until `EntityMudo` is migrated
-  and registered. The current Lodo port preserves the grow timer and legacy
-  sound/threshold evidence, then logs that the actual replacement remains a
-  later entity slice,
 - Lodo's old collision infection path applies `COTH_E` for `100` ticks at
   amplifier `1`; COTH remains a separate infection/world-system migration and
   is not applied by the current Lodo slice,
+- Mudo's COTH cloud/infection, tunnel generation, Nuuh evolution, death-to-Lodo
+  colony variant rules, and evolution-phase targeting predicates depend on
+  missing world infection/evolution systems and remain explicit future slices,
 - world evolution and phase systems,
 - adaptation systems,
 - bestiary GUI and networking,

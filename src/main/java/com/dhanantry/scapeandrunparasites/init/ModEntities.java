@@ -3,6 +3,7 @@ package com.dhanantry.scapeandrunparasites.init;
 import com.dhanantry.scapeandrunparasites.SRPMain;
 import com.dhanantry.scapeandrunparasites.entity.monster.derived.KirinEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.inborn.LodoEntity;
+import com.dhanantry.scapeandrunparasites.entity.monster.inborn.MudoEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.FlogEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.OrchEntity;
 import com.dhanantry.scapeandrunparasites.entity.projectile.WebballEntity;
@@ -40,6 +41,12 @@ public final class ModEntities {
             .eyeHeight(LodoEntity.LEGACY_EYE_HEIGHT)
             .clientTrackingRange(8)
             .build(SRPMain.MODID + ":lodo"));
+    public static final DeferredHolder<EntityType<?>, EntityType<MudoEntity>> MUDO = ENTITIES.register("mudo", () ->
+        EntityType.Builder.of(MudoEntity::new, MobCategory.MONSTER)
+            .sized(MudoEntity.LEGACY_WIDTH, MudoEntity.LEGACY_HEIGHT)
+            .eyeHeight(MudoEntity.LEGACY_EYE_HEIGHT)
+            .clientTrackingRange(8)
+            .build(SRPMain.MODID + ":mudo"));
     public static final DeferredHolder<EntityType<?>, EntityType<WebballEntity>> WEBBALL = ENTITIES.register("webball", () ->
         EntityType.Builder.<WebballEntity>of(WebballEntity::new, MobCategory.MISC)
             .sized(WebballEntity.LEGACY_WIDTH, WebballEntity.LEGACY_HEIGHT)
