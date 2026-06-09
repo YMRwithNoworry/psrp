@@ -258,7 +258,8 @@ public final class ModItems {
     public static final DeferredItem<Item> ITEMMOBSPAWNER_LUMADAPTED = legacyItem("itemmobspawner_lumadapted", 64);
     public static final DeferredItem<Item> ITEMMOBSPAWNER_GIMADAPTED = legacyItem("itemmobspawner_gimadapted", 64);
     public static final DeferredItem<Item> ITEMMOBSPAWNER_ZAAADAPTED = legacyItem("itemmobspawner_zaaadapted", 64);
-    public static final DeferredItem<Item> ITEMMOBSPAWNER_LODO = legacyItem("itemmobspawner_lodo", 64);
+    public static final DeferredItem<DeferredSpawnEggItem> ITEMMOBSPAWNER_LODO = register("itemmobspawner_lodo", () ->
+        new DeferredSpawnEggItem(ModEntities.LODO, 0x7A4137, 0x2A1815, new Item.Properties()));
     public static final DeferredItem<Item> ITEMMOBSPAWNER_MUDO = legacyItem("itemmobspawner_mudo", 64);
     public static final DeferredItem<Item> ITEMMOBSPAWNER_NUUH = legacyItem("itemmobspawner_nuuh", 64);
     public static final DeferredItem<Item> ITEMMOBSPAWNER_ATA = legacyItem("itemmobspawner_ata", 64);

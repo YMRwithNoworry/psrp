@@ -17,6 +17,7 @@ public final class ModClientEvents {
         event.registerEntityRenderer(ModEntities.GRUNT.get(), FlogRenderer::new);
         event.registerEntityRenderer(ModEntities.KIRIN.get(), KirinRenderer::new);
         event.registerEntityRenderer(ModEntities.MONARCH.get(), OrchRenderer::new);
+        event.registerEntityRenderer(ModEntities.LODO.get(), LodoRenderer::new);
         event.registerEntityRenderer(ModEntities.WEBBALL.get(), WebballRenderer::new);
     }
 }

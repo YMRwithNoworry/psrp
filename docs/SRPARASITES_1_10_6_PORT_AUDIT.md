@@ -256,6 +256,29 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   attributes before multipliers: `75` health, `10` armor, `25` attack damage,
   `1.0` knockback resistance, and movement speed `0.2775`. The pure follow
   range config default is `32`.
+- `com.dhanantry.scapeandrunparasites.entity.monster.inborn.EntityLodo`: Buglin
+  / Lodo entity size `0.5 x 0.3`, eye height `0.3`, parasite ID `5`, little-tier
+  XP, random `60..119` second grow timer, `ruptergrow` NBT persistence, `type =
+  1`, initial `killcount = -10`, `buried = -1`, avoid-living AI, buried floor
+  timer event `50`, block crack particles while buried, and legacy grow-to-Mudo
+  threshold behavior.
+- `com.dhanantry.scapeandrunparasites.entity.monster.inborn.EntityLodo$1`: Lodo
+  avoidance predicate rejects water mobs, Creepers, SRP parasites, and animals,
+  and avoids other living entities within `8` blocks at walk/sprint speed `1.0`.
+- `com.dhanantry.scapeandrunparasites.client.renderer.entity.inborn.RenderLodo`:
+  renderer shadow radius `0.2`, normal texture
+  `srparasites:textures/entity/monster/lodo.png`, and alternate texture
+  `srparasites:textures/entity/monster/slodo.png`. The provided 1.10.6 jar does
+  not contain `slodo.png`, so the modern renderer intentionally does not select
+  that missing path.
+- `com.dhanantry.scapeandrunparasites.client.model.entity.inborn.ModelLodo`:
+  legacy `ModelRenderer` geometry and Java-authored pose methods. GeckoLib
+  conversion preserved 27 model bones and method-derived animation names
+  `animation.lodo.func_78087_a` and
+  `animation.lodo.setRotationAnglesCosmical`.
+- `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Lodo
+  attributes before multipliers: `7` health, `1.5` armor, `3` attack damage,
+  `0.05` knockback resistance, and movement speed `0.2`.
 
 ## Implemented In This Slice
 
@@ -463,6 +486,21 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   - wired a GeckoLib client renderer to the converted legacy `ModelOrch`
     geometry, Java-authored animation resource, and three legacy Orch texture
     resources.
+- Added the first evidence-backed inborn parasite entity slice:
+  - registered Lodo / Buglin under the visible entity id `lodo`,
+  - upgraded the legacy `itemmobspawner_lodo` item into a real modern spawn egg,
+  - preserved size `0.5 x 0.3`, eye height `0.3`, parasite ID `5`,
+    health/armor/damage/speed/knockback attributes, and little-tier XP surface,
+  - ported the old avoid-living AI predicate for non-water, non-Creeper,
+    non-parasite, non-animal living entities within the legacy `8` block range,
+  - preserved the `60..119` second grow timer, `ruptergrow` NBT key, buried
+    floor timer event `50`, freeze-while-buried behavior, and block crack
+    particle surface,
+  - wired legacy Lodo growl/hurt/death and grow-to-Mudo sound events,
+  - wired a GeckoLib client renderer to the converted legacy `ModelLodo`
+    geometry, Java-authored animation resource, and legacy Lodo texture. The
+    old renderer's missing `slodo.png` alternate path is intentionally not
+    selected in the modern renderer.
 
 ## Explicit Gaps
 
@@ -504,6 +542,13 @@ own evidence-backed slices:
 - SRP Web block variants and type-specific Webball web placement; until the
   block system is migrated, Webball placement is represented by vanilla
   `minecraft:cobweb`,
+- Lodo's grow-to-Mudo replacement is not complete until `EntityMudo` is migrated
+  and registered. The current Lodo port preserves the grow timer and legacy
+  sound/threshold evidence, then logs that the actual replacement remains a
+  later entity slice,
+- Lodo's old collision infection path applies `COTH_E` for `100` ticks at
+  amplifier `1`; COTH remains a separate infection/world-system migration and
+  is not applied by the current Lodo slice,
 - world evolution and phase systems,
 - adaptation systems,
 - bestiary GUI and networking,
