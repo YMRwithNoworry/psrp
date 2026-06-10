@@ -618,6 +618,42 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Esor
   attributes before multipliers: `120` health, `20` armor, `40` attack
   damage, `1.0` knockback resistance, and movement speed `0.255`.
+- `com.dhanantry.scapeandrunparasites.entity.monster.pure.EntityAnged`:
+  Anged / Vigilante uses visible entity id `vigilante`, size `1.6 x 3.1`, eye
+  height `3.0`, parasite ID `25`, type `51`, step height `1`, and side body
+  tendrils. Its legacy `EntityBody` constructor values are `0.7`, `0.9`, `1`,
+  `1.1`, `2.3`, side ids `1` and `-1`, and body ids `1` and `2`; tendril
+  health is max health multiplied by `SRPConfig.tendrilHealth` and is saved
+  under `parasiteleftTendril` and `parasiterightTendril`.
+- `com.dhanantry.scapeandrunparasites.entity.monster.pure.EntityAnged`:
+  old AI adds HurtByTarget, swimming, `EntityAIAttackMeleeRangeSwitch` range
+  `5`, melee status speed `1.5`, and ranged status speed `1.5`, interval `20`,
+  range factor `pureFollow / 2`, with player and non-water/non-animal living
+  targets inherited from the pure parasite target surface.
+- `com.dhanantry.scapeandrunparasites.entity.monster.pure.EntityAnged`:
+  old melee calls the pure base hit, then applies strength `1` knockback away
+  from Anged. Its ranged attack plays the old Emana shooting sound, spawns
+  `EntityProjectileAngedball` from Anged's look vector, and aims toward the
+  target's lower-middle bounding box.
+- `com.dhanantry.scapeandrunparasites.entity.projectile.EntityProjectileAngedball`:
+  old projectile size is `0.3 x 0.3`, particle type is `SLIME`, it ignores
+  parasite allies except Nak, deals `ANGED_RANGED_ATTACK_DAMAGE` (`27`) as
+  thrown damage, calls the old minimum-melee helper, and always creates a
+  toxic cloud with radius `2.5`, radius-on-use `-0.5`, wait time `10`,
+  duration `100`, Poison for `300` ticks, and Corrosive for `100` ticks.
+- `com.dhanantry.scapeandrunparasites.client.renderer.entity.pure.RenderAnged`:
+  renderer shadow radius `1.2`, normal texture
+  `srparasites:textures/entity/monster/anged.png`, heavy skin `7` texture
+  `srparasites:textures/entity/monster/angedh.png`, and legacy tendril texture
+  `srparasites:textures/entity/monster/tendrilanged.png`.
+- `com.dhanantry.scapeandrunparasites.client.model.entity.pure.ModelAnged`:
+  legacy `ModelRenderer` geometry and Java-authored pose methods. GeckoLib
+  conversion preserved 130 model bones and method-derived animation names
+  `animation.anged.func_78087_a` and
+  `animation.anged.setRotationAnglesCosmical`.
+- `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Anged
+  attributes before multipliers: `70` health, `25` armor, `23` melee damage,
+  `27` ranged damage, `1.0` knockback resistance, and movement speed `0.2`.
 
 ## Implemented In This Slice
 
@@ -1093,6 +1129,33 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
     geometry, Java-authored animation resource, and the jar-backed `esor.png`
     and heavy-skin `esorh.png` texture resources. The old self-flash scaling
     is approximated from the modern attack timer pulse.
+- Added the fourth evidence-backed pure Anged/Vigilante slice:
+  - registered Anged / Vigilante under the visible entity id `vigilante`,
+  - upgraded the legacy `itemmobspawner_anged` item into a real modern spawn
+    egg,
+  - registered the Angedball projectile under the `ballmall` projectile id used
+    by legacy language resources for this projectile family,
+  - preserved size `1.6 x 3.1`, eye height `3.0`, parasite ID `25`, type
+    `51`, pure-tier health/armor/melee/ranged/movement/knockback/follow-range
+    attributes, legacy step height, and heavy skin `7`,
+  - ported the old target surface with HurtByTarget, player target,
+    non-water/non-animal living target predicates, swimming, look-idle, melee
+    speed `1.5`, range-switch pressure, and ranged cadence `20` at
+    `pureFollow / 2`,
+  - preserved the old melee knockback strength `1`, attack event `12`, attack
+    timer rise/fall, and the legacy tendril NBT/event state for left and right
+    tendrils while documenting the missing independent multipart hit routing as
+    a gap,
+  - ported Angedball's old hit surface: 0.3 projectile size, slime-like break
+    particles, parasite-ally discard with Nak exception, `27` thrown damage,
+    toxic cloud radius `2.5`, wait `10`, duration `100`, Poison `300`, and
+    Corrosive `100`,
+  - wired legacy Anged growl/hurt/death, mob silence, heavy step, and old
+    Emana shooting sound use for the projectile launch,
+  - wired a GeckoLib client renderer to the converted legacy `ModelAnged`
+    geometry, Java-authored animation resource, and the jar-backed `anged.png`
+    and heavy-skin `angedh.png` texture resources. The old self-flash scaling
+    is approximated from the modern attack timer pulse.
 
 ## Explicit Gaps
 
@@ -1207,6 +1270,16 @@ own evidence-backed slices:
   and exact self-flash render math remain explicit future slices. The modern
   slice preserves the evidence-backed Heavy Bomber registration, attributes,
   target surface, AOE melee, direct-hit lift, leap, evade, smash, Rage aura,
+  tendril NBT/event state, sounds, renderer, and animation resources,
+- Anged's full `EntityPPure` backend, exact `EntityBody` multipart collision,
+  exact old `EntityTendril` spawn/body-part renderer flow, `ModelTendrilAnged`
+  rendering, exact config-backed `SRPConfig.tendrilHealth`, `cutResistances`,
+  network body-dead packet behavior, full malleable adaptation/resistance
+  backend, exact old `EntityAIAttackMeleeRangeSwitch`, exact
+  `EntitySRPProjectile` acceleration/minimum-melee helper semantics, and exact
+  self-flash render math remain explicit future slices. The modern slice
+  preserves the evidence-backed Vigilante registration, attributes, target
+  surface, melee/ranged cadence, knockback, Angedball damage/cloud behavior,
   tendril NBT/event state, sounds, renderer, and animation resources,
 - world evolution and phase systems,
 - adaptation systems,

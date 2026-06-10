@@ -11,6 +11,7 @@ import com.dhanantry.scapeandrunparasites.entity.monster.inborn.LodoEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.inborn.MudoEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.inborn.NuuhEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.inborn.RatholEntity;
+import com.dhanantry.scapeandrunparasites.entity.monster.pure.AngedEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.EsorEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.FlogEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.GanroEntity;
@@ -41,5 +42,6 @@ public final class ModEntityEvents {
         event.put(ModEntities.GANRO.get(), GanroEntity.createAttributes().build());
         event.put(ModEntities.OMBOO.get(), OmbooEntity.createAttributes().build());
         event.put(ModEntities.ESOR.get(), EsorEntity.createAttributes().build());
+        event.put(ModEntities.ANGED.get(), AngedEntity.createAttributes().build());
     }
 }
