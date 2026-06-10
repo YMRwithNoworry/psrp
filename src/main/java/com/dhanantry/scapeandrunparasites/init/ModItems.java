@@ -276,7 +276,8 @@ public final class ModItems {
     public static final DeferredItem<Item> ITEMMOBSPAWNER_VENKROLSII = legacyItem("itemmobspawner_venkrolsii", 64);
     public static final DeferredItem<Item> ITEMMOBSPAWNER_VENKROLSIII = legacyItem("itemmobspawner_venkrolsiii", 64);
     public static final DeferredItem<Item> ITEMMOBSPAWNER_VENKROLSIV = legacyItem("itemmobspawner_venkrolsiv", 64);
-    public static final DeferredItem<Item> ITEMMOBSPAWNER_TONRO = legacyItem("itemmobspawner_tonro", 64);
+    public static final DeferredItem<DeferredSpawnEggItem> ITEMMOBSPAWNER_TONRO = register("itemmobspawner_tonro", () ->
+        new DeferredSpawnEggItem(ModEntities.TONRO, 0x3B231B, 0x786044, new Item.Properties()));
     public static final DeferredItem<Item> ITEMMOBSPAWNER_UNVO = legacyItem("itemmobspawner_unvo", 64);
     public static final DeferredItem<Item> ITEMMOBSPAWNER_NAK = legacyItem("itemmobspawner_nak", 64);
     public static final DeferredItem<Item> ITEMMOBSPAWNER_DOD = legacyItem("itemmobspawner_dod", 64);

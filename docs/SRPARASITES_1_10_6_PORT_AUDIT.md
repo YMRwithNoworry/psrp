@@ -451,6 +451,39 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Buthol
   attributes before multipliers: `20` health, `2.5` armor, `10` attack damage,
   `0.15` knockback resistance, and max flight Y `256`.
+- `com.dhanantry.scapeandrunparasites.entity.monster.deterrent.EntityTonro`:
+  Tonro / Kyphosis entity id `kyphosis`, size `0.7 x 4.5`, eye height `3.8`,
+  parasite ID `29`, type `40`, adapted-tier XP doubled to `110`, stationary
+  movement speed `0`, knockback resistance `1`, follow range `20`, and buried
+  time `7.5`.
+- `com.dhanantry.scapeandrunparasites.entity.monster.deterrent.EntityTonro`:
+  old AI uses HurtByTarget, `EntityAIAttackMeleeStatusAOE(this, 0.0, false,
+  8.0, 7.0)`, look-idle, and `EntityAISkill(this, 20, 16, 1, true, 1)`.
+  Its direct hit adds `+0.5000000059604645` vertical motion. Its AOE melee
+  broadcasts entity event `12`, plays `SRPSounds.SWIPE` at volume `3`, scans a
+  target-centered box inflated by `2.0`, and attacks visible non-parasite
+  living entities.
+- `com.dhanantry.scapeandrunparasites.entity.monster.deterrent.EntityTonro`:
+  old shockwave skill sets parasite status `10`, stops navigation, plays a hurt
+  sound at volume `4` with pitch around `2`, broadcasts flame event `100` while
+  border is `<= 2`, advances border every `20` ticks, spawns `EntityWave` at
+  borders `3` and `5`, and finishes after border `6` or when the target is
+  absent / at a different Y. Wave damage is attack damage times `0.3`, with
+  deterrent minimum damage default `2`.
+- `com.dhanantry.scapeandrunparasites.client.renderer.entity.deterrent.RenderTonro`:
+  renderer shadow radius `0.4`, normal texture
+  `srparasites:textures/entity/monster/tonro.png`, and skin `120` texture
+  `srparasites:textures/entity/monster/snowvariants/kyphosisfrozen.png`. The
+  provided 1.10.6 jar does not contain `kyphosisfrozen.png`, so the modern
+  renderer intentionally does not select that missing path.
+- `com.dhanantry.scapeandrunparasites.client.model.entity.deterrent.ModelTonro`:
+  legacy `ModelRenderer` geometry and Java-authored pose methods. GeckoLib
+  conversion preserved 140 model bones and method-derived animation names
+  `animation.tonro.func_78087_a` and
+  `animation.tonro.setRotationAnglesCosmical`.
+- `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Tonro
+  attributes before multipliers: `50` health, `15` armor, `15` attack damage,
+  and `35` swing attack damage.
 
 ## Implemented In This Slice
 
@@ -787,6 +820,26 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
     geometry, Java-authored animation resource, and the two jar-backed Buthol
     texture resources. The old renderer's missing `sbuthol.png` alternate path
     is intentionally not selected in the modern renderer.
+- Added the first evidence-backed deterrent parasite entity slice:
+  - registered Tonro / Kyphosis under the visible entity id `kyphosis`,
+  - upgraded the legacy `itemmobspawner_tonro` item into a real modern spawn
+    egg,
+  - preserved size `0.7 x 4.5`, eye height `3.8`, parasite ID `29`, type `40`,
+    adapted-tier doubled XP surface, health/armor/damage/movement/
+    knockback/follow-range attributes, and the legacy buried time constant,
+  - ported the old stationary target surface with HurtByTarget, player target,
+    and non-water/non-animal living target predicates,
+  - ported the AOE melee surface: event `12`, attack timer rise/fall,
+    target-centered inflated box, line-of-sight filtering, non-parasite
+    filtering, swipe sound, and target launch,
+  - ported the shockwave skill timing surface: status `10`, event `100` flame
+    particles, border progression, triggers at borders `3` and `5`, finish
+    after border `6`, and attack-damage `0.3` / minimum `2` damage,
+  - wired legacy Tonro growl/hurt/death, mob silence, and mob swipe sounds,
+  - wired a GeckoLib client renderer to the converted legacy `ModelTonro`
+    geometry, Java-authored animation resource, and the jar-backed Tonro
+    texture resource. The old renderer's missing `kyphosisfrozen.png` alternate
+    path is intentionally not selected in the modern renderer.
 
 ## Explicit Gaps
 
@@ -859,6 +912,11 @@ own evidence-backed slices:
   modern slice preserves the evidence-backed flying movement, charge, fuse,
   basic explosion, Viral/Vomit/poison cloud, fire death bypass, and skin `1`
   blast variant surfaces,
+- Tonro's exact `EntityWave` projectile/entity, full `EntityPStationary` bury /
+  peek / relocation behavior, and full `EntityPMalleable` adaptation/resistance
+  backend remain explicit future slices. The modern slice preserves the
+  evidence-backed stationary target surface, AOE melee, shockwave timing,
+  damage, sounds, particles, and animation resources,
 - world evolution and phase systems,
 - adaptation systems,
 - bestiary GUI and networking,

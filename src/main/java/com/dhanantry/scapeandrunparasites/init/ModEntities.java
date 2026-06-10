@@ -2,6 +2,7 @@ package com.dhanantry.scapeandrunparasites.init;
 
 import com.dhanantry.scapeandrunparasites.SRPMain;
 import com.dhanantry.scapeandrunparasites.entity.monster.derived.KirinEntity;
+import com.dhanantry.scapeandrunparasites.entity.monster.deterrent.TonroEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.inborn.AtaEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.inborn.ButholEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.inborn.GotholEntity;
@@ -82,6 +83,12 @@ public final class ModEntities {
             .eyeHeight(ButholEntity.LEGACY_EYE_HEIGHT)
             .clientTrackingRange(8)
             .build(SRPMain.MODID + ":carrier_flying"));
+    public static final DeferredHolder<EntityType<?>, EntityType<TonroEntity>> TONRO = ENTITIES.register("kyphosis", () ->
+        EntityType.Builder.of(TonroEntity::new, MobCategory.MONSTER)
+            .sized(TonroEntity.LEGACY_WIDTH, TonroEntity.LEGACY_HEIGHT)
+            .eyeHeight(TonroEntity.LEGACY_EYE_HEIGHT)
+            .clientTrackingRange(8)
+            .build(SRPMain.MODID + ":kyphosis"));
     public static final DeferredHolder<EntityType<?>, EntityType<WebballEntity>> WEBBALL = ENTITIES.register("webball", () ->
         EntityType.Builder.<WebballEntity>of(WebballEntity::new, MobCategory.MISC)
             .sized(WebballEntity.LEGACY_WIDTH, WebballEntity.LEGACY_HEIGHT)

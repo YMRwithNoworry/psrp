@@ -1,6 +1,7 @@
 package com.dhanantry.scapeandrunparasites.init;
 
 import com.dhanantry.scapeandrunparasites.entity.monster.derived.KirinEntity;
+import com.dhanantry.scapeandrunparasites.entity.monster.deterrent.TonroEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.inborn.AtaEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.inborn.ButholEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.inborn.GotholEntity;
@@ -29,5 +30,6 @@ public final class ModEntityEvents {
         event.put(ModEntities.RATHOL.get(), RatholEntity.createAttributes().build());
         event.put(ModEntities.GOTHOL.get(), GotholEntity.createAttributes().build());
         event.put(ModEntities.BUTHOL.get(), ButholEntity.createAttributes().build());
+        event.put(ModEntities.TONRO.get(), TonroEntity.createAttributes().build());
     }
 }
