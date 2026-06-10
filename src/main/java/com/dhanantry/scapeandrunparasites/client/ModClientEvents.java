@@ -27,6 +27,7 @@ public final class ModClientEvents {
         event.registerEntityRenderer(ModEntities.TONRO.get(), TonroRenderer::new);
         event.registerEntityRenderer(ModEntities.UNVO.get(), UnvoRenderer::new);
         event.registerEntityRenderer(ModEntities.NAK.get(), NakRenderer::new);
+        event.registerEntityRenderer(ModEntities.GANRO.get(), GanroRenderer::new);
         event.registerEntityRenderer(ModEntities.WEBBALL.get(), WebballRenderer::new);
         event.registerEntityRenderer(ModEntities.SPINEBALL.get(), SpineballRenderer::new);
     }

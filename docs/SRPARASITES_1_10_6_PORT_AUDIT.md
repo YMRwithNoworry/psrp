@@ -949,6 +949,31 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
     geometry, Java-authored animation resource, and the jar-backed Nak texture
     resource. The old renderer's missing `seizerfrozen.png` alternate path is
     intentionally not selected in the modern renderer.
+- Added the first evidence-backed pure Warden/Ganro slice:
+  - registered Ganro / Warden under the visible entity id `warden`,
+  - upgraded the legacy `itemmobspawner_ganro` item into a real modern spawn
+    egg,
+  - preserved size `0.901 x 4.2`, eye height `3.5`, parasite ID `33`, type
+    `40`, pure-tier XP surface, health/armor/damage/movement/knockback/
+    follow-range attributes, and the legacy step-height surface,
+  - ported the old target surface with HurtByTarget, player target,
+    non-water/non-animal living target predicates, swimming, wandering,
+    look-idle, and wall-climber navigation,
+  - ported the AOE melee surface: speed `1.3`, reach `8`, inflated damage box,
+    line-of-sight filtering, non-parasite filtering, swipe sound, attack event
+    `12`, attack timer rise/fall, and the old `10%` hit launch with separate
+    player vertical strength,
+  - ported the old water leap, skill leap, evade dash, charge, and shockwave
+    timing surfaces. Charge keeps the `20` tick windup, `15` block target point,
+    speed `3.0`, status `3`, self-flame event `100`, AABB damage around the
+    body, and airborne damping. Shockwave keeps status `100`, flame event
+    startup, attack-damage `0.3` / minimum `2` damage, swipe event, and old
+    growl/silence timing,
+  - wired legacy Ganro growl/hurt/death, mob silence, and mob swipe sounds,
+  - wired a GeckoLib client renderer to the converted legacy `ModelGanro`
+    geometry, Java-authored animation resource, and the jar-backed `ganro.png`
+    and heavy-skin `ganroh.png` texture resources. The old self-flash scaling
+    is approximated from the modern attack timer pulse.
 
 ## Explicit Gaps
 
@@ -1041,6 +1066,13 @@ own evidence-backed slices:
   stationary target surface, Seizer registration, target sync, grab/pull/slow
   behavior, projectile damage redirection surface, sounds, renderer, and
   animation resources,
+- Ganro's full `EntityPPure` backend, tendril `EntityBody` multipart collision,
+  exact `EntityDamage` and `EntityWaveShock` helper entities, exact old
+  `PathNavigateClimberStatus` pathing, full malleable adaptation/resistance
+  backend, and exact self-flash render math remain explicit future slices. The
+  modern slice preserves the evidence-backed Warden registration, attributes,
+  target surface, AOE melee, launch, leap, evade, charge, shockwave, sounds,
+  renderer, and animation resources,
 - world evolution and phase systems,
 - adaptation systems,
 - bestiary GUI and networking,
