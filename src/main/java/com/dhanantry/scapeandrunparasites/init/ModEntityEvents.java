@@ -5,6 +5,7 @@ import com.dhanantry.scapeandrunparasites.entity.monster.inborn.AtaEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.inborn.LodoEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.inborn.MudoEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.inborn.NuuhEntity;
+import com.dhanantry.scapeandrunparasites.entity.monster.inborn.RatholEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.FlogEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.OrchEntity;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -23,5 +24,6 @@ public final class ModEntityEvents {
         event.put(ModEntities.MUDO.get(), MudoEntity.createAttributes().build());
         event.put(ModEntities.NUUH.get(), NuuhEntity.createAttributes().build());
         event.put(ModEntities.ATA.get(), AtaEntity.createAttributes().build());
+        event.put(ModEntities.RATHOL.get(), RatholEntity.createAttributes().build());
     }
 }

@@ -371,6 +371,29 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Ata
   attributes before multipliers: `5` health, `2` armor, `5` attack damage,
   `0.6` knockback resistance, movement speed `0.34559`, and follow range `32`.
+- `com.dhanantry.scapeandrunparasites.entity.monster.inborn.EntityRathol`:
+  Rathol / Heavy Carrier entity size `1.3 x 3.1`, parasite ID `3`, type `41`,
+  `killcount = -10`, fuse time `70`, attack speed `1.1`, melee/targeting
+  goals, low-health self state below `5%` max health, and death-triggered
+  explosion unless on fire. Its explosion uses radius `4.0`, applies Viral and
+  Vomit to nearby non-parasites, creates a poison cloud, and has a stronger
+  skin `1` variant with movement speed `0.3`, effect radius `11`, and direct
+  damage around the blast.
+- `com.dhanantry.scapeandrunparasites.client.renderer.entity.inborn.RenderRathol`:
+  legacy renderer uses shadow radius `1.2`, normal texture
+  `srparasites:textures/entity/monster/rathol.png`, skin `1` texture
+  `srparasites:textures/entity/monster/ratholone.png`, and references
+  `srathol.png` for skin `120`. The provided 1.10.6 jar does not contain
+  `srathol.png`, so the modern renderer intentionally does not select that
+  missing path.
+- `com.dhanantry.scapeandrunparasites.client.model.entity.inborn.ModelRathol`:
+  legacy `ModelRenderer` geometry and Java-authored pose methods. GeckoLib
+  conversion preserved 30 model bones and method-derived animation names
+  `animation.rathol.func_78087_a` and
+  `animation.rathol.setRotationAnglesCosmical`.
+- `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Rathol
+  attributes before multipliers: `30` health, `5` armor, `25` attack damage,
+  `0.95` knockback resistance, movement speed `0.2`, and follow range `32`.
 
 ## Implemented In This Slice
 
@@ -646,6 +669,26 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   - wired a GeckoLib client renderer to the converted legacy `ModelAta`
     geometry, Java-authored animation resource, and the renderer-backed
     `gnat.png` texture.
+- Added the fifth evidence-backed inborn parasite entity slice:
+  - registered Rathol / Heavy Carrier under the visible entity id
+    `carrier_heavy`,
+  - upgraded the legacy `itemmobspawner_rathol` item into a real modern spawn
+    egg,
+  - preserved size `1.3 x 3.1`, eye height `2.6`, parasite ID `3`, type `41`,
+    primitive-tier XP surface, health/armor/damage/speed/knockback/follow-range
+    attributes, and the `70` tick fuse,
+  - ported the old swim, swell, melee, look-idle, HurtByTarget, player target,
+    and non-water/non-animal living target surface,
+  - preserved the low-health self-state trigger below `5%` max health and the
+    death explosion bypass when killed while on fire,
+  - ported the explosion radius `4.0`, mob-griefing gate, Viral/Vomit nearby
+    effects, variant skin `1` movement/effect-radius/direct-damage behavior,
+    and lingering poison cloud surface,
+  - wired legacy carrier growl/hurt/death and Rathol boom sounds,
+  - wired a GeckoLib client renderer to the converted legacy `ModelRathol`
+    geometry, Java-authored animation resource, and the two jar-backed Rathol
+    texture resources. The old renderer's missing `srathol.png` alternate path
+    is intentionally not selected in the modern renderer.
 
 ## Explicit Gaps
 
@@ -702,6 +745,11 @@ own evidence-backed slices:
   not complete until the COTH/hijack victim table systems are migrated; the
   modern slice preserves the contact threshold, viral/burst/despawn surface,
   and records the missing conversion/replacement backend here,
+- Rathol's full `SRPExplosion`, InfestRemain block placement, `ratholMobs`
+  summon table, COTH cloud effect, and exact config-backed blacklist/griefing
+  behavior remain explicit future slices. The modern slice preserves the
+  evidence-backed fuse, basic explosion, Viral/Vomit/poison cloud, fire death
+  bypass, and skin `1` blast variant surfaces,
 - world evolution and phase systems,
 - adaptation systems,
 - bestiary GUI and networking,

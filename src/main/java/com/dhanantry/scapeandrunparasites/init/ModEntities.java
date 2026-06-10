@@ -6,6 +6,7 @@ import com.dhanantry.scapeandrunparasites.entity.monster.inborn.AtaEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.inborn.LodoEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.inborn.MudoEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.inborn.NuuhEntity;
+import com.dhanantry.scapeandrunparasites.entity.monster.inborn.RatholEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.FlogEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.OrchEntity;
 import com.dhanantry.scapeandrunparasites.entity.projectile.WebballEntity;
@@ -61,6 +62,12 @@ public final class ModEntities {
             .eyeHeight(AtaEntity.LEGACY_EYE_HEIGHT)
             .clientTrackingRange(8)
             .build(SRPMain.MODID + ":gnat"));
+    public static final DeferredHolder<EntityType<?>, EntityType<RatholEntity>> RATHOL = ENTITIES.register("carrier_heavy", () ->
+        EntityType.Builder.of(RatholEntity::new, MobCategory.MONSTER)
+            .sized(RatholEntity.LEGACY_WIDTH, RatholEntity.LEGACY_HEIGHT)
+            .eyeHeight(RatholEntity.LEGACY_EYE_HEIGHT)
+            .clientTrackingRange(8)
+            .build(SRPMain.MODID + ":carrier_heavy"));
     public static final DeferredHolder<EntityType<?>, EntityType<WebballEntity>> WEBBALL = ENTITIES.register("webball", () ->
         EntityType.Builder.<WebballEntity>of(WebballEntity::new, MobCategory.MISC)
             .sized(WebballEntity.LEGACY_WIDTH, WebballEntity.LEGACY_HEIGHT)
