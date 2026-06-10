@@ -313,6 +313,34 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   a distinct Mudo movement-speed field in `SRPAttributes`; the modern slice uses
   a conservative small-climber movement speed constant and records this evidence
   boundary here.
+- `com.dhanantry.scapeandrunparasites.entity.monster.inborn.EntityNuuh`: Mangler
+  / Nuuh entity size `1.0 x 1.0`, eye height `0.9`, parasite ID `76`, pure-tier
+  XP, `type = 51`, `attackSpeedT = 6`, malleable base fields, climb flag with
+  `PathNavigateClimber`, skin data values `5` and `6`, melee status speed `1.3`,
+  `EntityAISkill` cooldown `20..100` with windup `5` and status/event `14`,
+  leap values `0.8` and `2.0`, `LeapAtTarget` power `0.4`, evade dash arguments
+  `(10, 2, 1, 1.0, 15)`, and fall damage only after fall distance reaches `200`.
+- `com.dhanantry.scapeandrunparasites.entity.monster.inborn.EntityNuuh`: skin
+  `5` applies `VIRA_E` for `100` ticks at amplifier `0` when hitting a
+  non-parasite living target. The old entity returns `MOBSILENCE` for ambient,
+  hurt, and death sounds even though `nuuh.*` sound resources also exist.
+- `com.dhanantry.scapeandrunparasites.entity.monster.inborn.EntityNuuh$1`:
+  target predicate excludes water mobs, animals, villagers, and configured mob
+  blacklist categories.
+- `com.dhanantry.scapeandrunparasites.client.renderer.entity.inborn.RenderNuuh`:
+  renderer shadow radius `0.7`, normal texture
+  `srparasites:textures/entity/monster/nuuh.png`, variant textures
+  `nuuhv.png` and `nuuhb.png`, and alternate `snuuh.png`. The provided 1.10.6
+  jar does not contain `snuuh.png`, so the modern renderer intentionally does
+  not select that missing path.
+- `com.dhanantry.scapeandrunparasites.client.model.entity.inborn.ModelNuuh`:
+  legacy `ModelRenderer` geometry and Java-authored pose methods. GeckoLib
+  conversion preserved 248 model bones and method-derived animation names
+  `animation.nuuh.func_78087_a` and
+  `animation.nuuh.setRotationAnglesCosmical`.
+- `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Nuuh
+  attributes before multipliers: `17` health, `10` armor, `9` attack damage,
+  `0.6` knockback resistance, movement speed `0.37`, and follow range `32`.
 
 ## Implemented In This Slice
 
@@ -553,6 +581,23 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
     geometry, Java-authored animation resource, and the three jar-backed Mudo
     texture resources. The old renderer's missing `smudo.png` alternate path is
     intentionally not selected in the modern renderer.
+- Added the third evidence-backed inborn parasite entity slice:
+  - registered Nuuh / Mangler under the visible entity id `nuuh`,
+  - upgraded the legacy `itemmobspawner_nuuh` item into a real modern spawn egg,
+  - preserved size `1.0 x 1.0`, eye height `0.9`, parasite ID `76`, type `51`,
+    pure-tier XP, health/armor/damage/speed/knockback/follow-range attributes,
+    climbing navigation, climb-state sync, and fall-damage threshold `200`,
+  - ported the old melee speed `1.3`, LeapAtTarget power `0.4`, skill leap
+    timing/power surface (`20..100` cooldown, `5` windup, event `14`, `0.8`
+    vertical power, and `2.0` leap speed), and evade dash timing surface,
+  - preserved skin `5` / `6` variant selection and skin `5` viral-on-hit
+    behavior for `100` ticks at amplifier `0`,
+  - preserved the old entity's silent ambient/hurt/death sound surface and
+    small-step sound,
+  - wired a GeckoLib client renderer to the converted legacy `ModelNuuh`
+    geometry, Java-authored animation resource, and the three jar-backed Nuuh
+    texture resources. The old renderer's missing `snuuh.png` alternate path is
+    intentionally not selected in the modern renderer.
 
 ## Explicit Gaps
 
@@ -597,9 +642,14 @@ own evidence-backed slices:
 - Lodo's old collision infection path applies `COTH_E` for `100` ticks at
   amplifier `1`; COTH remains a separate infection/world-system migration and
   is not applied by the current Lodo slice,
-- Mudo's COTH cloud/infection, tunnel generation, Nuuh evolution, death-to-Lodo
-  colony variant rules, and evolution-phase targeting predicates depend on
-  missing world infection/evolution systems and remain explicit future slices,
+- Mudo's COTH cloud/infection, tunnel generation, evolution-to-Nuuh trigger,
+  death-to-Lodo colony variant rules, and evolution-phase targeting predicates
+  depend on missing world infection/evolution systems and remain explicit future
+  slices,
+- Nuuh's full `EntityPMalleable` adaptation/resistance behavior, colony death
+  checks, death-to-Mudo colony variant rules, and config-backed blacklist
+  targeting are not complete until the malleable, colony, and world evolution
+  systems are migrated,
 - world evolution and phase systems,
 - adaptation systems,
 - bestiary GUI and networking,

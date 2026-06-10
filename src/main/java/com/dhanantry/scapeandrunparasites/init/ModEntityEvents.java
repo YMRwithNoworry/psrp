@@ -3,6 +3,7 @@ package com.dhanantry.scapeandrunparasites.init;
 import com.dhanantry.scapeandrunparasites.entity.monster.derived.KirinEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.inborn.LodoEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.inborn.MudoEntity;
+import com.dhanantry.scapeandrunparasites.entity.monster.inborn.NuuhEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.FlogEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.OrchEntity;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -19,5 +20,6 @@ public final class ModEntityEvents {
         event.put(ModEntities.MONARCH.get(), OrchEntity.createAttributes().build());
         event.put(ModEntities.LODO.get(), LodoEntity.createAttributes().build());
         event.put(ModEntities.MUDO.get(), MudoEntity.createAttributes().build());
+        event.put(ModEntities.NUUH.get(), NuuhEntity.createAttributes().build());
     }
 }
