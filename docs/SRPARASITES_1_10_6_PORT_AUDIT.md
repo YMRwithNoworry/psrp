@@ -394,6 +394,30 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Rathol
   attributes before multipliers: `30` health, `5` armor, `25` attack damage,
   `0.95` knockback resistance, movement speed `0.2`, and follow range `32`.
+- `com.dhanantry.scapeandrunparasites.entity.monster.inborn.EntityGothol`:
+  Gothol / Light Carrier entity size `0.85 x 2.3`, parasite ID `304`, type
+  `41`, `killcount = -10`, fuse time `70`, attack speed `1.1`,
+  melee/targeting goals, low-health self state below `5%` max health, and
+  death-triggered explosion unless on fire. Its explosion uses radius `4.0`,
+  applies Viral and Vomit to nearby non-parasites, creates a poison cloud with
+  radius `width * 2.5`, and has a stronger skin `1` variant with movement
+  speed `0.3`, effect radius `11`, direct damage around the blast, and a
+  shorter `4` tick cloud wait.
+- `com.dhanantry.scapeandrunparasites.client.renderer.entity.inborn.RenderGothol`:
+  legacy renderer uses shadow radius `1.2`, normal texture
+  `srparasites:textures/entity/monster/gothol.png`, an unused
+  `srparasites:textures/entity/monster/test.png` field, and references
+  `sgothol.png` for skin `120`. The provided 1.10.6 jar does not contain
+  `sgothol.png`, so the modern renderer intentionally does not select that
+  missing path.
+- `com.dhanantry.scapeandrunparasites.client.model.entity.inborn.ModelGothol`:
+  legacy `ModelRenderer` geometry and Java-authored pose methods. GeckoLib
+  conversion preserved 124 model bones and method-derived animation names
+  `animation.gothol.func_78087_a` and
+  `animation.gothol.setRotationAnglesCosmical`.
+- `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Gothol
+  attributes before multipliers: `30` health, `5` armor, `25` attack damage,
+  `0.95` knockback resistance, movement speed `0.2`, and follow range `32`.
 
 ## Implemented In This Slice
 
@@ -689,6 +713,26 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
     geometry, Java-authored animation resource, and the two jar-backed Rathol
     texture resources. The old renderer's missing `srathol.png` alternate path
     is intentionally not selected in the modern renderer.
+- Added the sixth evidence-backed inborn parasite entity slice:
+  - registered Gothol / Light Carrier under the visible entity id
+    `carrier_light`,
+  - upgraded the legacy `itemmobspawner_gothol` item into a real modern spawn
+    egg,
+  - preserved size `0.85 x 2.3`, eye height `1.95`, parasite ID `304`, type
+    `41`, primitive-tier XP surface, health/armor/damage/speed/knockback/
+    follow-range attributes, and the `70` tick fuse,
+  - ported the old swim, swell, melee, look-idle, HurtByTarget, player target,
+    and non-water/non-animal living target surface,
+  - preserved the low-health self-state trigger below `5%` max health and the
+    death explosion bypass when killed while on fire,
+  - ported the explosion radius `4.0`, mob-griefing gate, Viral/Vomit nearby
+    effects, variant skin `1` movement/effect-radius/direct-damage behavior,
+    shorter variant cloud wait, and lingering poison cloud surface,
+  - wired legacy carrier growl/hurt/death and Rathol boom sounds,
+  - wired a GeckoLib client renderer to the converted legacy `ModelGothol`
+    geometry, Java-authored animation resource, and the jar-backed Gothol
+    texture resource. The old renderer's missing `sgothol.png` alternate path
+    is intentionally not selected in the modern renderer.
 
 ## Explicit Gaps
 
@@ -746,6 +790,11 @@ own evidence-backed slices:
   modern slice preserves the contact threshold, viral/burst/despawn surface,
   and records the missing conversion/replacement backend here,
 - Rathol's full `SRPExplosion`, InfestRemain block placement, `ratholMobs`
+  summon table, COTH cloud effect, and exact config-backed blacklist/griefing
+  behavior remain explicit future slices. The modern slice preserves the
+  evidence-backed fuse, basic explosion, Viral/Vomit/poison cloud, fire death
+  bypass, and skin `1` blast variant surfaces,
+- Gothol's full `SRPExplosion`, InfestRemain block placement, `gotholMobs`
   summon table, COTH cloud effect, and exact config-backed blacklist/griefing
   behavior remain explicit future slices. The modern slice preserves the
   evidence-backed fuse, basic explosion, Viral/Vomit/poison cloud, fire death

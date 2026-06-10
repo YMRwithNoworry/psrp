@@ -268,7 +268,8 @@ public final class ModItems {
         new DeferredSpawnEggItem(ModEntities.ATA, 0x271915, 0x6E8A2B, new Item.Properties()));
     public static final DeferredItem<DeferredSpawnEggItem> ITEMMOBSPAWNER_RATHOL = register("itemmobspawner_rathol", () ->
         new DeferredSpawnEggItem(ModEntities.RATHOL, 0x3D2C24, 0x7E6A47, new Item.Properties()));
-    public static final DeferredItem<Item> ITEMMOBSPAWNER_GOTHOL = legacyItem("itemmobspawner_gothol", 64);
+    public static final DeferredItem<DeferredSpawnEggItem> ITEMMOBSPAWNER_GOTHOL = register("itemmobspawner_gothol", () ->
+        new DeferredSpawnEggItem(ModEntities.GOTHOL, 0x352820, 0x6B4B34, new Item.Properties()));
     public static final DeferredItem<Item> ITEMMOBSPAWNER_BUTHOL = legacyItem("itemmobspawner_buthol", 64);
     public static final DeferredItem<Item> ITEMMOBSPAWNER_VENKROL = legacyItem("itemmobspawner_venkrol", 64);
     public static final DeferredItem<Item> ITEMMOBSPAWNER_VENKROLSII = legacyItem("itemmobspawner_venkrolsii", 64);
