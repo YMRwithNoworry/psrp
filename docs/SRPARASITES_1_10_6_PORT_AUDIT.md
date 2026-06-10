@@ -517,6 +517,39 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Unvo
   attributes before multipliers: `30` health, `10` armor, `5` attack damage,
   and `25` range attack damage.
+- `com.dhanantry.scapeandrunparasites.entity.monster.deterrent.EntityNak`:
+  Nak / Seizer entity id `seizer`, size `0.7 x 2.5`, eye height `1.8`,
+  parasite ID `72`, type `40`, XP `0`, stationary movement speed `0`,
+  knockback resistance `1`, follow range `6`, and buried time `4.0`.
+- `com.dhanantry.scapeandrunparasites.entity.monster.deterrent.EntityNak`:
+  old AI adds HurtByTarget and look-idle while inherited stationary targeting
+  supplies player / non-water / non-animal living target selection. When a
+  visible target is within `25` squared distance, Nak sets parasite status `3`,
+  stores the target entity id, applies Slowness for `80` ticks at amplifier
+  `2`, and keeps navigation speed at `0`.
+- `com.dhanantry.scapeandrunparasites.entity.monster.deterrent.EntityNak`:
+  old per-tick grab behavior pulls the stored target toward Nak while target
+  distance is `< 25` and `> 1`, applies Slowness for `20` ticks at amplifier
+  `2`, and uses a `0.5` pull value with `0.5` damping. If no valid target is
+  present for `60` ticks, old code broadcasts event `51` and sets the
+  stationary retreat/up state.
+- `com.dhanantry.scapeandrunparasites.entity.monster.deterrent.EntityNak`:
+  projectile damage from old `EntitySRPProjectile` sources is forwarded to the
+  grabbed target at double damage and does not hurt Nak.
+- `com.dhanantry.scapeandrunparasites.client.renderer.entity.deterrent.RenderNak`:
+  renderer shadow radius `0.4`, normal texture
+  `srparasites:textures/entity/monster/nak.png`, and skin `120` texture
+  `srparasites:textures/entity/monster/snowvariants/seizerfrozen.png`. The
+  provided 1.10.6 jar does not contain `seizerfrozen.png`, so the modern
+  renderer intentionally does not select that missing path.
+- `com.dhanantry.scapeandrunparasites.client.model.entity.deterrent.ModelNak`:
+  legacy `ModelRenderer` geometry and Java-authored pose methods. GeckoLib
+  conversion preserved 66 model bones and method-derived animation names
+  `animation.nak.func_78087_a` and
+  `animation.nak.setRotationAnglesCosmical`.
+- `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Nak
+  attributes before multipliers: `15` health, `10` armor, and `6` attack
+  damage.
 
 ## Implemented In This Slice
 
@@ -896,6 +929,26 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
     geometry, Java-authored animation resource, and the jar-backed Unvo texture
     resource. The old renderer's missing `sentryfrozen.png` alternate path is
     intentionally not selected in the modern renderer.
+- Added the third evidence-backed deterrent parasite entity slice:
+  - registered Nak / Seizer under the visible entity id `seizer`,
+  - upgraded the legacy `itemmobspawner_nak` item into a real modern spawn egg,
+  - preserved size `0.7 x 2.5`, eye height `1.8`, parasite ID `72`, type `40`,
+    XP `0`, health/armor/damage/movement/knockback/follow-range attributes,
+    and the legacy buried time constant,
+  - ported the old stationary target surface with HurtByTarget, player target,
+    non-water/non-animal living target predicates, and look-idle,
+  - ported the grab surface: status `3`, target entity-id sync, visible-target
+    range `< 25`, Slowness `80` ticks at amplifier `2`, pull range `> 1` and
+    `< 25`, Slowness refresh for `20` ticks, and `0.5` pull / `0.5` damping,
+  - preserved the old attack timer event `12` rise/fall surface and the
+    no-target `60` tick retreat event `51` surface as modern state,
+  - ported the projectile redirection surface by forwarding projectile damage
+    to the grabbed target at double damage,
+  - wired legacy mob silence, mob tendril, and `dod.nak` sounds,
+  - wired a GeckoLib client renderer to the converted legacy `ModelNak`
+    geometry, Java-authored animation resource, and the jar-backed Nak texture
+    resource. The old renderer's missing `seizerfrozen.png` alternate path is
+    intentionally not selected in the modern renderer.
 
 ## Explicit Gaps
 
@@ -979,6 +1032,14 @@ own evidence-backed slices:
   evolution side effect remain explicit future slices. The modern slice
   preserves the evidence-backed stationary target surface, projectile cadence,
   Spineball damage/poison/gear-degrade behavior, sounds, renderer, and
+  animation resources,
+- Nak's full `EntityPStationary` bury / peek / relocation behavior, full
+  `EntityPMalleable` adaptation/resistance backend, exact old
+  `EntitySRPProjectile` source typing, dispatcher/father linking and right-click
+  father buff behavior, and client-only qlip-shake network effect remain
+  explicit future slices. The modern slice preserves the evidence-backed
+  stationary target surface, Seizer registration, target sync, grab/pull/slow
+  behavior, projectile damage redirection surface, sounds, renderer, and
   animation resources,
 - world evolution and phase systems,
 - adaptation systems,

@@ -2,6 +2,7 @@ package com.dhanantry.scapeandrunparasites.init;
 
 import com.dhanantry.scapeandrunparasites.SRPMain;
 import com.dhanantry.scapeandrunparasites.entity.monster.derived.KirinEntity;
+import com.dhanantry.scapeandrunparasites.entity.monster.deterrent.NakEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.deterrent.TonroEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.deterrent.UnvoEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.inborn.AtaEntity;
@@ -97,6 +98,12 @@ public final class ModEntities {
             .eyeHeight(UnvoEntity.LEGACY_EYE_HEIGHT)
             .clientTrackingRange(8)
             .build(SRPMain.MODID + ":sentry"));
+    public static final DeferredHolder<EntityType<?>, EntityType<NakEntity>> NAK = ENTITIES.register("seizer", () ->
+        EntityType.Builder.of(NakEntity::new, MobCategory.MONSTER)
+            .sized(NakEntity.LEGACY_WIDTH, NakEntity.LEGACY_HEIGHT)
+            .eyeHeight(NakEntity.LEGACY_EYE_HEIGHT)
+            .clientTrackingRange(8)
+            .build(SRPMain.MODID + ":seizer"));
     public static final DeferredHolder<EntityType<?>, EntityType<WebballEntity>> WEBBALL = ENTITIES.register("webball", () ->
         EntityType.Builder.<WebballEntity>of(WebballEntity::new, MobCategory.MISC)
             .sized(WebballEntity.LEGACY_WIDTH, WebballEntity.LEGACY_HEIGHT)
