@@ -854,6 +854,46 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Heblu
   attributes before multipliers: `525` health, `30` armor, `210` attack
   damage, `1.0` knockback resistance, and movement speed `0.27`.
+- `com.dhanantry.scapeandrunparasites.init.SRPEntities$RegistrationHandler`:
+  visible entity id `overseer` maps to
+  `com.dhanantry.scapeandrunparasites.entity.monster.pure.EntityAlafha` with
+  legacy spawn egg item `itemmobspawner_alafha`. The same old projectile id
+  `salivaball` maps to `EntityProjectileAlafhaBall`.
+- `com.dhanantry.scapeandrunparasites.entity.monster.pure.EntityAlafha`:
+  Alafha / Overseer size `1.9 x 2.6`, eye height `1.6`, parasite ID `9`, type
+  `9`, no-gravity flying state, head `EntityBody` dimensions `1.2`, `1.2`,
+  `1`, `3.0`, `0`, ids `-1` and `1`, no collision body flag, damage scalar
+  `0.2`, and adaptation cap `0.95`.
+- `com.dhanantry.scapeandrunparasites.entity.monster.pure.EntityAlafha`:
+  old AI adds HurtByTarget, `EntityAIFlightAttack(pureFollow)`, random flight,
+  `EntityAIAttackProjectile(20, 10, 4)`, airborne melee using speed `4.5`,
+  range `16`, vertical value `0.045`, and the Alafha-specific air biomass
+  summon goal using `alafhaSummoningCooldown`, `alafhaLimit`, and
+  `alafhaMobList`.
+- `com.dhanantry.scapeandrunparasites.entity.monster.pure.EntityAlafha`:
+  old random flight starts whenever the move helper has no target, or when the
+  current wanted point is closer than `1` squared or farther than `3600`
+  squared. With a target, idle speed starts at `0.11`, far/close target modes
+  add `0.11`, far target means distance squared `> 400`, close target means
+  `< 100`; without a target it picks a random point within `16` blocks at
+  speed `0.5`.
+- `com.dhanantry.scapeandrunparasites.entity.monster.pure.EntityAlafha`:
+  old projectile creation plays `alafha.shooting`, returns
+  `EntityProjectileAlafhaBall`, and the post-shot hook plays
+  `alafha.shootingpost`.
+- `com.dhanantry.scapeandrunparasites.client.renderer.entity.pure.RenderAlafha`:
+  renderer shadow radius `1.3`, normal texture
+  `srparasites:textures/entity/monster/alafha.png`, heavy skin `7` texture
+  `srparasites:textures/entity/monster/alafhah.png`, and self-flash scaling.
+- `com.dhanantry.scapeandrunparasites.client.model.entity.pure.ModelAlafha`:
+  legacy `ModelRenderer` geometry and Java-authored pose methods. GeckoLib
+  conversion preserved 165 model bones and method-derived animation names
+  `animation.alafha.func_78087_a` and
+  `animation.alafha.setRotationAnglesCosmical`.
+- `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Alafha
+  attributes before multipliers: `80` health, `20` armor, `22` melee damage,
+  `30` ranged damage, and `0.4` knockback resistance. Pure follow range
+  defaults to `32`.
 
 ## Implemented In This Slice
 
@@ -1508,6 +1548,30 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
     texture. The converted model keeps 356 bones and the two legacy
     pose-mutating animation methods `animation.heblu.func_78087_a` and
     `animation.heblu.setRotationAnglesCosmical`.
+- Added the evidence-backed pure Alafha/Overseer slice:
+  - confirmed old `SRPEntities` registers visible entity id `overseer` to
+    `EntityAlafha`, spawn egg item `itemmobspawner_alafha`, and shared
+    projectile id `salivaball` to `EntityProjectileAlafhaBall`,
+  - registered Alafha under `overseer` and upgraded `itemmobspawner_alafha`
+    into a real modern spawn egg using old colors `8611072` (`0x835000`) and
+    `16711900` (`0xFF00DC`),
+  - preserved size `1.9 x 2.6`, eye height `1.6`, parasite ID `9`, health
+    `80`, armor `20`, melee damage `22`, ranged damage marker `30`, knockback
+    resistance `0.4`, pure follow range `32`, type marker `9`, heavy skin `7`,
+    adaptation cap marker `0.95`, and no-gravity flying state,
+  - ported the visible flight and attack surface: old random flight trigger
+    bounds, no-target `16` block random flight, target far/close offsets and
+    speeds `0.11`/`0.22`, ground lift, terrain lift while targeting, airborne
+    melee pursuit, and `EntityAIAttackProjectile(20, 10, 4)` projectile cadence,
+  - reused the already ported `salivaball`/`AlafhaBallEntity` hit surface for
+    Alafha's ranged attack and wired old `alafha.shooting` /
+    `alafha.shootingpost` sounds,
+  - wired legacy Alafha growl/hurt/death and mob silence,
+  - wired a GeckoLib client renderer to the converted legacy `ModelAlafha`
+    geometry, Java-authored animation resource, and jar-backed `alafha.png` /
+    `alafhah.png` textures. The converted model keeps 165 bones and the two
+    legacy pose-mutating animation methods `animation.alafha.func_78087_a` and
+    `animation.alafha.setRotationAnglesCosmical`.
 
 ## Explicit Gaps
 
@@ -1683,6 +1747,15 @@ own evidence-backed slices:
   Draconite registration, attributes, no-gravity random flight, fireball/rain
   attack surface, nearby damage surface, `salivaball` projectile damage/cloud
   approximation, sounds, renderer, and animation resources,
+- Alafha/Overseer's full `EntityPPure` backend, exact head `EntityBody`
+  multipart collision/routing, exact old `EntityAIFlightAttack`, exact
+  `EntityAIAttackMeleeNotGround`, full `EntityAIAirVomitSummon` behavior,
+  `spawnBiomassFromProjectile`, summon mob list parsing, active mob accounting,
+  full malleable/adaptation/resistance backend, and exact self-flash render
+  math remain explicit future slices. The modern slice preserves the
+  evidence-backed Overseer registration, attributes, no-gravity random flight,
+  airborne melee pursuit, shared `salivaball` projectile surface, sounds,
+  renderer, and animation resources,
 - world evolution and phase systems,
 - adaptation systems,
 - bestiary GUI and networking,

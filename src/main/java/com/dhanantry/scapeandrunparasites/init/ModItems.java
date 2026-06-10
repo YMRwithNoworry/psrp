@@ -290,7 +290,8 @@ public final class ModItems {
     public static final DeferredItem<Item> ITEMMOBSPAWNER_LEEMSII = legacyItem("itemmobspawner_leemsii", 64);
     public static final DeferredItem<Item> ITEMMOBSPAWNER_LEEMSIII = legacyItem("itemmobspawner_leemsiii", 64);
     public static final DeferredItem<Item> ITEMMOBSPAWNER_LEEMSIV = legacyItem("itemmobspawner_leemsiv", 64);
-    public static final DeferredItem<Item> ITEMMOBSPAWNER_ALAFHA = legacyItem("itemmobspawner_alafha", 64);
+    public static final DeferredItem<DeferredSpawnEggItem> ITEMMOBSPAWNER_ALAFHA = register("itemmobspawner_alafha", () ->
+        new DeferredSpawnEggItem(ModEntities.ALAFHA, 0x835000, 0xFF00DC, new Item.Properties()));
     public static final DeferredItem<DeferredSpawnEggItem> ITEMMOBSPAWNER_GANRO = register("itemmobspawner_ganro", () ->
         new DeferredSpawnEggItem(ModEntities.GANRO, 0x2F241C, 0x8A6A3D, new Item.Properties()));
     public static final DeferredItem<DeferredSpawnEggItem> ITEMMOBSPAWNER_OMBOO = register("itemmobspawner_omboo", () ->

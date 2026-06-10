@@ -13,6 +13,7 @@ import com.dhanantry.scapeandrunparasites.entity.monster.inborn.LodoEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.inborn.MudoEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.inborn.NuuhEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.inborn.RatholEntity;
+import com.dhanantry.scapeandrunparasites.entity.monster.pure.AlafhaEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.AngedEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.EsorEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.FlogEntity;
@@ -144,6 +145,12 @@ public final class ModEntities {
             .eyeHeight(AngedEntity.LEGACY_EYE_HEIGHT)
             .clientTrackingRange(8)
             .build(SRPMain.MODID + ":vigilante"));
+    public static final DeferredHolder<EntityType<?>, EntityType<AlafhaEntity>> ALAFHA = ENTITIES.register("overseer", () ->
+        EntityType.Builder.of(AlafhaEntity::new, MobCategory.MONSTER)
+            .sized(AlafhaEntity.LEGACY_WIDTH, AlafhaEntity.LEGACY_HEIGHT)
+            .eyeHeight(AlafhaEntity.LEGACY_EYE_HEIGHT)
+            .clientTrackingRange(8)
+            .build(SRPMain.MODID + ":overseer"));
     public static final DeferredHolder<EntityType<?>, EntityType<HaunterEntity>> HAUNTER = ENTITIES.register("haunter", () ->
         EntityType.Builder.of(HaunterEntity::new, MobCategory.MONSTER)
             .sized(HaunterEntity.LEGACY_WIDTH, HaunterEntity.LEGACY_HEIGHT)
