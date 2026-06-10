@@ -654,6 +654,54 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Anged
   attributes before multipliers: `70` health, `25` armor, `23` melee damage,
   `27` ranged damage, `1.0` knockback resistance, and movement speed `0.2`.
+- `com.dhanantry.scapeandrunparasites.init.SRPEntities$RegistrationHandler`:
+  visible entity id `carrier_colony` maps to
+  `com.dhanantry.scapeandrunparasites.entity.monster.pure.preeminent.EntityVesta`
+  with legacy spawn egg item `itemmobspawner_vesta`.
+- `com.dhanantry.scapeandrunparasites.entity.monster.pure.preeminent.EntityVesta`:
+  Vesta / Colony Carrier size `1.75 x 3.6`, eye height `1.5`, parasite ID
+  `88`, type `31`, step height `1`, melee attack interval `10`, and
+  can-teleport/body-part flags from the old preeminent base surface. It
+  constructs a head `EntityBody` with dimensions/offsets `3.8`, `3.8`, `1`,
+  `3.1`, `1.6`, ids `1` and `1`, no collision body flag, and damage scalar
+  `0.2`.
+- `com.dhanantry.scapeandrunparasites.entity.monster.pure.preeminent.EntityVesta`:
+  old AI adds HurtByTarget, swimming/diving speed `0.15`, water leap `0.7` /
+  `1.5` with status `3` and interval `20`, melee status speed `1.3` with reach
+  `8`, `EntityAIGetFollowers` version `2` range `16`, and
+  `EntityAIGiveEffectsArea` using `VESTA_CD`, `VESTA_RANGE`, and
+  `vestaeffects`.
+- `com.dhanantry.scapeandrunparasites.entity.monster.pure.preeminent.EntityVesta`:
+  old tick updates the head body part and, when the preeminent base tick
+  counter reaches `25`, applies `LINK_E` and `FOSTER_E` for `6666` ticks at
+  amplifier `0` to parasite allies within `32` blocks.
+- `com.dhanantry.scapeandrunparasites.entity.ai.EntityAIGiveEffectsArea` and
+  `SRPConfigMobs`: default Vesta area buffs run after `60` ticks and then
+  subtract cooldown `20 * vestacd` (`600` ticks by default), search
+  `vestarange` (`60` by default), and apply defaults
+  `30;3;minecraft:regeneration`, `60;2;srparasites:foster`, and
+  `10;1;srparasites:link` to nearby parasite allies, excluding Vesta itself.
+- `com.dhanantry.scapeandrunparasites.entity.ai.EntityAIGetFollowers`: Vesta's
+  follower goal uses version `2`, range `16`, and attempts to assign nearby
+  lower-tier parasites as followers when Vesta has no target and is not already
+  following another parasite.
+- `com.dhanantry.scapeandrunparasites.entity.monster.pure.preeminent.EntityVesta`:
+  variant spawn uses legacy `variantChance` (`0.33` default). Variant skin `1`
+  changes armor to `VESTA_ARMOR * 1.5` and movement speed to `0.1694`.
+- `com.dhanantry.scapeandrunparasites.client.renderer.entity.pure.preeminent.RenderVesta`:
+  renderer shadow radius `1.3`, normal texture
+  `srparasites:textures/entity/monster/vesta.png`, variant skin `1` texture
+  `srparasites:textures/entity/monster/vestare.png`, and snow layer texture
+  `srparasites:textures/entity/layer/vestasnow.png`.
+- `com.dhanantry.scapeandrunparasites.client.model.entity.pure.preeminent.ModelVesta`:
+  legacy `ModelRenderer` geometry and Java-authored pose methods. GeckoLib
+  conversion preserved 226 model bones and method-derived animation names
+  `animation.vesta.func_78087_a` and
+  `animation.vesta.setRotationAnglesCosmical`.
+- `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Vesta
+  attributes before multipliers: `390` health, `15.5` armor, `45` attack
+  damage, `0.15` knockback resistance, and movement speed `0.242`. Legacy
+  preeminent follow range defaults to `80`.
 
 ## Implemented In This Slice
 
@@ -1187,6 +1235,31 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
     bones and the two legacy pose-mutating animation methods
     `animation.pheon.func_78087_a` and
     `animation.pheon.setRotationAnglesCosmical`.
+- Added the second evidence-backed preeminent Vesta/Colony Carrier slice:
+  - confirmed old `SRPEntities` registers visible entity id `carrier_colony`
+    to `EntityVesta`,
+  - registered Vesta under the visible entity id `carrier_colony`,
+  - upgraded the legacy `itemmobspawner_vesta` item into a real modern spawn
+    egg,
+  - preserved size `1.75 x 3.6`, eye height `1.5`, parasite ID `88`, type
+    `31`, preeminent-tier health/armor/damage/movement/knockback/follow-range
+    attributes, step height, melee interval `10`, melee speed `1.3`, melee
+    reach `8`, and water leap values `0.7` / `1.5` with status `3`,
+  - preserved the legacy variant surface: spawn chance `0.33`, skin `1`,
+    armor multiplier `1.5`, and movement speed `0.1694`,
+  - ported Vesta's visible colony-coordination surface by applying Link to
+    nearby parasite allies within `32` blocks and by applying the default
+    area-buff Regeneration and Link effects within `60` blocks after the old
+    `60` tick warmup and `600` tick cooldown,
+  - left Foster out intentionally because the FOSTER system remains blocked on
+    the broader infection/world-system migration,
+  - wired legacy Vesta growl/hurt/death, mob silence, and heavy step sounds,
+  - wired a GeckoLib client renderer to the converted legacy `ModelVesta`
+    geometry, Java-authored animation resource, and jar-backed `vesta.png` and
+    variant `vestare.png` texture resources. The converted model keeps 226
+    bones and the two legacy pose-mutating animation methods
+    `animation.vesta.func_78087_a` and
+    `animation.vesta.setRotationAnglesCosmical`.
 
 ## Explicit Gaps
 
@@ -1322,6 +1395,15 @@ own evidence-backed slices:
   evidence-backed Haunter registration, attributes, variant surface, target
   surface, AOE melee, ranged/homing projectile surface, silent sounds, renderer,
   and animation resources,
+- Vesta's full `EntityPPreeminent` backend, exact `EntityBody` multipart head
+  collision/routing, exact `EntityAIGetFollowers` follower-linking behavior,
+  scary orb effects, the full `EntityAIGiveEffectsArea` parser, Foster aura,
+  full preeminent-tier malleable/adaptation behavior, and exact self-flash
+  render math remain explicit future slices. FOSTER remains blocked on the
+  broader infection/world-system migration. The modern slice preserves the
+  evidence-backed Colony Carrier registration, attributes, variant surface,
+  target surface, melee/water-leap surface, Link/Regeneration colony-support
+  surface, sounds, renderer, and animation resources,
 - world evolution and phase systems,
 - adaptation systems,
 - bestiary GUI and networking,

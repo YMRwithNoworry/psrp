@@ -18,6 +18,7 @@ import com.dhanantry.scapeandrunparasites.entity.monster.pure.GanroEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.OmbooEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.OrchEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.preeminent.HaunterEntity;
+import com.dhanantry.scapeandrunparasites.entity.monster.pure.preeminent.VestaEntity;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 
@@ -45,5 +46,6 @@ public final class ModEntityEvents {
         event.put(ModEntities.ESOR.get(), EsorEntity.createAttributes().build());
         event.put(ModEntities.ANGED.get(), AngedEntity.createAttributes().build());
         event.put(ModEntities.HAUNTER.get(), HaunterEntity.createAttributes().build());
+        event.put(ModEntities.VESTA.get(), VestaEntity.createAttributes().build());
     }
 }

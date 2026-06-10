@@ -32,6 +32,7 @@ public final class ModClientEvents {
         event.registerEntityRenderer(ModEntities.ESOR.get(), EsorRenderer::new);
         event.registerEntityRenderer(ModEntities.ANGED.get(), AngedRenderer::new);
         event.registerEntityRenderer(ModEntities.HAUNTER.get(), HaunterRenderer::new);
+        event.registerEntityRenderer(ModEntities.VESTA.get(), VestaRenderer::new);
         event.registerEntityRenderer(ModEntities.WEBBALL.get(), WebballRenderer::new);
         event.registerEntityRenderer(ModEntities.ANGEDBALL.get(), AngedballRenderer::new);
         event.registerEntityRenderer(ModEntities.SPINEBALL.get(), SpineballRenderer::new);

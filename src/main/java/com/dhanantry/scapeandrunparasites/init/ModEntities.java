@@ -19,6 +19,7 @@ import com.dhanantry.scapeandrunparasites.entity.monster.pure.GanroEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.OmbooEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.OrchEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.preeminent.HaunterEntity;
+import com.dhanantry.scapeandrunparasites.entity.monster.pure.preeminent.VestaEntity;
 import com.dhanantry.scapeandrunparasites.entity.projectile.AngedballEntity;
 import com.dhanantry.scapeandrunparasites.entity.projectile.HommingballEntity;
 import com.dhanantry.scapeandrunparasites.entity.projectile.SpineballEntity;
@@ -141,6 +142,12 @@ public final class ModEntities {
             .eyeHeight(HaunterEntity.LEGACY_EYE_HEIGHT)
             .clientTrackingRange(10)
             .build(SRPMain.MODID + ":haunter"));
+    public static final DeferredHolder<EntityType<?>, EntityType<VestaEntity>> VESTA = ENTITIES.register("carrier_colony", () ->
+        EntityType.Builder.of(VestaEntity::new, MobCategory.MONSTER)
+            .sized(VestaEntity.LEGACY_WIDTH, VestaEntity.LEGACY_HEIGHT)
+            .eyeHeight(VestaEntity.LEGACY_EYE_HEIGHT)
+            .clientTrackingRange(10)
+            .build(SRPMain.MODID + ":carrier_colony"));
     public static final DeferredHolder<EntityType<?>, EntityType<WebballEntity>> WEBBALL = ENTITIES.register("webball", () ->
         EntityType.Builder.<WebballEntity>of(WebballEntity::new, MobCategory.MISC)
             .sized(WebballEntity.LEGACY_WIDTH, WebballEntity.LEGACY_HEIGHT)

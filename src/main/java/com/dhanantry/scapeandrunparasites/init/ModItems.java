@@ -300,7 +300,8 @@ public final class ModItems {
     public static final DeferredItem<DeferredSpawnEggItem> ITEMMOBSPAWNER_ANGED = register("itemmobspawner_anged", () ->
         new DeferredSpawnEggItem(ModEntities.ANGED, 0x33241D, 0x8D5B3F, new Item.Properties()));
     public static final DeferredItem<Item> ITEMMOBSPAWNER_JINJO = legacyItem("itemmobspawner_jinjo", 64);
-    public static final DeferredItem<Item> ITEMMOBSPAWNER_VESTA = legacyItem("itemmobspawner_vesta", 64);
+    public static final DeferredItem<DeferredSpawnEggItem> ITEMMOBSPAWNER_VESTA = register("itemmobspawner_vesta", () ->
+        new DeferredSpawnEggItem(ModEntities.VESTA, 0x313517, 0x6D4B38, new Item.Properties()));
     public static final DeferredItem<DeferredSpawnEggItem> ITEMMOBSPAWNER_PHEON = register("itemmobspawner_pheon", () ->
         new DeferredSpawnEggItem(ModEntities.HAUNTER, 0x312922, 0x7E4E3A, new Item.Properties()));
     public static final DeferredItem<Item> ITEMMOBSPAWNER_LENCIA = legacyItem("itemmobspawner_lencia", 64);
