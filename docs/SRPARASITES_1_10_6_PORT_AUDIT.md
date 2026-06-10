@@ -418,6 +418,39 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Gothol
   attributes before multipliers: `30` health, `5` armor, `25` attack damage,
   `0.95` knockback resistance, movement speed `0.2`, and follow range `32`.
+- `com.dhanantry.scapeandrunparasites.entity.monster.inborn.EntityButhol`:
+  Buthol / Flying Carrier entity id `carrier_flying`, size `1.4 x 2.4`, eye
+  height `2.4`, parasite ID `11`, type `31`, infected-tier XP doubled to `20`,
+  fuse time `30`, no fall damage, no-gravity flight, ground lift target `+5Y`
+  at speed `0.5`, random air movement every `1/7` checks, charge attack speed
+  `1.0`, and variant skin `1` selection.
+- `com.dhanantry.scapeandrunparasites.entity.monster.inborn.EntityButhol`:
+  explosion evidence uses radius `4.0`, mob-griefing gate, nearby non-parasite
+  living scan in the legacy `4.0` inflated box, Viral for `400` ticks at
+  amplifier `1`, Vomit for `400` ticks at amplifier `0`, skin `1` direct magic
+  damage, and Buthol boom sound. Its old `butholMobs` summon table and custom
+  `SRPExplosion`/residue backend require separate world-system slices.
+- `com.dhanantry.scapeandrunparasites.entity.monster.inborn.EntityButhol`:
+  lingering toxic cloud radius is `width * 3.5`, radius-on-use `0.5`, wait
+  time `10`, duration halved, poison for `300` ticks at amplifier `0` or `2`,
+  and old COTH/Viral cloud effects for `3600` ticks at matching amplifier. The
+  modern slice applies poison and Viral, with COTH still tracked as a missing
+  backend.
+- `com.dhanantry.scapeandrunparasites.client.renderer.entity.inborn.RenderButhol`:
+  renderer shadow radius `1.3`, normal texture
+  `srparasites:textures/entity/monster/buthol.png`, skin `1` texture
+  `srparasites:textures/entity/monster/butholone.png`, and skin `120` texture
+  `srparasites:textures/entity/monster/sbuthol.png`. The provided 1.10.6 jar
+  does not contain `sbuthol.png`, so the modern renderer intentionally does
+  not select that missing path.
+- `com.dhanantry.scapeandrunparasites.client.model.entity.inborn.ModelButhol`:
+  legacy `ModelRenderer` geometry and Java-authored pose methods. GeckoLib
+  conversion preserved 43 model bones and method-derived animation names
+  `animation.buthol.func_78087_a` and
+  `animation.buthol.setRotationAnglesCosmical`.
+- `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Buthol
+  attributes before multipliers: `20` health, `2.5` armor, `10` attack damage,
+  `0.15` knockback resistance, and max flight Y `256`.
 
 ## Implemented In This Slice
 
@@ -733,6 +766,27 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
     geometry, Java-authored animation resource, and the jar-backed Gothol
     texture resource. The old renderer's missing `sgothol.png` alternate path
     is intentionally not selected in the modern renderer.
+- Added the seventh evidence-backed inborn parasite entity slice:
+  - registered Buthol / Flying Carrier under the visible entity id
+    `carrier_flying`,
+  - upgraded the legacy `itemmobspawner_buthol` item into a real modern spawn
+    egg,
+  - preserved size `1.4 x 2.4`, eye height `2.4`, parasite ID `11`, type `31`,
+    infected-tier doubled XP surface, health/armor/damage/knockback/follow-range
+    attributes, no-fall-damage flight, and the `30` tick fuse,
+  - ported the old no-gravity air movement surface: ground lift toward `+5Y`,
+    random empty-air wandering, Vex-style acceleration toward move targets, and
+    target-facing charge attacks,
+  - ported the old swell, HurtByTarget, player target, and non-water/non-animal
+    living target surface,
+  - ported the explosion radius `4.0`, mob-griefing gate, Viral/Vomit nearby
+    effects, variant skin `1` direct-damage behavior, and lingering poison cloud
+    surface,
+  - wired legacy carrier growl/hurt/death and Buthol boom sounds,
+  - wired a GeckoLib client renderer to the converted legacy `ModelButhol`
+    geometry, Java-authored animation resource, and the two jar-backed Buthol
+    texture resources. The old renderer's missing `sbuthol.png` alternate path
+    is intentionally not selected in the modern renderer.
 
 ## Explicit Gaps
 
@@ -799,6 +853,12 @@ own evidence-backed slices:
   behavior remain explicit future slices. The modern slice preserves the
   evidence-backed fuse, basic explosion, Viral/Vomit/poison cloud, fire death
   bypass, and skin `1` blast variant surfaces,
+- Buthol's full `SRPExplosion`, InfestRemain block placement, `butholMobs`
+  summon table, COTH cloud effect, flight-height config override, and exact
+  config-backed blacklist/griefing behavior remain explicit future slices. The
+  modern slice preserves the evidence-backed flying movement, charge, fuse,
+  basic explosion, Viral/Vomit/poison cloud, fire death bypass, and skin `1`
+  blast variant surfaces,
 - world evolution and phase systems,
 - adaptation systems,
 - bestiary GUI and networking,

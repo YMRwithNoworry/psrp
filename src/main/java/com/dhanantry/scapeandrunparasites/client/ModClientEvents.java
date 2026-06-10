@@ -23,6 +23,7 @@ public final class ModClientEvents {
         event.registerEntityRenderer(ModEntities.ATA.get(), AtaRenderer::new);
         event.registerEntityRenderer(ModEntities.RATHOL.get(), RatholRenderer::new);
         event.registerEntityRenderer(ModEntities.GOTHOL.get(), GotholRenderer::new);
+        event.registerEntityRenderer(ModEntities.BUTHOL.get(), ButholRenderer::new);
         event.registerEntityRenderer(ModEntities.WEBBALL.get(), WebballRenderer::new);
     }
 }
