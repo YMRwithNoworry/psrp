@@ -1156,6 +1156,37 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
     geometry, Java-authored animation resource, and the jar-backed `anged.png`
     and heavy-skin `angedh.png` texture resources. The old self-flash scaling
     is approximated from the modern attack timer pulse.
+- Added the first evidence-backed preeminent Haunter/Pheon slice:
+  - confirmed old `SRPEntities` registers visible entity id `haunter` to
+    `EntityPheon`, while the unused `EntityRond` path references a missing
+    `rond.png` texture and is not the user-visible Haunter registration,
+  - registered Haunter under the visible entity id `haunter`,
+  - upgraded the legacy `itemmobspawner_pheon` item into a real modern spawn
+    egg,
+  - registered the old `homming` projectile id as a modern `HommingballEntity`
+    used by Haunter's ranged surface,
+  - preserved size `2.0 x 3.6`, eye height `4.7`, parasite ID `87`, type
+    `63`, preeminent-tier health/armor/damage/movement/knockback/follow-range
+    attributes, step height, always-special skin `1`, variant health
+    multiplier `0.5`, and variant damage multiplier `1.5`,
+  - ported the old target surface with HurtByTarget, player target,
+    non-water/non-animal living target predicates, swimming, look-idle, melee
+    speed `1`, ranged cadence `40`, ranged range `40`, and projectile burst
+    cadence `60` / minimum distance `10` / count `3`,
+  - ported the old AOE melee surface: nearby target box `5 x 2 x 5`, crowded
+    threshold over `4`, crowded area `5 x 3 x 5`, non-parasite filtering, and
+    crowded damage `40`,
+  - approximated old `EntityProjectileHomming` as a modern homing throwable
+    preserving the legacy `homming` registry id, 0.3 projectile size, slime-like
+    break particles, parasite-ally discard, old Oronco projectile damage `15`,
+    and old Dorpa range launch sound,
+  - wired legacy silent ambient/hurt/death sounds,
+  - wired a GeckoLib client renderer to the converted legacy `ModelPheon`
+    geometry, Java-authored animation resource, and jar-backed `pheon.png` and
+    variant `pheonsp1.png` texture resources. The converted model keeps 275
+    bones and the two legacy pose-mutating animation methods
+    `animation.pheon.func_78087_a` and
+    `animation.pheon.setRotationAnglesCosmical`.
 
 ## Explicit Gaps
 
@@ -1281,6 +1312,16 @@ own evidence-backed slices:
   preserves the evidence-backed Vigilante registration, attributes, target
   surface, melee/ranged cadence, knockback, Angedball damage/cloud behavior,
   tendril NBT/event state, sounds, renderer, and animation resources,
+- Haunter/Pheon's full `EntityPPreeminent` backend, exact `EntityBody`
+  multipart head/middle collision, full `EntityAIAttackMeleeRangeSwitch`,
+  exact `EntityAIAttackProjectile` scheduling semantics, exact
+  `EntityProjectileHomming` acceleration and hit side effects, scary orb
+  effects, block-breaking skill, colony/body-part interfaces, full
+  preeminent-tier malleable/adaptation behavior, and exact self-flash render
+  math remain explicit future slices. The modern slice preserves the
+  evidence-backed Haunter registration, attributes, variant surface, target
+  surface, AOE melee, ranged/homing projectile surface, silent sounds, renderer,
+  and animation resources,
 - world evolution and phase systems,
 - adaptation systems,
 - bestiary GUI and networking,

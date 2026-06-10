@@ -18,7 +18,9 @@ import com.dhanantry.scapeandrunparasites.entity.monster.pure.FlogEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.GanroEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.OmbooEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.OrchEntity;
+import com.dhanantry.scapeandrunparasites.entity.monster.pure.preeminent.HaunterEntity;
 import com.dhanantry.scapeandrunparasites.entity.projectile.AngedballEntity;
+import com.dhanantry.scapeandrunparasites.entity.projectile.HommingballEntity;
 import com.dhanantry.scapeandrunparasites.entity.projectile.SpineballEntity;
 import com.dhanantry.scapeandrunparasites.entity.projectile.WebballEntity;
 import net.minecraft.core.registries.Registries;
@@ -133,6 +135,12 @@ public final class ModEntities {
             .eyeHeight(AngedEntity.LEGACY_EYE_HEIGHT)
             .clientTrackingRange(8)
             .build(SRPMain.MODID + ":vigilante"));
+    public static final DeferredHolder<EntityType<?>, EntityType<HaunterEntity>> HAUNTER = ENTITIES.register("haunter", () ->
+        EntityType.Builder.of(HaunterEntity::new, MobCategory.MONSTER)
+            .sized(HaunterEntity.LEGACY_WIDTH, HaunterEntity.LEGACY_HEIGHT)
+            .eyeHeight(HaunterEntity.LEGACY_EYE_HEIGHT)
+            .clientTrackingRange(10)
+            .build(SRPMain.MODID + ":haunter"));
     public static final DeferredHolder<EntityType<?>, EntityType<WebballEntity>> WEBBALL = ENTITIES.register("webball", () ->
         EntityType.Builder.<WebballEntity>of(WebballEntity::new, MobCategory.MISC)
             .sized(WebballEntity.LEGACY_WIDTH, WebballEntity.LEGACY_HEIGHT)
@@ -151,6 +159,12 @@ public final class ModEntities {
             .clientTrackingRange(4)
             .updateInterval(10)
             .build(SRPMain.MODID + ":spineball"));
+    public static final DeferredHolder<EntityType<?>, EntityType<HommingballEntity>> HOMMING = ENTITIES.register("homming", () ->
+        EntityType.Builder.<HommingballEntity>of(HommingballEntity::new, MobCategory.MISC)
+            .sized(HommingballEntity.LEGACY_WIDTH, HommingballEntity.LEGACY_HEIGHT)
+            .clientTrackingRange(4)
+            .updateInterval(10)
+            .build(SRPMain.MODID + ":homming"));
 
     private ModEntities() {
     }
