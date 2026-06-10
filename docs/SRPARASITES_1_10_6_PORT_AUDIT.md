@@ -584,6 +584,40 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Omboo
   attributes before multipliers: `75` health, `20` armor, `25` attack
   damage, `0.15` knockback resistance, and `20` bomb damage.
+- `com.dhanantry.scapeandrunparasites.entity.monster.pure.EntityEsor`:
+  Esor / Heavy Bomber entity id `bomber_heavy`, size `0.901 x 4.2`, eye
+  height `3.5`, parasite ID `50`, type `50`, step height `1`, and no fall
+  damage. It constructs left and right `EntityBody` tendrils with side ids `1`
+  and `2`, saves their health under `parasiteleftTendril` and
+  `parasiterightTendril`, and broadcasts events `11`, `12`, `22`, and `100`
+  for left-dead, attack, right-dead, and flame-particle states.
+- `com.dhanantry.scapeandrunparasites.entity.monster.pure.EntityEsor`:
+  old AI adds HurtByTarget, swimming/diving, water leap, AOE melee, skill leap,
+  evade, and smash goals. The preserved surfaces include AOE melee speed
+  `1.3`, reach `8`, inflate `5`, water leap `0.7` / `1.5` with status `7`,
+  skill leap cooldown `100`, windup `10`, values `1.2` / `2.5`, evade
+  interval `50`, max distance `10`, speed `4`, and hit vertical bonus
+  `0.5000000059604645`.
+- `com.dhanantry.scapeandrunparasites.entity.monster.pure.EntityEsor`:
+  old smash skill cancels while airborne, plays the hurt sound at border `2`,
+  applies status `25` and Slowness `110` ticks amplifier `100` during the
+  first `20` ticks, then status `3`, swipe sounds every `7` ticks, AABB damage
+  in `6 x 3 x 6`, and after border `100` gives nearby parasite allies Rage for
+  `1200` ticks at amplifier `1` when Rage is enabled.
+- `com.dhanantry.scapeandrunparasites.client.renderer.entity.pure.RenderEsor`:
+  renderer shadow radius `1.2`, normal texture
+  `srparasites:textures/entity/monster/esor.png`, heavy skin `7` texture
+  `srparasites:textures/entity/monster/esorh.png`, and the legacy tendril
+  texture `srparasites:textures/entity/monster/tendrilesor.png` for the old
+  separate tendril/body renderer surface.
+- `com.dhanantry.scapeandrunparasites.client.model.entity.pure.ModelEsor`:
+  legacy `ModelRenderer` geometry and Java-authored pose methods. GeckoLib
+  conversion preserved 175 model bones and method-derived animation names
+  `animation.esor.func_78087_a` and
+  `animation.esor.setRotationAnglesCosmical`.
+- `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Esor
+  attributes before multipliers: `120` health, `20` armor, `40` attack
+  damage, `1.0` knockback resistance, and movement speed `0.255`.
 
 ## Implemented In This Slice
 
@@ -1031,6 +1065,34 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
     geometry, Java-authored animation resource, and the jar-backed `omboo.png`
     and heavy-skin `ombooh.png` texture resources. The old self-flash scaling
     is approximated from the charging pulse.
+- Added the third evidence-backed pure Esor/Heavy Bomber slice:
+  - registered Esor / Heavy Bomber under the visible entity id
+    `bomber_heavy`,
+  - upgraded the legacy `itemmobspawner_esor` item into a real modern spawn
+    egg,
+  - preserved size `0.901 x 4.2`, eye height `3.5`, parasite ID `50`, type
+    `50`, pure-tier health/armor/damage/movement/knockback/follow-range
+    attributes, legacy step height, heavy skin `7`, wall-climber navigation,
+    and no-fall-damage surface,
+  - ported the old target surface with HurtByTarget, player target,
+    non-water/non-animal living target predicates, swimming, wandering,
+    look-idle, and wall-climber navigation,
+  - ported the AOE melee surface: speed `1.3`, reach `8`, inflated damage box,
+    line-of-sight filtering, non-parasite filtering, swipe sound, attack event
+    `12`, attack timer rise/fall, and the old direct-hit vertical lift,
+  - ported the old water leap, skill leap, evade dash, and smash timing
+    surfaces. Smash keeps the airborne cancel, border `2` hurt sound, warmup
+    status `25`, Slowness `110` ticks amplifier `100`, active status `3`,
+    swipe cadence, `6 x 3 x 6` damage area, and Rage application to nearby
+    parasite allies,
+  - preserved the legacy tendril NBT/event state for left and right tendrils
+    while documenting the missing independent multipart hit routing as a gap,
+  - wired legacy Esor growl/hurt/death, mob silence, mob swipe, and heavy step
+    sounds,
+  - wired a GeckoLib client renderer to the converted legacy `ModelEsor`
+    geometry, Java-authored animation resource, and the jar-backed `esor.png`
+    and heavy-skin `esorh.png` texture resources. The old self-flash scaling
+    is approximated from the modern attack timer pulse.
 
 ## Explicit Gaps
 
@@ -1137,6 +1199,15 @@ own evidence-backed slices:
   modern slice preserves the evidence-backed Light Bomber registration,
   attributes, no-gravity flight, random flying, charge, delayed bomb cadence,
   sounds, renderer, and animation resources,
+- Esor's full `EntityPPure` backend, exact `EntityBody` multipart collision,
+  exact old `EntityTendril` spawn/body-part renderer flow, `ModelTendrilEsor`
+  rendering, exact config-backed `SRPConfig.tendrilHealth`, `cutResistances`,
+  network body-dead packet behavior, exact old `PathNavigateClimberStatus`
+  pathing, full malleable adaptation/resistance backend, exact smash knockback,
+  and exact self-flash render math remain explicit future slices. The modern
+  slice preserves the evidence-backed Heavy Bomber registration, attributes,
+  target surface, AOE melee, direct-hit lift, leap, evade, smash, Rage aura,
+  tendril NBT/event state, sounds, renderer, and animation resources,
 - world evolution and phase systems,
 - adaptation systems,
 - bestiary GUI and networking,
