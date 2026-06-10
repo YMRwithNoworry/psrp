@@ -39,5 +39,7 @@ public final class ModClientEvents {
         event.registerEntityRenderer(ModEntities.SPINEBALL.get(), SpineballRenderer::new);
         event.registerEntityRenderer(ModEntities.HOMMING.get(), HommingballRenderer::new);
         event.registerEntityRenderer(ModEntities.ELVIABALL.get(), ElviaBallRenderer::new);
+        event.registerEntityRenderer(ModEntities.NADEBALL.get(), NadeBallRenderer::new);
+        event.registerEntityRenderer(ModEntities.NADE.get(), NadeRenderer::new);
     }
 }

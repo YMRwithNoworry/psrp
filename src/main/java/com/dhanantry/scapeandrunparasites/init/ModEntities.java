@@ -24,6 +24,8 @@ import com.dhanantry.scapeandrunparasites.entity.monster.pure.preeminent.VestaEn
 import com.dhanantry.scapeandrunparasites.entity.projectile.AngedballEntity;
 import com.dhanantry.scapeandrunparasites.entity.projectile.ElviaBallEntity;
 import com.dhanantry.scapeandrunparasites.entity.projectile.HommingballEntity;
+import com.dhanantry.scapeandrunparasites.entity.projectile.NadeBallEntity;
+import com.dhanantry.scapeandrunparasites.entity.projectile.NadeEntity;
 import com.dhanantry.scapeandrunparasites.entity.projectile.SpineballEntity;
 import com.dhanantry.scapeandrunparasites.entity.projectile.WebballEntity;
 import net.minecraft.core.registries.Registries;
@@ -186,6 +188,18 @@ public final class ModEntities {
             .clientTrackingRange(4)
             .updateInterval(10)
             .build(SRPMain.MODID + ":balltall"));
+    public static final DeferredHolder<EntityType<?>, EntityType<NadeBallEntity>> NADEBALL = ENTITIES.register("nadeball", () ->
+        EntityType.Builder.<NadeBallEntity>of(NadeBallEntity::new, MobCategory.MISC)
+            .sized(NadeBallEntity.LEGACY_WIDTH, NadeBallEntity.LEGACY_HEIGHT)
+            .clientTrackingRange(4)
+            .updateInterval(10)
+            .build(SRPMain.MODID + ":nadeball"));
+    public static final DeferredHolder<EntityType<?>, EntityType<NadeEntity>> NADE = ENTITIES.register("nade", () ->
+        EntityType.Builder.<NadeEntity>of(NadeEntity::new, MobCategory.MISC)
+            .sized(NadeEntity.LEGACY_WIDTH, NadeEntity.LEGACY_HEIGHT)
+            .clientTrackingRange(8)
+            .updateInterval(3)
+            .build(SRPMain.MODID + ":nade"));
 
     private ModEntities() {
     }

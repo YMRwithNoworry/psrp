@@ -2,6 +2,7 @@ package com.dhanantry.scapeandrunparasites.entity.monster.pure.preeminent;
 
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.SrpParasiteMob;
 import com.dhanantry.scapeandrunparasites.entity.projectile.ElviaBallEntity;
+import com.dhanantry.scapeandrunparasites.entity.projectile.NadeBallEntity;
 import com.dhanantry.scapeandrunparasites.init.ModSounds;
 import java.util.EnumSet;
 import net.minecraft.core.BlockPos;
@@ -29,6 +30,7 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -253,9 +255,16 @@ public class ElviaEntity extends SrpParasiteMob implements GeoEntity {
         return isCharging() ? 0.5F : 0.0F;
     }
 
-    public ElviaBallEntity getProj(double xPower, double yPower, double zPower) {
+    public ThrowableItemProjectile getProj(double xPower, double yPower, double zPower) {
+        ThrowableItemProjectile projectile;
+        if (this.projectileCycleCount >= 1) {
+            this.projectileCycleCount = 0;
+            projectile = new NadeBallEntity(this.level(), this, xPower, yPower, zPower, NadeBallEntity.LEGACY_FUSE_TICKS, NadeBallEntity.LEGACY_DURATION_TICKS);
+        } else {
+            projectile = new ElviaBallEntity(this.level(), this, xPower, yPower, zPower);
+        }
         playProjSound();
-        return new ElviaBallEntity(this.level(), this, xPower, yPower, zPower);
+        return projectile;
     }
 
     private void playProjSound() {
@@ -333,7 +342,7 @@ public class ElviaEntity extends SrpParasiteMob implements GeoEntity {
         double xPower = target.getX() - (getX() + look.x);
         double yPower = target.getBoundingBox().minY + target.getBbHeight() / 2.0D - (getY() + getEyeHeight() - 0.2D);
         double zPower = target.getZ() - (getZ() + look.z);
-        ElviaBallEntity projectile = getProj(xPower, yPower, zPower);
+        ThrowableItemProjectile projectile = getProj(xPower, yPower, zPower);
         projectile.setPos(getX() + look.x, getY() + getEyeHeight() - 0.2D, getZ() + look.z);
         this.level().addFreshEntity(projectile);
     }

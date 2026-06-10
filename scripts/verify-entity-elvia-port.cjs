@@ -102,7 +102,7 @@ for (const marker of [
   if (!elvia.includes(marker)) throw new Error(`ElviaEntity missing legacy behavior marker: ${marker}`);
 }
 if (elvia.includes("NadeEntity") || elvia.includes("EntityProjectileNade")) {
-  throw new Error("Elvia must not pretend the legacy EntityProjectileNade surface is fully ported in this slice");
+  throw new Error("Elvia should use the registered NadeBallEntity handoff, not instantiate the delayed Nade body directly");
 }
 
 const projectile = read("src/main/java/com/dhanantry/scapeandrunparasites/entity/projectile/ElviaBallEntity.java");

@@ -706,7 +706,8 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   visible entity id `wraith` maps to
   `com.dhanantry.scapeandrunparasites.entity.monster.pure.preeminent.EntityElvia`
   with legacy spawn egg item `itemmobspawner_elvia`; old projectile id
-  `balltall` maps to `EntityProjectileElviaBall`.
+  `balltall` maps to `EntityProjectileElviaBall`, `nadeball` maps to
+  `EntityProjectileNade`, and `nade` maps to `EntityNade`.
 - `com.dhanantry.scapeandrunparasites.entity.monster.pure.preeminent.EntityElvia`:
   Elvia / Wraith size `4.0 x 4.0`, eye height `2.1`, parasite ID `85`,
   no-gravity flight, adaptation cap `0.95`, invisibility cutoff
@@ -729,6 +730,16 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   old `getProj` alternates `EntityProjectileElviaBall` with an
   `EntityProjectileNade`; `playProjSound` increments the internal count and
   clears invisibility/timer state.
+- `com.dhanantry.scapeandrunparasites.entity.projectile.EntityProjectileNade`:
+  projectile size `0.3 x 0.3`, slime hit particles, constructor carries
+  `fuse` and `duration`, and on hit it spawns an `EntityNade` at the projectile
+  position with the owner set as father before discarding.
+- `com.dhanantry.scapeandrunparasites.entity.projectile.EntityNade`: default
+  size `0.5 x 0.5`, default fuse/start values `3` and `10`, Elvia uses
+  `4` and `60`, plays `NADE_S` on tick `2`, emits `5` normal smoke and `2`
+  large-smoke particles client-side, grows by `0.8` width and `0.32` height
+  while igniting, then repeatedly damages non-parasite living entities in its
+  current bounds using the father's attack damage until the duration expires.
 - `com.dhanantry.scapeandrunparasites.entity.projectile.EntityProjectileElviaBall`:
   projectile size `0.3 x 0.3`, explosion-normal hit particles, parasite-ally
   discard except Nak, damage from Elvia attack damage (`70`), old
@@ -741,6 +752,12 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   conversion preserved 289 model bones and method-derived animation names
   `animation.elvia.func_78087_a` and
   `animation.elvia.setRotationAnglesCosmical`.
+- `com.dhanantry.scapeandrunparasites.client.renderer.entity.misc.RenderNade`:
+  renderer texture `srparasites:textures/entity/monster/nade.png` and
+  self-flash scaling based on `EntityNade.getSelfeFlashIntensity`. The
+  converted `ModelNade` keeps 1 model bone and method-derived animation names
+  `animation.nade.func_78087_a` and
+  `animation.nade.setRotationAnglesCosmical`.
 - `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Elvia
   attributes before multipliers: `310` health, `15.5` armor, `70` attack and
   projectile damage, `0.15` knockback resistance, and preeminent follow range
@@ -1325,9 +1342,26 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
     texture. The converted model keeps 289 bones and the two legacy
     pose-mutating animation methods `animation.elvia.func_78087_a` and
     `animation.elvia.setRotationAnglesCosmical`,
-  - left `EntityProjectileNade` out intentionally because its alternating
-    grenade behavior needs a separate projectile slice. `EntityProjectileNade`
-    remains an explicit future slice.
+  - initially left `EntityProjectileNade` out because its alternating grenade
+    behavior needed a separate projectile slice.
+- Added the modern Nade slice used by Elvia/Wraith:
+  - confirmed old `SRPEntities` registers `nadeball` to
+    `EntityProjectileNade` and `nade` to `EntityNade`,
+  - registered both ids as modern entities and wired client renderers,
+  - restored Elvia's old alternating projectile surface: ElviaBall first, then
+    NadeBall with fuse `4` and duration `60`, with projectile sound/timer
+    behavior still clearing invisibility,
+  - ported the `nadeball` handoff surface: `0.3 x 0.3`, slime particles, and
+    spawn of delayed `NadeEntity` on hit,
+  - ported the delayed `nade` burst surface: `0.5 x 0.5` initial size,
+    default fuse/start `3`/`10`, Elvia fuse/start `4`/`60`, `nade.s` sound on
+    tick `2`, smoke particles, growth during ignition, and repeated father
+    attack-damage hits against non-parasite living entities in its bounds,
+  - wired a GeckoLib renderer to converted legacy `ModelNade` geometry,
+    Java-authored animation resource, and jar-backed `nade.png`. The converted
+    model keeps 1 bone and the two legacy pose-mutating animation methods
+    `animation.nade.func_78087_a` and
+    `animation.nade.setRotationAnglesCosmical`.
 
 ## Explicit Gaps
 
@@ -1475,12 +1509,13 @@ own evidence-backed slices:
 - Elvia/Wraith's full `EntityPPreeminent` backend, exact `EntityAIFlightAttack`,
   exact `EntityAIAttackProjectile` cadence semantics, exact
   `EntityAIFlightLimits`, exact `EntityDamage` helper/minimum-melee behavior,
-  `EntityProjectileNade` alternating grenade behavior, scary orb effects, full
-  preeminent-tier malleable/adaptation behavior, and exact self-flash render
-  math remain explicit future slices. The modern slice preserves the
+  exact `EntityNade` movement/collision/body growth side effects, scary orb
+  effects, full preeminent-tier malleable/adaptation behavior, and exact
+  self-flash render math remain explicit future slices. The modern slice preserves the
   evidence-backed Wraith registration, attributes, no-gravity flight/charge
   surface, invisibility threshold, nearby damage surface, `balltall` projectile
-  surface, sounds, renderer, and animation resources,
+  surface, `nadeball`/`nade` alternating grenade surface, sounds, renderer, and
+  animation resources,
 - world evolution and phase systems,
 - adaptation systems,
 - bestiary GUI and networking,
