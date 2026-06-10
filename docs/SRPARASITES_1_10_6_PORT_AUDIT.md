@@ -1572,6 +1572,31 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
     `alafhah.png` textures. The converted model keeps 165 bones and the two
     legacy pose-mutating animation methods `animation.alafha.func_78087_a` and
     `animation.alafha.setRotationAnglesCosmical`.
+- Added the evidence-backed infected Dorpa/Assimilated Big Spider slice:
+  - confirmed old `SRPEntities` registers visible entity id `sim_bigspider` to
+    `EntityDorpa` and spawn egg item `itemmobspawner_dorpa`,
+  - upgraded `itemmobspawner_dorpa` from a placeholder item into a real modern
+    spawn egg using old colors `8611072` (`0x835000`) and `16711900`
+    (`0xFF00DC`),
+  - preserved parasite ID `2`, size `1.9 x 2.1`, eye height `1.75`, shadow
+    radius `1.2`, type marker `14`, killcount marker `-10`, can-mod-render
+    marker `1`, health `22`, armor `3`, melee damage `9`, ranged damage marker
+    `4`, movement speed `0.27`, and knockback resistance `0.5`,
+  - ported the visible old `EntityDorpa` combat surface: wall-climber
+    navigation, `EntityAIAttackMeleeStatus(1.5, false, 0)`-style melee,
+    `EntityAIAttackProjectile(60, 15, 3)`-style webball volleys, and the
+    old `EntityProjectileWebball` dependency through the modern shared
+    `WebballEntity`,
+  - preserved the old one-in-three skin `1` spawn variant, its half-health and
+    `1.25x` attack-damage attributes, and its 40 tick Wither-on-hit effect,
+  - wired legacy infected-spider growl/hurt/death/step sounds and the old
+    `DORPA_RANGE` projectile launch sound,
+  - wired a GeckoLib client renderer to the converted legacy `ModelDorpa`
+    geometry, Java-authored animation resource, renderer scale `0.78`, and
+    jar-backed `dorpa.png` / `dorpa2.png` textures. The converted model keeps
+    118 bones and the two legacy pose-mutating animation methods
+    `animation.dorpa.func_78087_a` and
+    `animation.dorpa.setRotationAnglesCosmical`.
 
 ## Explicit Gaps
 
@@ -1756,6 +1781,13 @@ own evidence-backed slices:
   evidence-backed Overseer registration, attributes, no-gravity random flight,
   airborne melee pursuit, shared `salivaball` projectile surface, sounds,
   renderer, and animation resources,
+- Dorpa/Assimilated Big Spider's full `EntityPInfected` backend,
+  `canSpawnByIDData`/config gating, exact `EntityAIGetFollowers` follower
+  linking, self-explosion `dorpamob` summon table, gore particle packet surface,
+  and SRP Web block/type-specific placement remain explicit future slices. The
+  modern slice preserves the evidence-backed `sim_bigspider` registration,
+  attributes, wall-climbing, skin `1` variant, Wither-on-hit behavior, webball
+  projectile surface, sounds, renderer, and animation resources,
 - world evolution and phase systems,
 - adaptation systems,
 - bestiary GUI and networking,

@@ -5,6 +5,7 @@ import com.dhanantry.scapeandrunparasites.entity.monster.derived.HebluEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.deterrent.NakEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.deterrent.TonroEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.deterrent.UnvoEntity;
+import com.dhanantry.scapeandrunparasites.entity.monster.infected.DorpaEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.inborn.AtaEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.inborn.ButholEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.inborn.GotholEntity;
@@ -35,6 +36,7 @@ public final class ModEntityEvents {
         event.put(ModEntities.GRUNT.get(), FlogEntity.createAttributes().build());
         event.put(ModEntities.KIRIN.get(), KirinEntity.createAttributes().build());
         event.put(ModEntities.MONARCH.get(), OrchEntity.createAttributes().build());
+        event.put(ModEntities.DORPA.get(), DorpaEntity.createAttributes().build());
         event.put(ModEntities.LODO.get(), LodoEntity.createAttributes().build());
         event.put(ModEntities.MUDO.get(), MudoEntity.createAttributes().build());
         event.put(ModEntities.NUUH.get(), NuuhEntity.createAttributes().build());

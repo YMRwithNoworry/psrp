@@ -179,7 +179,8 @@ public final class ModItems {
     public static final DeferredItem<Item> MODULE_DERIVED = legacyItem("module_derived", 1);
     public static final DeferredItem<Item> MODULE_VECTORS = legacyItem("module_vectors", 1);
     public static final DeferredItem<Item> MODULE_PHASE = legacyItem("module_phase", 1);
-    public static final DeferredItem<Item> ITEMMOBSPAWNER_DORPA = legacyItem("itemmobspawner_dorpa", 64);
+    public static final DeferredItem<DeferredSpawnEggItem> ITEMMOBSPAWNER_DORPA = register("itemmobspawner_dorpa", () ->
+        new DeferredSpawnEggItem(ModEntities.DORPA, 0x835000, 0xFF00DC, new Item.Properties()));
     public static final DeferredItem<Item> ITEMMOBSPAWNER_INFSQUID = legacyItem("itemmobspawner_infsquid", 64);
     public static final DeferredItem<Item> ITEMMOBSPAWNER_INFBEAR = legacyItem("itemmobspawner_infbear", 64);
     public static final DeferredItem<Item> ITEMMOBSPAWNER_INFHUMAN = legacyItem("itemmobspawner_infhuman", 64);
