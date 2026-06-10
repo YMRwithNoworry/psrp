@@ -3,6 +3,7 @@ package com.dhanantry.scapeandrunparasites.init;
 import com.dhanantry.scapeandrunparasites.SRPMain;
 import com.dhanantry.scapeandrunparasites.entity.monster.derived.KirinEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.deterrent.TonroEntity;
+import com.dhanantry.scapeandrunparasites.entity.monster.deterrent.UnvoEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.inborn.AtaEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.inborn.ButholEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.inborn.GotholEntity;
@@ -12,6 +13,7 @@ import com.dhanantry.scapeandrunparasites.entity.monster.inborn.NuuhEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.inborn.RatholEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.FlogEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.OrchEntity;
+import com.dhanantry.scapeandrunparasites.entity.projectile.SpineballEntity;
 import com.dhanantry.scapeandrunparasites.entity.projectile.WebballEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
@@ -89,12 +91,24 @@ public final class ModEntities {
             .eyeHeight(TonroEntity.LEGACY_EYE_HEIGHT)
             .clientTrackingRange(8)
             .build(SRPMain.MODID + ":kyphosis"));
+    public static final DeferredHolder<EntityType<?>, EntityType<UnvoEntity>> UNVO = ENTITIES.register("sentry", () ->
+        EntityType.Builder.of(UnvoEntity::new, MobCategory.MONSTER)
+            .sized(UnvoEntity.LEGACY_WIDTH, UnvoEntity.LEGACY_HEIGHT)
+            .eyeHeight(UnvoEntity.LEGACY_EYE_HEIGHT)
+            .clientTrackingRange(8)
+            .build(SRPMain.MODID + ":sentry"));
     public static final DeferredHolder<EntityType<?>, EntityType<WebballEntity>> WEBBALL = ENTITIES.register("webball", () ->
         EntityType.Builder.<WebballEntity>of(WebballEntity::new, MobCategory.MISC)
             .sized(WebballEntity.LEGACY_WIDTH, WebballEntity.LEGACY_HEIGHT)
             .clientTrackingRange(4)
             .updateInterval(10)
             .build(SRPMain.MODID + ":webball"));
+    public static final DeferredHolder<EntityType<?>, EntityType<SpineballEntity>> SPINEBALL = ENTITIES.register("spineball", () ->
+        EntityType.Builder.<SpineballEntity>of(SpineballEntity::new, MobCategory.MISC)
+            .sized(SpineballEntity.LEGACY_WIDTH, SpineballEntity.LEGACY_HEIGHT)
+            .clientTrackingRange(4)
+            .updateInterval(10)
+            .build(SRPMain.MODID + ":spineball"));
 
     private ModEntities() {
     }

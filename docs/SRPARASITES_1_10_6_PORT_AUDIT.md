@@ -484,6 +484,39 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Tonro
   attributes before multipliers: `50` health, `15` armor, `15` attack damage,
   and `35` swing attack damage.
+- `com.dhanantry.scapeandrunparasites.entity.monster.deterrent.EntityUnvo`:
+  Unvo / Sentry entity id `sentry`, size `0.7 x 4.1`, eye height `3.6`,
+  parasite ID `30`, type `40`, adapted-tier XP doubled to `110`, stationary
+  movement speed `0`, knockback resistance `1`, deterrent follow range `32`,
+  and buried time `5.1`.
+- `com.dhanantry.scapeandrunparasites.entity.monster.deterrent.EntityUnvo`:
+  old AI uses HurtByTarget, `EntityAIAttackProjectile(this, 20, 1, 3)`,
+  melee attack speed `1.0`, and look-idle. The projectile AI targets visible
+  entities within `4225` squared distance, sets parasite status `1`, plays the
+  projectile sound at `cooldown - 10`, then fires `3` shots at `1` tick
+  intervals.
+- `com.dhanantry.scapeandrunparasites.entity.monster.deterrent.EntityUnvo` and
+  `com.dhanantry.scapeandrunparasites.entity.projectile.EntityProjectileSpineball`:
+  Unvo creates Spineballs with range damage `25`, poison duration `7` seconds,
+  poison amplifier config `1` (stored as vanilla amplifier `0`), and gear
+  degrade fraction `0.04`. The old projectile is `0.3 x 0.3`, uses slime
+  particles, discards on parasite allies except Nak, damages non-parasite living
+  targets, applies poison, and damages armor while remaining durability is above
+  `10%`.
+- `com.dhanantry.scapeandrunparasites.client.renderer.entity.deterrent.RenderUnvo`:
+  renderer shadow radius `0.5`, normal texture
+  `srparasites:textures/entity/monster/unvo.png`, and skin `120` texture
+  `srparasites:textures/entity/monster/snowvariants/sentryfrozen.png`. The
+  provided 1.10.6 jar does not contain `sentryfrozen.png`, so the modern
+  renderer intentionally does not select that missing path.
+- `com.dhanantry.scapeandrunparasites.client.model.entity.deterrent.ModelUnvo`:
+  legacy `ModelRenderer` geometry and Java-authored pose methods. GeckoLib
+  conversion preserved 128 model bones and method-derived animation names
+  `animation.unvo.func_78087_a` and
+  `animation.unvo.setRotationAnglesCosmical`.
+- `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Unvo
+  attributes before multipliers: `30` health, `10` armor, `5` attack damage,
+  and `25` range attack damage.
 
 ## Implemented In This Slice
 
@@ -840,6 +873,29 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
     geometry, Java-authored animation resource, and the jar-backed Tonro
     texture resource. The old renderer's missing `kyphosisfrozen.png` alternate
     path is intentionally not selected in the modern renderer.
+- Added the second evidence-backed deterrent parasite entity slice:
+  - registered Unvo / Sentry under the visible entity id `sentry`,
+  - upgraded the legacy `itemmobspawner_unvo` item into a real modern spawn
+    egg,
+  - registered the legacy `spineball` projectile with size `0.3 x 0.3`,
+  - preserved size `0.7 x 4.1`, eye height `3.6`, parasite ID `30`, type `40`,
+    adapted-tier doubled XP surface, health/armor/damage/range-damage/
+    movement/knockback/follow-range attributes, and the legacy buried time
+    constant,
+  - ported the old stationary target surface with HurtByTarget, player target,
+    non-water/non-animal living target predicates, and melee attack fallback,
+  - ported the projectile cadence surface: status `1`, `20` tick cooldown,
+    projectile sound at `10` ticks, `3` shots, `1` tick interval, and the old
+    target/vector spawn math,
+  - ported the Spineball hit surface: `25` thrown damage, poison for `7`
+    seconds at amplifier `0`, parasite-ally discard, armor durability loss at
+    `4%` of max durability, and the `10%` remaining-durability guard,
+  - wired legacy Unvo growl/hurt/death/shooting, Emana shooting, and mob silence
+    sounds,
+  - wired a GeckoLib client renderer to the converted legacy `ModelUnvo`
+    geometry, Java-authored animation resource, and the jar-backed Unvo texture
+    resource. The old renderer's missing `sentryfrozen.png` alternate path is
+    intentionally not selected in the modern renderer.
 
 ## Explicit Gaps
 
@@ -917,6 +973,13 @@ own evidence-backed slices:
   backend remain explicit future slices. The modern slice preserves the
   evidence-backed stationary target surface, AOE melee, shockwave timing,
   damage, sounds, particles, and animation resources,
+- Unvo's full `EntityPStationary` bury / peek / relocation behavior, full
+  `EntityPMalleable` adaptation/resistance backend, exact old `EntityFireball`
+  acceleration semantics, Nak-friendly projectile exception, and Emana kill/
+  evolution side effect remain explicit future slices. The modern slice
+  preserves the evidence-backed stationary target surface, projectile cadence,
+  Spineball damage/poison/gear-degrade behavior, sounds, renderer, and
+  animation resources,
 - world evolution and phase systems,
 - adaptation systems,
 - bestiary GUI and networking,
