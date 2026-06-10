@@ -1622,6 +1622,37 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
     the two legacy pose-mutating animation methods
     `animation.inf_bear.func_78087_a` and
     `animation.inf_bear.setRotationAnglesCosmical`.
+- Added the evidence-backed infected InfHuman/Assimilated Human slice:
+  - confirmed the old infected-human line uses visible entity id `sim_human`,
+    `EntityInfHuman`, renderer `RenderInfHuman`, model `ModelInfHuman`, and
+    spawn egg item `itemmobspawner_infhuman`,
+  - upgraded `itemmobspawner_infhuman` from a placeholder item into a real
+    modern spawn egg using the established old assimilated colors `8611072`
+    (`0x835000`) and `16711900` (`0xFF00DC`),
+  - preserved parasite ID `6`, size `0.6 x 1.95`, eye height `1.73`, shadow
+    radius `0.5`, type marker `11`, can-mod-render marker `1`, health `15`,
+    armor `5`, melee damage `9`, movement speed `0.230000004172325`, knockback
+    resistance `0.1`, and current infected follow range `32`,
+  - ported the visible old `EntityInfHuman` combat/navigation surface:
+    `EntityAIAttackMeleeStatus(1.5, false, 0)`-style melee, hurt-by-target,
+    swim/float handling, open-door behavior, `0.7` leap-at-target behavior,
+    look idle, target acquisition using the current parasite target filters,
+    and the old `BLEED_E` hit surface as modern `BLEED` for 100 ticks,
+  - preserved the old variant surface with one-in-three skins `1..3`, rare
+    skin `111` chance `0.009999999776482582`, rare-skin follow range `12`,
+    rare-skin movement speed `0.32`, and persisted `parasitehost` NBT,
+  - preserved the old `EntityCanMelt` surface as a callable `melt()` entry with
+    synchronized melt height, `aSize` render scale, wait marker `1000`, start
+    height `1.95`, shrink steps `-0.005` / `-0.01`, threshold `0.7`, stop
+    marker `127`, NBT persistence, and `INFECTED_MELT` looping sound,
+  - wired legacy infected-human `INFECTEDHUMAN_GROWL`,
+    `INFECTEDHUMAN_HURT`, and `INFECTEDHUMAN_DEATH` sounds,
+  - wired a GeckoLib client renderer to the converted legacy `ModelInfHuman`
+    geometry, Java-authored animation resource, old renderer scale/pulse math,
+    old `Kim` custom-name texture behavior, and jar-backed human texture
+    variants. The converted model keeps 58 bones and the two legacy
+    pose-mutating animation methods `animation.inf_human.func_78087_a` and
+    `animation.inf_human.setRotationAnglesCosmical`.
 
 ## Explicit Gaps
 
@@ -1820,6 +1851,17 @@ own evidence-backed slices:
   with `INFBEAR_V` leg data remain explicit future slices. The modern slice
   preserves the evidence-backed `sim_bear` registration, attributes, melee
   surface, callable melt/shrink state, sounds, renderer, and animation
+  resources,
+- InfHuman/Assimilated Human's full `EntityPInfected` backend,
+  `canSpawnByIDData`/config gating, exact `EntityAIGetFollowers` follower
+  linking, exact `EntityAISwimmingDiving` water behavior, exact
+  `EntityAIWaterLeapAtTargetStatus` cooldown/status behavior, sound-memory
+  tracking for skin `111`, barrier/entrance retargeting and shove speed boost,
+  self-explosion/`EntityInfHumanHead` spawn chance, client GCLOUD melt
+  particles, and the real `EntityLesh` replacement with `INFHUMAN_V` leg data
+  remain explicit future slices. The modern slice preserves the evidence-backed
+  `sim_human` registration, attributes, door-opening/melee/bleed surface,
+  variant skins, callable melt/shrink state, sounds, renderer, and animation
   resources,
 - world evolution and phase systems,
 - adaptation systems,
