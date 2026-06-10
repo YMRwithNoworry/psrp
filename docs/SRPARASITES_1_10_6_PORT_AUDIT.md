@@ -702,6 +702,49 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   attributes before multipliers: `390` health, `15.5` armor, `45` attack
   damage, `0.15` knockback resistance, and movement speed `0.242`. Legacy
   preeminent follow range defaults to `80`.
+- `com.dhanantry.scapeandrunparasites.init.SRPEntities$RegistrationHandler`:
+  visible entity id `wraith` maps to
+  `com.dhanantry.scapeandrunparasites.entity.monster.pure.preeminent.EntityElvia`
+  with legacy spawn egg item `itemmobspawner_elvia`; old projectile id
+  `balltall` maps to `EntityProjectileElviaBall`.
+- `com.dhanantry.scapeandrunparasites.entity.monster.pure.preeminent.EntityElvia`:
+  Elvia / Wraith size `4.0 x 4.0`, eye height `2.1`, parasite ID `85`,
+  no-gravity flight, adaptation cap `0.95`, invisibility cutoff
+  `elvianeededhealth = 0.4`, and old preeminent follow range `80`.
+- `com.dhanantry.scapeandrunparasites.entity.monster.pure.preeminent.EntityElvia`:
+  old AI adds flight attack, `EntityAIAttackProjectile(20, 10, 4, true)`,
+  charge attack, random flight movement, flight limits, and look idle. Charge
+  starts on `random.nextInt(5) == 0` when target distance squared is above
+  `4`, moves toward target plus `20` Y at speed `0.7`, and retargets near
+  targets at speeds `0.7` or `1.1` depending on line of sight.
+- `com.dhanantry.scapeandrunparasites.entity.monster.pure.preeminent.EntityElvia`:
+  old random flight tries idle offsets `nextInt(15)-7`, `nextInt(11)-5`,
+  `nextInt(15)-7` at speed `0.6`; far target offsets around the target at
+  speed `0.7`; close target offsets away/up at speed `0.75`. Old tick lifts
+  itself when grounded, nudges upward near blocking terrain while targeting,
+  damages nearby non-parasite living entities every `10` ticks within `3`,
+  and maintains vanilla invisibility for `25` ticks while the legacy invisible
+  flag is active.
+- `com.dhanantry.scapeandrunparasites.entity.monster.pure.preeminent.EntityElvia`:
+  old `getProj` alternates `EntityProjectileElviaBall` with an
+  `EntityProjectileNade`; `playProjSound` increments the internal count and
+  clears invisibility/timer state.
+- `com.dhanantry.scapeandrunparasites.entity.projectile.EntityProjectileElviaBall`:
+  projectile size `0.3 x 0.3`, explosion-normal hit particles, parasite-ally
+  discard except Nak, damage from Elvia attack damage (`70`), old
+  minimum-melee helper call, and discard on hit.
+- `com.dhanantry.scapeandrunparasites.client.renderer.entity.pure.preeminent.RenderElvia`:
+  renderer shadow radius `1.3`, normal texture
+  `srparasites:textures/entity/monster/elvia.png`, and self-flash scaling.
+- `com.dhanantry.scapeandrunparasites.client.model.entity.pure.preeminent.ModelElvia`:
+  legacy `ModelRenderer` geometry and Java-authored pose methods. GeckoLib
+  conversion preserved 289 model bones and method-derived animation names
+  `animation.elvia.func_78087_a` and
+  `animation.elvia.setRotationAnglesCosmical`.
+- `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Elvia
+  attributes before multipliers: `310` health, `15.5` armor, `70` attack and
+  projectile damage, `0.15` knockback resistance, and preeminent follow range
+  `80`.
 
 ## Implemented In This Slice
 
@@ -1260,6 +1303,31 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
     bones and the two legacy pose-mutating animation methods
     `animation.vesta.func_78087_a` and
     `animation.vesta.setRotationAnglesCosmical`.
+- Added the third evidence-backed preeminent Elvia/Wraith slice:
+  - confirmed old `SRPEntities` registers visible entity id `wraith` to
+    `EntityElvia` and projectile id `balltall` to `EntityProjectileElviaBall`,
+  - registered Elvia under `wraith` and upgraded `itemmobspawner_elvia` into a
+    real modern spawn egg,
+  - registered `balltall` as a modern `ElviaBallEntity` with the jar-backed
+    projectile texture,
+  - preserved size `4.0 x 4.0`, eye height `2.1`, parasite ID `85`, health
+    `310`, armor `15.5`, damage `70`, knockback resistance `0.15`, preeminent
+    follow range `80`, adaptation cap marker `0.95`, and no-gravity flight,
+  - ported the visible flight surface: old random flight offsets/speeds, charge
+    condition/speeds/Y offset, ground lift, terrain lift, periodic nearby
+    damage every `10` ticks in a `3` block area, and the `0.4` health-threshold
+    invisibility state with vanilla invisibility ticks,
+  - ported the `balltall` hit surface: parasite-ally discard except Nak,
+    direct thrown damage `70`, explosion particles, and discard-on-hit,
+  - wired legacy Elvia growl/hurt/death, mob silence, and Dorpa ranged sound,
+  - wired a GeckoLib client renderer to the converted legacy `ModelElvia`
+    geometry, Java-authored animation resource, and jar-backed `elvia.png`
+    texture. The converted model keeps 289 bones and the two legacy
+    pose-mutating animation methods `animation.elvia.func_78087_a` and
+    `animation.elvia.setRotationAnglesCosmical`,
+  - left `EntityProjectileNade` out intentionally because its alternating
+    grenade behavior needs a separate projectile slice. `EntityProjectileNade`
+    remains an explicit future slice.
 
 ## Explicit Gaps
 
@@ -1403,6 +1471,15 @@ own evidence-backed slices:
   broader infection/world-system migration. The modern slice preserves the
   evidence-backed Colony Carrier registration, attributes, variant surface,
   target surface, melee/water-leap surface, Link/Regeneration colony-support
+  surface, sounds, renderer, and animation resources,
+- Elvia/Wraith's full `EntityPPreeminent` backend, exact `EntityAIFlightAttack`,
+  exact `EntityAIAttackProjectile` cadence semantics, exact
+  `EntityAIFlightLimits`, exact `EntityDamage` helper/minimum-melee behavior,
+  `EntityProjectileNade` alternating grenade behavior, scary orb effects, full
+  preeminent-tier malleable/adaptation behavior, and exact self-flash render
+  math remain explicit future slices. The modern slice preserves the
+  evidence-backed Wraith registration, attributes, no-gravity flight/charge
+  surface, invisibility threshold, nearby damage surface, `balltall` projectile
   surface, sounds, renderer, and animation resources,
 - world evolution and phase systems,
 - adaptation systems,

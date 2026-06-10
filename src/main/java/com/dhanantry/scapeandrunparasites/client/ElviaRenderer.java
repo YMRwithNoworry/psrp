@@ -1,0 +1,71 @@
+package com.dhanantry.scapeandrunparasites.client;
+
+import com.dhanantry.scapeandrunparasites.SRPMain;
+import com.dhanantry.scapeandrunparasites.entity.monster.pure.preeminent.ElviaEntity;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.resources.ResourceLocation;
+import software.bernie.geckolib.cache.object.BakedGeoModel;
+import software.bernie.geckolib.model.GeoModel;
+import software.bernie.geckolib.renderer.GeoEntityRenderer;
+
+public class ElviaRenderer extends GeoEntityRenderer<ElviaEntity> {
+    private static final ResourceLocation MODEL = ResourceLocation.fromNamespaceAndPath(SRPMain.MODID, "geo/entity/elvia.geo.json");
+    private static final ResourceLocation ANIMATION = ResourceLocation.fromNamespaceAndPath(SRPMain.MODID, "animations/entity/elvia.animation.json");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(SRPMain.MODID, "textures/entity/monster/elvia.png");
+
+    public ElviaRenderer(EntityRendererProvider.Context context) {
+        super(context, new ElviaModel());
+        this.shadowRadius = ElviaEntity.LEGACY_SHADOW_RADIUS;
+    }
+
+    @Override
+    public ResourceLocation getTextureLocation(ElviaEntity entity) {
+        return TEXTURE;
+    }
+
+    @Override
+    public void preRender(
+        PoseStack poseStack,
+        ElviaEntity entity,
+        BakedGeoModel model,
+        MultiBufferSource bufferSource,
+        VertexConsumer buffer,
+        boolean isReRender,
+        float partialTick,
+        int packedLight,
+        int packedOverlay,
+        int renderColor
+    ) {
+        float pulse = entity.getSelfeFlashIntensity(partialTick);
+        if (pulse > 0.0F) {
+            float wave = 1.0F + (float) Math.sin(pulse * 100.0F) * pulse * 0.01F;
+            float heavy = Math.max(0.0F, Math.min(1.0F, pulse));
+            heavy *= heavy;
+            heavy *= heavy;
+            float horizontal = (1.0F + heavy * 0.4F) * wave;
+            float vertical = (1.0F + heavy * 0.1F) / wave;
+            poseStack.scale(horizontal, vertical, horizontal);
+        }
+        super.preRender(poseStack, entity, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, renderColor);
+    }
+
+    private static final class ElviaModel extends GeoModel<ElviaEntity> {
+        @Override
+        public ResourceLocation getModelResource(ElviaEntity entity) {
+            return MODEL;
+        }
+
+        @Override
+        public ResourceLocation getTextureResource(ElviaEntity entity) {
+            return TEXTURE;
+        }
+
+        @Override
+        public ResourceLocation getAnimationResource(ElviaEntity entity) {
+            return ANIMATION;
+        }
+    }
+}

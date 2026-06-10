@@ -18,9 +18,11 @@ import com.dhanantry.scapeandrunparasites.entity.monster.pure.FlogEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.GanroEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.OmbooEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.OrchEntity;
+import com.dhanantry.scapeandrunparasites.entity.monster.pure.preeminent.ElviaEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.preeminent.HaunterEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.preeminent.VestaEntity;
 import com.dhanantry.scapeandrunparasites.entity.projectile.AngedballEntity;
+import com.dhanantry.scapeandrunparasites.entity.projectile.ElviaBallEntity;
 import com.dhanantry.scapeandrunparasites.entity.projectile.HommingballEntity;
 import com.dhanantry.scapeandrunparasites.entity.projectile.SpineballEntity;
 import com.dhanantry.scapeandrunparasites.entity.projectile.WebballEntity;
@@ -148,6 +150,12 @@ public final class ModEntities {
             .eyeHeight(VestaEntity.LEGACY_EYE_HEIGHT)
             .clientTrackingRange(10)
             .build(SRPMain.MODID + ":carrier_colony"));
+    public static final DeferredHolder<EntityType<?>, EntityType<ElviaEntity>> ELVIA = ENTITIES.register("wraith", () ->
+        EntityType.Builder.of(ElviaEntity::new, MobCategory.MONSTER)
+            .sized(ElviaEntity.LEGACY_WIDTH, ElviaEntity.LEGACY_HEIGHT)
+            .eyeHeight(ElviaEntity.LEGACY_EYE_HEIGHT)
+            .clientTrackingRange(10)
+            .build(SRPMain.MODID + ":wraith"));
     public static final DeferredHolder<EntityType<?>, EntityType<WebballEntity>> WEBBALL = ENTITIES.register("webball", () ->
         EntityType.Builder.<WebballEntity>of(WebballEntity::new, MobCategory.MISC)
             .sized(WebballEntity.LEGACY_WIDTH, WebballEntity.LEGACY_HEIGHT)
@@ -172,6 +180,12 @@ public final class ModEntities {
             .clientTrackingRange(4)
             .updateInterval(10)
             .build(SRPMain.MODID + ":homming"));
+    public static final DeferredHolder<EntityType<?>, EntityType<ElviaBallEntity>> ELVIABALL = ENTITIES.register("balltall", () ->
+        EntityType.Builder.<ElviaBallEntity>of(ElviaBallEntity::new, MobCategory.MISC)
+            .sized(ElviaBallEntity.LEGACY_WIDTH, ElviaBallEntity.LEGACY_HEIGHT)
+            .clientTrackingRange(4)
+            .updateInterval(10)
+            .build(SRPMain.MODID + ":balltall"));
 
     private ModEntities() {
     }
