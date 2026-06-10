@@ -308,7 +308,8 @@ public final class ModItems {
         new DeferredSpawnEggItem(ModEntities.LENCIA, 0x313517, 0x313517, new Item.Properties()));
     public static final DeferredItem<DeferredSpawnEggItem> ITEMMOBSPAWNER_ELVIA = register("itemmobspawner_elvia", () ->
         new DeferredSpawnEggItem(ModEntities.ELVIA, 0x232228, 0x8B3155, new Item.Properties()));
-    public static final DeferredItem<Item> ITEMMOBSPAWNER_HEBLU = legacyItem("itemmobspawner_heblu", 64);
+    public static final DeferredItem<DeferredSpawnEggItem> ITEMMOBSPAWNER_HEBLU = register("itemmobspawner_heblu", () ->
+        new DeferredSpawnEggItem(ModEntities.HEBLU, 0x41307C, 0x41307C, new Item.Properties()));
     public static final DeferredItem<Item> ITEMMOBSPAWNER_ORONCO = legacyItem("itemmobspawner_oronco", 64);
     public static final DeferredItem<Item> ITEMMOBSPAWNER_TERLA = legacyItem("itemmobspawner_terla", 64);
     public static final DeferredItem<Item> ITEMMOBSPAWNER_POD = legacyItem("itemmobspawner_pod", 64);

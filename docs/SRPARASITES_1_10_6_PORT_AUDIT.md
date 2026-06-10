@@ -806,6 +806,54 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   attributes before multipliers: `310` health, `15.5` armor, `70` attack and
   projectile damage, `0.15` knockback resistance, movement speed `2.0`, and
   preeminent follow range `80`.
+- `com.dhanantry.scapeandrunparasites.init.SRPEntities$RegistrationHandler`:
+  visible entity id `draconite` maps to
+  `com.dhanantry.scapeandrunparasites.entity.monster.derived.EntityHeblu` with
+  legacy spawn egg item `itemmobspawner_heblu`; old projectile id
+  `salivaball` maps to `EntityProjectileAlafhaBall`.
+- `com.dhanantry.scapeandrunparasites.entity.monster.derived.EntityHeblu`:
+  Heblu / Draconite size `2.4 x 3.8`, eye height `2.0`, parasite ID `309`,
+  type `14`, killcount `-10`, `canModRender = 0`, no-gravity flying state, and
+  derived follow range `80`.
+- `com.dhanantry.scapeandrunparasites.entity.monster.derived.EntityHeblu`:
+  old AI adds HurtByTarget, swimming/diving speed `0.08`, melee AOE status
+  speed `1.3` with reach `8` and AOE `9`, random flight, fireball attack,
+  flight attack, melee/ranged range switching, and ranged status cadence
+  `1.3`, `100`, `40`.
+- `com.dhanantry.scapeandrunparasites.entity.monster.derived.EntityHeblu`:
+  old random flight runs only while flying and when the move helper is idle,
+  with `nextInt(5) == 0`; idle offsets are `nextInt(15)-7`,
+  `nextInt(11)-5`, `nextInt(15)-7` at speed `0.5`, far target offsets are
+  from the target using `nextInt(6)-2`, `nextInt(7)-2`, `nextInt(6)-2` at
+  speed `0.75`, and close target offsets move away/up with `nextInt(4)+3` and
+  `nextInt(5)+4` at speed `0.75`.
+- `com.dhanantry.scapeandrunparasites.entity.monster.derived.EntityHeblu`:
+  old fireball attack requires a live target, flying state, head health, range
+  `< 4096`, and line of sight; it fires after `20` ticks, Rage advances the
+  timer faster, direct shots set cooldown `-45`, and the grounded-target rain
+  branch has a one-in-three chance to set `vomit = 40`, `raining = true`,
+  `rainingOrbs = 19`, broadcast event `100`, play `heblu.shoot`, and set
+  cooldown `-60`.
+- `com.dhanantry.scapeandrunparasites.entity.projectile.EntityProjectileAlafhaBall`:
+  old projectile id `salivaball`, size `0.3 x 0.3`, explosion-normal
+  particles, direct AOE `3 x 3 x 3`, parasite-ally skip, `30` thrown damage,
+  `DLER_E` for `300` ticks amplifier `0`, glass-break impact sound, lingering
+  cloud, and discard on hit. When owned by Heblu, the old cloud radius is `5`,
+  duration `60`, COTH effect is `300` ticks, and it also spawns an
+  `EntityOrbBoom`; otherwise radius is `2`, wait time `30`, duration `60`, and
+  `DLER_E` lasts `360` ticks.
+- `com.dhanantry.scapeandrunparasites.client.renderer.entity.derived.RenderHeblu`:
+  renderer shadow radius `1.3`, normal texture
+  `srparasites:textures/entity/monster/heblu.png`, and cosmical texture
+  `srparasites:textures/entity/monster/heblumc.png`.
+- `com.dhanantry.scapeandrunparasites.client.model.entity.derived.ModelHeblu`:
+  legacy `ModelRenderer` geometry and Java-authored pose methods. GeckoLib
+  conversion preserved 356 model bones and method-derived animation names
+  `animation.heblu.func_78087_a` and
+  `animation.heblu.setRotationAnglesCosmical`.
+- `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Heblu
+  attributes before multipliers: `525` health, `30` armor, `210` attack
+  damage, `1.0` knockback resistance, and movement speed `0.27`.
 
 ## Implemented In This Slice
 
@@ -1432,6 +1480,34 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
     texture. The converted model keeps 317 bones and the two legacy
     pose-mutating animation methods `animation.lencia.func_78087_a` and
     `animation.lencia.setRotationAnglesCosmical`.
+- Added the evidence-backed derived Heblu/Draconite slice:
+  - confirmed old `SRPEntities` registers visible entity id `draconite` to
+    `EntityHeblu` and projectile id `salivaball` to
+    `EntityProjectileAlafhaBall`,
+  - registered Heblu under `draconite` and upgraded `itemmobspawner_heblu` into
+    a real modern spawn egg using the old `4272252` color (`0x41307C`) for both
+    egg layers,
+  - registered `salivaball` as a modern `AlafhaBallEntity` with the jar-backed
+    `alafha.png` projectile texture,
+  - preserved size `2.4 x 3.8`, eye height `2.0`, parasite ID `309`, health
+    `525`, armor `30`, damage `210`, movement speed `0.27`, knockback
+    resistance `1.0`, follow range `80`, step height `1`, type marker `14`,
+    killcount marker `-10`, and no-gravity flying state,
+  - ported the visible flight and attack surface: old random flight
+    offsets/speeds, fireball windup `20`, direct cooldown `-45`, rain cooldown
+    `-60`, Rage timer acceleration, projectile spawn origin at look vector
+    `* 4`, `heblu.shoot`, and periodic nearby damage every `10` ticks in a
+    `9` block area,
+  - ported the `salivaball` hit surface: parasite-ally skip, AOE radius `3`,
+    direct thrown damage `30`, Needler approximation for old `DLER_E`, Heblu
+    cloud radius `5`, non-Heblu cloud radius `2`, duration/wait timings, glass
+    break sound, explosion/item particles, and discard-on-hit,
+  - wired legacy Heblu growl/hurt/death/step/shoot sounds and mob silence,
+  - wired a GeckoLib client renderer to the converted legacy `ModelHeblu`
+    geometry, Java-authored animation resource, and jar-backed `heblu.png`
+    texture. The converted model keeps 356 bones and the two legacy
+    pose-mutating animation methods `animation.heblu.func_78087_a` and
+    `animation.heblu.setRotationAnglesCosmical`.
 
 ## Explicit Gaps
 
@@ -1595,6 +1671,18 @@ own evidence-backed slices:
   preserves the evidence-backed Bogle registration, attributes, no-gravity
   flight/charge surface, invisibility threshold, nearby damage surface,
   `ballmall` projectile surface, sounds, renderer, and animation resources,
+- Heblu/Draconite's full `EntityPDerived`/`EntityPCosmical` backend, exact
+  `EntityBody` multipart left/right tendril and head collision routing, exact
+  head-health gating for ranged attacks, exact `EntityAIFlightAttack`, exact
+  `EntityAIAttackMeleeRangeSwitch`, exact ranged-status cadence, full flame
+  special-skill state machine, exact old raining-orb position logic, exact
+  `EntityToxicCloud`, exact DLER/COTH effect behavior, `EntityOrbBoom`,
+  minimum-melee helper semantics, full malleable/adaptation/resistance backend,
+  cosmical shadow/clone behavior, and exact cosmical render layer remain
+  explicit future slices. The modern slice preserves the evidence-backed
+  Draconite registration, attributes, no-gravity random flight, fireball/rain
+  attack surface, nearby damage surface, `salivaball` projectile damage/cloud
+  approximation, sounds, renderer, and animation resources,
 - world evolution and phase systems,
 - adaptation systems,
 - bestiary GUI and networking,

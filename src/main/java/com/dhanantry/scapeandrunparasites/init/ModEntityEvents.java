@@ -1,6 +1,7 @@
 package com.dhanantry.scapeandrunparasites.init;
 
 import com.dhanantry.scapeandrunparasites.entity.monster.derived.KirinEntity;
+import com.dhanantry.scapeandrunparasites.entity.monster.derived.HebluEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.deterrent.NakEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.deterrent.TonroEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.deterrent.UnvoEntity;
@@ -51,5 +52,6 @@ public final class ModEntityEvents {
         event.put(ModEntities.VESTA.get(), VestaEntity.createAttributes().build());
         event.put(ModEntities.ELVIA.get(), ElviaEntity.createAttributes().build());
         event.put(ModEntities.LENCIA.get(), LenciaEntity.createAttributes().build());
+        event.put(ModEntities.HEBLU.get(), HebluEntity.createAttributes().build());
     }
 }

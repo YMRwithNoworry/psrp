@@ -35,12 +35,14 @@ public final class ModClientEvents {
         event.registerEntityRenderer(ModEntities.VESTA.get(), VestaRenderer::new);
         event.registerEntityRenderer(ModEntities.ELVIA.get(), ElviaRenderer::new);
         event.registerEntityRenderer(ModEntities.LENCIA.get(), LenciaRenderer::new);
+        event.registerEntityRenderer(ModEntities.HEBLU.get(), HebluRenderer::new);
         event.registerEntityRenderer(ModEntities.WEBBALL.get(), WebballRenderer::new);
         event.registerEntityRenderer(ModEntities.ANGEDBALL.get(), AngedballRenderer::new);
         event.registerEntityRenderer(ModEntities.SPINEBALL.get(), SpineballRenderer::new);
         event.registerEntityRenderer(ModEntities.HOMMING.get(), HommingballRenderer::new);
         event.registerEntityRenderer(ModEntities.ELVIABALL.get(), ElviaBallRenderer::new);
         event.registerEntityRenderer(ModEntities.LENCIABALL.get(), LenciaBallRenderer::new);
+        event.registerEntityRenderer(ModEntities.ALAFHABALL.get(), AlafhaBallRenderer::new);
         event.registerEntityRenderer(ModEntities.NADEBALL.get(), NadeBallRenderer::new);
         event.registerEntityRenderer(ModEntities.NADE.get(), NadeRenderer::new);
     }
