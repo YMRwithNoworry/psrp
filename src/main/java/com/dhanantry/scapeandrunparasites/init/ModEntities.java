@@ -164,12 +164,12 @@ public final class ModEntities {
             .clientTrackingRange(4)
             .updateInterval(10)
             .build(SRPMain.MODID + ":webball"));
-    public static final DeferredHolder<EntityType<?>, EntityType<AngedballEntity>> ANGEDBALL = ENTITIES.register("ballmall", () ->
+    public static final DeferredHolder<EntityType<?>, EntityType<AngedballEntity>> ANGEDBALL = ENTITIES.register("ballball", () ->
         EntityType.Builder.<AngedballEntity>of(AngedballEntity::new, MobCategory.MISC)
             .sized(AngedballEntity.LEGACY_WIDTH, AngedballEntity.LEGACY_HEIGHT)
             .clientTrackingRange(4)
             .updateInterval(10)
-            .build(SRPMain.MODID + ":ballmall"));
+            .build(SRPMain.MODID + ":ballball"));
     public static final DeferredHolder<EntityType<?>, EntityType<SpineballEntity>> SPINEBALL = ENTITIES.register("spineball", () ->
         EntityType.Builder.<SpineballEntity>of(SpineballEntity::new, MobCategory.MISC)
             .sized(SpineballEntity.LEGACY_WIDTH, SpineballEntity.LEGACY_HEIGHT)

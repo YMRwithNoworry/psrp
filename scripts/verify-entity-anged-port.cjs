@@ -35,11 +35,14 @@ for (const marker of [
   "EntityType.Builder.of(AngedEntity::new, MobCategory.MONSTER)",
   ".sized(AngedEntity.LEGACY_WIDTH, AngedEntity.LEGACY_HEIGHT)",
   ".eyeHeight(AngedEntity.LEGACY_EYE_HEIGHT)",
-  'ENTITIES.register("ballmall"',
+  'ENTITIES.register("ballball"',
   "EntityType.Builder.<AngedballEntity>of(AngedballEntity::new, MobCategory.MISC)",
   ".sized(AngedballEntity.LEGACY_WIDTH, AngedballEntity.LEGACY_HEIGHT)"
 ]) {
   if (!entities.includes(marker)) throw new Error(`ModEntities missing Anged marker: ${marker}`);
+}
+if (entities.includes('ANGEDBALL = ENTITIES.register("ballmall"')) {
+  throw new Error("Angedball must keep the legacy ballball id; ballmall belongs to LenciaBall");
 }
 
 const entityEvents = read("src/main/java/com/dhanantry/scapeandrunparasites/init/ModEntityEvents.java");

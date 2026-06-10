@@ -625,6 +625,9 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   `1.1`, `2.3`, side ids `1` and `-1`, and body ids `1` and `2`; tendril
   health is max health multiplied by `SRPConfig.tendrilHealth` and is saved
   under `parasiteleftTendril` and `parasiterightTendril`.
+- `com.dhanantry.scapeandrunparasites.init.SRPEntities$RegistrationHandler`:
+  old projectile id `ballball` maps to `EntityProjectileAngedball`; `ballmall`
+  is reserved for `EntityProjectileLenciaBall`.
 - `com.dhanantry.scapeandrunparasites.entity.monster.pure.EntityAnged`:
   old AI adds HurtByTarget, swimming, `EntityAIAttackMeleeRangeSwitch` range
   `5`, melee status speed `1.5`, and ranged status speed `1.5`, interval `20`,
@@ -1241,8 +1244,8 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   - registered Anged / Vigilante under the visible entity id `vigilante`,
   - upgraded the legacy `itemmobspawner_anged` item into a real modern spawn
     egg,
-  - registered the Angedball projectile under the `ballmall` projectile id used
-    by legacy language resources for this projectile family,
+  - registered the Angedball projectile under the legacy `ballball` projectile
+    id, leaving `ballmall` available for LenciaBall,
   - preserved size `1.6 x 3.1`, eye height `3.0`, parasite ID `25`, type
     `51`, pure-tier health/armor/melee/ranged/movement/knockback/follow-range
     attributes, legacy step height, and heavy skin `7`,
