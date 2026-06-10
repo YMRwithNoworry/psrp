@@ -550,6 +550,40 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Nak
   attributes before multipliers: `15` health, `10` armor, and `6` attack
   damage.
+- `com.dhanantry.scapeandrunparasites.entity.monster.pure.EntityOmboo`:
+  Omboo / Light Bomber entity id `bomber_light`, size `1.7 x 2.4`, eye
+  height `2.4`, parasite ID `47`, type `47`, no-gravity flight, custom
+  Vex-like move control, `srpTicks == 10` ground lift to `y + 5` at speed
+  `0.5`, and no fall damage.
+- `com.dhanantry.scapeandrunparasites.entity.monster.pure.EntityOmboo`:
+  old AI adds HurtByTarget, flight attack targeting, random flight, charge
+  attack, and bomb dropping. Charge starts when a target exists, random
+  `nextInt(7) == 0`, and distance squared is `> 3`; it flies toward the
+  target eye position plus `10Y` at speed `1`, retargets when within `9`
+  squared distance, and hurts intersecting targets.
+- `com.dhanantry.scapeandrunparasites.entity.monster.pure.EntityOmboo`:
+  old random flight chooses one of three modes: idle offsets with x/z
+  `nextInt(15)-7` and y `nextInt(11)-5` at speed `0.2`, far-target offsets
+  from target position with x/z `nextInt(6)-2` and y `nextInt(7)-2` at speed
+  `0.3`, and close-target offsets away/up with x/z `nextInt(4)+3` and y
+  `nextInt(5)+4` at speed `0.3`.
+- `com.dhanantry.scapeandrunparasites.entity.monster.pure.EntityOmboo$AIBomb`:
+  old bomb goal increments an internal counter and every `15` ticks, when a
+  target exists, is grounded, and is within `< 25` of Omboo projected onto the
+  target's Y plane, creates `EntityBomb` at Omboo with fuse `80`, strength
+  `1`, damage from `OMBOO_BOMBDAMAGE`, and old damage type/level arg `4`.
+- `com.dhanantry.scapeandrunparasites.client.renderer.entity.pure.RenderOmboo`:
+  renderer shadow radius `1.3`, normal texture
+  `srparasites:textures/entity/monster/omboo.png`, and heavy skin `7` texture
+  `srparasites:textures/entity/monster/ombooh.png`.
+- `com.dhanantry.scapeandrunparasites.client.model.entity.pure.ModelOmboo`:
+  legacy `ModelRenderer` geometry and Java-authored pose methods. GeckoLib
+  conversion preserved 84 model bones and method-derived animation names
+  `animation.omboo.func_78087_a` and
+  `animation.omboo.setRotationAnglesCosmical`.
+- `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Omboo
+  attributes before multipliers: `75` health, `20` armor, `25` attack
+  damage, `0.15` knockback resistance, and `20` bomb damage.
 
 ## Implemented In This Slice
 
@@ -974,6 +1008,29 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
     geometry, Java-authored animation resource, and the jar-backed `ganro.png`
     and heavy-skin `ganroh.png` texture resources. The old self-flash scaling
     is approximated from the modern attack timer pulse.
+- Added the second evidence-backed pure Omboo/Light Bomber slice:
+  - registered Omboo / Light Bomber under the visible entity id
+    `bomber_light`,
+  - upgraded the legacy `itemmobspawner_omboo` item into a real modern spawn
+    egg,
+  - preserved size `1.7 x 2.4`, eye height `2.4`, parasite ID `47`, type
+    `47`, health/armor/damage/knockback/follow-range attributes, no-gravity
+    flight, ground lift, and no-fall-damage surface,
+  - ported the old flying target surface with HurtByTarget, player target, and
+    non-water/non-animal living target predicates,
+  - ported the old random flight and charge surfaces: Vex-like acceleration,
+    idle/far/close random offset modes, target-eye `+10Y` charge target,
+    speed `1`, retarget within `9` squared distance, and intersection melee
+    damage,
+  - ported the old bomb cadence as a modern delayed-bomb surface: `15` tick
+    target-grounded/projected-distance gate, queued bomb at Omboo's position,
+    `80` tick fuse, strength `1`, and `20` direct range damage around the
+    blast,
+  - wired legacy Omboo growl/hurt/death and mob silence sounds,
+  - wired a GeckoLib client renderer to the converted legacy `ModelOmboo`
+    geometry, Java-authored animation resource, and the jar-backed `omboo.png`
+    and heavy-skin `ombooh.png` texture resources. The old self-flash scaling
+    is approximated from the charging pulse.
 
 ## Explicit Gaps
 
@@ -1073,6 +1130,13 @@ own evidence-backed slices:
   modern slice preserves the evidence-backed Warden registration, attributes,
   target surface, AOE melee, launch, leap, evade, charge, shockwave, sounds,
   renderer, and animation resources,
+- Omboo's full `EntityPPure` backend, exact old `EntityBomb` helper entity,
+  exact config-backed `ombooGriefing`, exact old bomb damage type/level arg
+  `4`, flight-height config override, full malleable adaptation/resistance
+  backend, and exact self-flash render math remain explicit future slices. The
+  modern slice preserves the evidence-backed Light Bomber registration,
+  attributes, no-gravity flight, random flying, charge, delayed bomb cadence,
+  sounds, renderer, and animation resources,
 - world evolution and phase systems,
 - adaptation systems,
 - bestiary GUI and networking,
