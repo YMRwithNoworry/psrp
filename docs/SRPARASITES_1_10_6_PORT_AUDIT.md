@@ -1597,6 +1597,31 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
     118 bones and the two legacy pose-mutating animation methods
     `animation.dorpa.func_78087_a` and
     `animation.dorpa.setRotationAnglesCosmical`.
+- Added the evidence-backed infected InfBear/Assimilated Bear slice:
+  - confirmed old `SRPEntities` registers visible entity id `sim_bear` to
+    `EntityInfBear` and spawn egg item `itemmobspawner_infbear`,
+  - upgraded `itemmobspawner_infbear` from a placeholder item into a real
+    modern spawn egg using old colors `8611072` (`0x835000`) and `16711900`
+    (`0xFF00DC`),
+  - preserved parasite ID `49`, size `1.3 x 1.4`, eye height `1.3`, shadow
+    radius `0.7`, renderer base scale `1.2`, type marker `11`, can-mod-render
+    marker `1`, fuse time marker `40`, health `40`, armor `5`, melee damage
+    `13`, movement speed `0.25`, and knockback resistance `0.1`,
+  - ported the visible old `EntityInfBear` combat surface:
+    `EntityAIAttackMeleeStatus(1.5, false, 0)`-style melee, hurt-by-target,
+    swim/float handling, look idle, and target acquisition using the current
+    parasite target filters,
+  - preserved the old `EntityCanMelt` surface as a callable `melt()` entry with
+    synchronized melt height, `aSize` render scale, wait marker `1000`, start
+    height `1.6`, shrink steps `-0.005` / `-0.01`, threshold `0.7`, stop marker
+    `73`, NBT persistence, and `INFECTED_MELT` looping sound,
+  - wired legacy infected-bear growl/hurt/death sounds,
+  - wired a GeckoLib client renderer to the converted legacy `ModelInfBear`
+    geometry, Java-authored animation resource, renderer scale/pulse math, and
+    jar-backed `infbear.png` texture. The converted model keeps 87 bones and
+    the two legacy pose-mutating animation methods
+    `animation.inf_bear.func_78087_a` and
+    `animation.inf_bear.setRotationAnglesCosmical`.
 
 ## Explicit Gaps
 
@@ -1788,6 +1813,14 @@ own evidence-backed slices:
   modern slice preserves the evidence-backed `sim_bigspider` registration,
   attributes, wall-climbing, skin `1` variant, Wither-on-hit behavior, webball
   projectile surface, sounds, renderer, and animation resources,
+- InfBear/Assimilated Bear's full `EntityPInfected` backend,
+  `canSpawnByIDData`/config gating, exact `EntityAIGetFollowers` follower
+  linking, exact `EntityAISwimmingDiving` water behavior, self-explosion summon
+  table, client GCLOUD melt particles, and the real `EntityLesh` replacement
+  with `INFBEAR_V` leg data remain explicit future slices. The modern slice
+  preserves the evidence-backed `sim_bear` registration, attributes, melee
+  surface, callable melt/shrink state, sounds, renderer, and animation
+  resources,
 - world evolution and phase systems,
 - adaptation systems,
 - bestiary GUI and networking,
