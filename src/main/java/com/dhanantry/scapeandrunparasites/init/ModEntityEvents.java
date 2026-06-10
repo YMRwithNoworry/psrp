@@ -19,6 +19,7 @@ import com.dhanantry.scapeandrunparasites.entity.monster.pure.OmbooEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.OrchEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.preeminent.ElviaEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.preeminent.HaunterEntity;
+import com.dhanantry.scapeandrunparasites.entity.monster.pure.preeminent.LenciaEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.preeminent.VestaEntity;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
@@ -49,5 +50,6 @@ public final class ModEntityEvents {
         event.put(ModEntities.HAUNTER.get(), HaunterEntity.createAttributes().build());
         event.put(ModEntities.VESTA.get(), VestaEntity.createAttributes().build());
         event.put(ModEntities.ELVIA.get(), ElviaEntity.createAttributes().build());
+        event.put(ModEntities.LENCIA.get(), LenciaEntity.createAttributes().build());
     }
 }

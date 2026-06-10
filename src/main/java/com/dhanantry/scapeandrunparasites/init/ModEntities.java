@@ -20,10 +20,12 @@ import com.dhanantry.scapeandrunparasites.entity.monster.pure.OmbooEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.OrchEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.preeminent.ElviaEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.preeminent.HaunterEntity;
+import com.dhanantry.scapeandrunparasites.entity.monster.pure.preeminent.LenciaEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.preeminent.VestaEntity;
 import com.dhanantry.scapeandrunparasites.entity.projectile.AngedballEntity;
 import com.dhanantry.scapeandrunparasites.entity.projectile.ElviaBallEntity;
 import com.dhanantry.scapeandrunparasites.entity.projectile.HommingballEntity;
+import com.dhanantry.scapeandrunparasites.entity.projectile.LenciaBallEntity;
 import com.dhanantry.scapeandrunparasites.entity.projectile.NadeBallEntity;
 import com.dhanantry.scapeandrunparasites.entity.projectile.NadeEntity;
 import com.dhanantry.scapeandrunparasites.entity.projectile.SpineballEntity;
@@ -158,6 +160,12 @@ public final class ModEntities {
             .eyeHeight(ElviaEntity.LEGACY_EYE_HEIGHT)
             .clientTrackingRange(10)
             .build(SRPMain.MODID + ":wraith"));
+    public static final DeferredHolder<EntityType<?>, EntityType<LenciaEntity>> LENCIA = ENTITIES.register("bogle", () ->
+        EntityType.Builder.of(LenciaEntity::new, MobCategory.MONSTER)
+            .sized(LenciaEntity.LEGACY_WIDTH, LenciaEntity.LEGACY_HEIGHT)
+            .eyeHeight(LenciaEntity.LEGACY_EYE_HEIGHT)
+            .clientTrackingRange(10)
+            .build(SRPMain.MODID + ":bogle"));
     public static final DeferredHolder<EntityType<?>, EntityType<WebballEntity>> WEBBALL = ENTITIES.register("webball", () ->
         EntityType.Builder.<WebballEntity>of(WebballEntity::new, MobCategory.MISC)
             .sized(WebballEntity.LEGACY_WIDTH, WebballEntity.LEGACY_HEIGHT)
@@ -188,6 +196,12 @@ public final class ModEntities {
             .clientTrackingRange(4)
             .updateInterval(10)
             .build(SRPMain.MODID + ":balltall"));
+    public static final DeferredHolder<EntityType<?>, EntityType<LenciaBallEntity>> LENCIABALL = ENTITIES.register("ballmall", () ->
+        EntityType.Builder.<LenciaBallEntity>of(LenciaBallEntity::new, MobCategory.MISC)
+            .sized(LenciaBallEntity.LEGACY_WIDTH, LenciaBallEntity.LEGACY_HEIGHT)
+            .clientTrackingRange(4)
+            .updateInterval(10)
+            .build(SRPMain.MODID + ":ballmall"));
     public static final DeferredHolder<EntityType<?>, EntityType<NadeBallEntity>> NADEBALL = ENTITIES.register("nadeball", () ->
         EntityType.Builder.<NadeBallEntity>of(NadeBallEntity::new, MobCategory.MISC)
             .sized(NadeBallEntity.LEGACY_WIDTH, NadeBallEntity.LEGACY_HEIGHT)

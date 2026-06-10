@@ -765,6 +765,47 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   attributes before multipliers: `310` health, `15.5` armor, `70` attack and
   projectile damage, `0.15` knockback resistance, and preeminent follow range
   `80`.
+- `com.dhanantry.scapeandrunparasites.init.SRPEntities$RegistrationHandler`:
+  visible entity id `bogle` maps to
+  `com.dhanantry.scapeandrunparasites.entity.monster.pure.preeminent.EntityLencia`
+  with legacy spawn egg item `itemmobspawner_lencia`; old projectile id
+  `ballmall` maps to `EntityProjectileLenciaBall`.
+- `com.dhanantry.scapeandrunparasites.entity.monster.pure.preeminent.EntityLencia`:
+  Lencia / Bogle size `4.0 x 4.0`, eye height `2.1`, parasite ID `86`,
+  no-gravity flight, adaptation cap `0.95`, invisibility cutoff
+  `lencianeededhealth = 0.4`, and old preeminent follow range `80`.
+- `com.dhanantry.scapeandrunparasites.entity.monster.pure.preeminent.EntityLencia`:
+  old AI adds flight attack, `EntityAIAttackProjectile(60, 30, 3, true)`,
+  charge attack, random flight movement, flight limits, and look idle. Charge
+  starts on `random.nextInt(5) == 0` when target distance squared is above
+  `4`, moves toward target plus `20` Y at speed `0.7`, and retargets near
+  targets at speeds `0.7` or `1.1` depending on line of sight.
+- `com.dhanantry.scapeandrunparasites.entity.monster.pure.preeminent.EntityLencia`:
+  old random flight uses the same idle/far/close offset surfaces as Elvia. Old
+  tick lifts itself when grounded, nudges upward near blocking terrain while
+  targeting, damages nearby non-parasite living entities every `10` ticks within
+  `3`, and maintains vanilla invisibility for `25` ticks while the legacy
+  invisible flag is active.
+- `com.dhanantry.scapeandrunparasites.entity.monster.pure.preeminent.EntityLencia`:
+  old `getProj` clears the invisible state/timer and returns a new
+  `EntityProjectileLenciaBall` with no Elvia-style grenade alternation.
+- `com.dhanantry.scapeandrunparasites.entity.projectile.EntityProjectileLenciaBall`:
+  projectile size `0.3 x 0.3`, explosion-normal hit particles, parasite-ally
+  discard except Nak, damage from Lencia attack damage (`70`), old
+  minimum-melee helper call, `ParasiteEventEntity.createExplosion` radius `10`
+  gated by Forge mob griefing and `lenciaGriefing`, and discard on hit.
+- `com.dhanantry.scapeandrunparasites.client.renderer.entity.pure.preeminent.RenderLencia`:
+  renderer shadow radius `1.3`, normal texture
+  `srparasites:textures/entity/monster/lencia.png`, and self-flash scaling.
+- `com.dhanantry.scapeandrunparasites.client.model.entity.pure.preeminent.ModelLencia`:
+  legacy `ModelRenderer` geometry and Java-authored pose methods. GeckoLib
+  conversion preserved 317 model bones and method-derived animation names
+  `animation.lencia.func_78087_a` and
+  `animation.lencia.setRotationAnglesCosmical`.
+- `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Lencia
+  attributes before multipliers: `310` health, `15.5` armor, `70` attack and
+  projectile damage, `0.15` knockback resistance, movement speed `2.0`, and
+  preeminent follow range `80`.
 
 ## Implemented In This Slice
 
@@ -1365,6 +1406,32 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
     model keeps 1 bone and the two legacy pose-mutating animation methods
     `animation.nade.func_78087_a` and
     `animation.nade.setRotationAnglesCosmical`.
+- Added the fourth evidence-backed preeminent Lencia/Bogle slice:
+  - confirmed old `SRPEntities` registers visible entity id `bogle` to
+    `EntityLencia` and projectile id `ballmall` to
+    `EntityProjectileLenciaBall`,
+  - registered Lencia under `bogle` and upgraded `itemmobspawner_lencia` into a
+    real modern spawn egg,
+  - registered `ballmall` as a modern `LenciaBallEntity` with the jar-backed
+    projectile texture, while keeping Angedball on the corrected `ballball`
+    id,
+  - preserved size `4.0 x 4.0`, eye height `2.1`, parasite ID `86`, health
+    `310`, armor `15.5`, damage `70`, movement speed `2.0`, knockback
+    resistance `0.15`, preeminent follow range `80`, adaptation cap marker
+    `0.95`, and no-gravity flight,
+  - ported the visible flight surface: old random flight offsets/speeds, charge
+    condition/speeds/Y offset, ground lift, terrain lift, periodic nearby
+    damage every `10` ticks in a `3` block area, and the `0.4` health-threshold
+    invisibility state with vanilla invisibility ticks,
+  - ported the `ballmall` hit surface: parasite-ally discard except Nak, direct
+    thrown damage `70`, explosion particles, radius `10` explosion, and
+    discard-on-hit,
+  - wired legacy Lencia growl/hurt/death and mob silence,
+  - wired a GeckoLib client renderer to the converted legacy `ModelLencia`
+    geometry, Java-authored animation resource, and jar-backed `lencia.png`
+    texture. The converted model keeps 317 bones and the two legacy
+    pose-mutating animation methods `animation.lencia.func_78087_a` and
+    `animation.lencia.setRotationAnglesCosmical`.
 
 ## Explicit Gaps
 
@@ -1519,6 +1586,15 @@ own evidence-backed slices:
   surface, invisibility threshold, nearby damage surface, `balltall` projectile
   surface, `nadeball`/`nade` alternating grenade surface, sounds, renderer, and
   animation resources,
+- Lencia/Bogle's full `EntityPPreeminent` backend, exact `EntityAIFlightAttack`,
+  exact `EntityAIAttackProjectile` cadence semantics, exact
+  `EntityAIFlightLimits`, exact `EntityDamage` helper/minimum-melee behavior,
+  exact `SRPExplosion`/`lenciaGriefing` block-damage integration, scary orb
+  effects, full preeminent-tier malleable/adaptation behavior, and exact
+  self-flash render math remain explicit future slices. The modern slice
+  preserves the evidence-backed Bogle registration, attributes, no-gravity
+  flight/charge surface, invisibility threshold, nearby damage surface,
+  `ballmall` projectile surface, sounds, renderer, and animation resources,
 - world evolution and phase systems,
 - adaptation systems,
 - bestiary GUI and networking,
