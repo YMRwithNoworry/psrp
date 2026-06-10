@@ -341,6 +341,36 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Nuuh
   attributes before multipliers: `17` health, `10` armor, `9` attack damage,
   `0.6` knockback resistance, movement speed `0.37`, and follow range `32`.
+- `com.dhanantry.scapeandrunparasites.entity.monster.inborn.EntityAta`: Gnat
+  / Ata entity size `0.85 x 1.0`, eye height `0.8`, parasite ID `91`,
+  little-tier XP, `type = 5`, `attackSpeedT = 6`, `lifespan = 1200` ticks,
+  climb flag with `PathNavigateClimber`, `EntityAISkill` cooldown `20..100`
+  with windup `5` and status/event `14`, leap values `0.4` and `1.0`,
+  `LeapAtTarget` power `0.4`, melee status speed `1.3`, no normal
+  `doHurtTarget` damage, and fall damage only after fall distance reaches `60`.
+- `com.dhanantry.scapeandrunparasites.entity.monster.inborn.EntityAta`:
+  collision/contact with its current target checks the legacy hijack threshold
+  `SRPConfigSystems.hijackHealth = 0.5`; the old branch attempts COTH feral
+  conversion or hijacking, otherwise deals attack damage. All contact outcomes
+  then emit legacy particle events (`10` for damage/burst, `11` for
+  conversion/despawn), play `BUTHOL_BOOM` at volume `0.3`, apply `VIRA_E` for
+  `120` ticks at amplifier `2`, and remove the Ata.
+- `com.dhanantry.scapeandrunparasites.entity.monster.inborn.EntityAta$1`:
+  non-player target predicate excludes water mobs and configured blacklist
+  categories.
+- `com.dhanantry.scapeandrunparasites.client.renderer.entity.inborn.RenderAta`:
+  renderer shadow radius `0.5` and texture
+  `srparasites:textures/entity/monster/gnat.png`. The jar also contains
+  `ata.png`, but the old renderer resolves the visible Gnat texture to
+  `gnat.png`, so the modern renderer follows that reference.
+- `com.dhanantry.scapeandrunparasites.client.model.entity.inborn.ModelAta`:
+  legacy `ModelRenderer` geometry and Java-authored pose methods. GeckoLib
+  conversion preserved 100 model bones and method-derived animation names
+  `animation.ata.func_78087_a` and
+  `animation.ata.setRotationAnglesCosmical`.
+- `com.dhanantry.scapeandrunparasites.util.SRPAttributes`: default Ata
+  attributes before multipliers: `5` health, `2` armor, `5` attack damage,
+  `0.6` knockback resistance, movement speed `0.34559`, and follow range `32`.
 
 ## Implemented In This Slice
 
@@ -598,6 +628,24 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
     geometry, Java-authored animation resource, and the three jar-backed Nuuh
     texture resources. The old renderer's missing `snuuh.png` alternate path is
     intentionally not selected in the modern renderer.
+- Added the fourth evidence-backed inborn parasite entity slice:
+  - registered Ata / Gnat under the visible entity id `gnat`,
+  - upgraded the legacy `itemmobspawner_ata` item into a real modern spawn egg,
+  - preserved size `0.85 x 1.0`, eye height `0.8`, parasite ID `91`, type `5`,
+    little-tier XP, health/armor/damage/speed/knockback/follow-range
+    attributes, climbing navigation, climb-state sync, and fall-damage
+    threshold `60`,
+  - ported the old melee speed `1.3`, LeapAtTarget power `0.4`, skill leap
+    timing/power surface (`20..100` cooldown, `5` windup, event `14`, `0.4`
+    vertical power, and `1.0` leap speed), and 1200-tick lifespan despawn,
+  - preserved Ata's unusual combat surface where normal melee damage returns
+    false and contact/collision drives the old burst behavior instead,
+  - preserved the contact viral effect (`120` ticks at amplifier `2`), burst
+    sound, burst/despawn particle events, silent ambient/hurt/death sounds, and
+    small-step sound,
+  - wired a GeckoLib client renderer to the converted legacy `ModelAta`
+    geometry, Java-authored animation resource, and the renderer-backed
+    `gnat.png` texture.
 
 ## Explicit Gaps
 
@@ -650,6 +698,10 @@ own evidence-backed slices:
   checks, death-to-Mudo colony variant rules, and config-backed blacklist
   targeting are not complete until the malleable, colony, and world evolution
   systems are migrated,
+- Ata's full COTH feral conversion and hijacked-entity replacement tables are
+  not complete until the COTH/hijack victim table systems are migrated; the
+  modern slice preserves the contact threshold, viral/burst/despawn surface,
+  and records the missing conversion/replacement backend here,
 - world evolution and phase systems,
 - adaptation systems,
 - bestiary GUI and networking,
