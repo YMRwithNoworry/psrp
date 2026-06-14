@@ -1653,6 +1653,43 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
     variants. The converted model keeps 58 bones and the two legacy
     pose-mutating animation methods `animation.inf_human.func_78087_a` and
     `animation.inf_human.setRotationAnglesCosmical`.
+- Added the evidence-backed infected InfCow/Assimilated Cow slice:
+  - confirmed the old infected-cow line uses visible entity id `sim_cow`,
+    `EntityInfCow`, renderer `RenderInfCow`, model `ModelInfCow`, and spawn
+    egg item `itemmobspawner_infcow`. `EntityInfCowHead` exists in the legacy
+    jar but remains a separate head-entity slice,
+  - upgraded `itemmobspawner_infcow` from a placeholder item into a real modern
+    spawn egg using the established old assimilated colors `8611072`
+    (`0x835000`) and `16711900` (`0xFF00DC`),
+  - preserved parasite ID `13`, size `0.9 x 1.4`, eye height `1.3`, shadow
+    radius `0.5`, type marker `11`, can-mod-render marker `1`, fuse marker
+    `40`, health `18`, armor `5`, melee damage `7`, movement speed
+    `0.20000000298023224`, knockback resistance `0.4`, and current infected
+    follow range `32`,
+  - ported the visible old `EntityInfCow` combat/navigation surface:
+    `EntityAIAttackMeleeStatus(1.5, false, 0)`-style melee, hurt-by-target,
+    swim/float handling, look idle, target acquisition using the current
+    parasite target filters, and the old `EntityAISkill(60, 32, 8, true, 1)`
+    charge as a modern stateful goal,
+  - preserved the evidenced charge state machine markers: skill id `1`, status
+    `3` windup, status `2` finish marker, `40` tick windup, `80` tick stuck
+    cancel, `15` block charge target projection, speed `2.0`, `1 x 0 x 1`
+    impact box, air horizontal drag `0.7`, persisted charge ticks/cooldown and
+    target coordinates, and direct modern mob-attack damage in place of the old
+    helper `EntityDamage` carrier,
+  - preserved the old `EntityCanMelt` surface as a callable `melt()` entry with
+    synchronized melt height, `aSize` render scale, wait marker `1000`, start
+    height `1.4`, shrink steps `-0.005` / `-0.01`, threshold `0.7`, death
+    restore markers `0.17` and `1.57`, stop marker `73`, NBT persistence, and
+    `INFECTED_MELT` looping sound,
+  - wired legacy infected-cow `INFECTEDCOW_GROWL`, `INFECTEDCOW_HURT`, and
+    `INFECTEDCOW_DEATH` sounds plus modern `SoundEvents.COW_STEP`,
+  - wired a GeckoLib client renderer to the converted legacy `ModelInfCow`
+    geometry, Java-authored animation resource, old renderer scale/pulse math,
+    and jar-backed `cow.png` texture. The converted model keeps 54 bones and
+    the two legacy pose-mutating animation methods
+    `animation.inf_cow.func_78087_a` and
+    `animation.inf_cow.setRotationAnglesCosmical`.
 
 ## Explicit Gaps
 
@@ -1863,6 +1900,16 @@ own evidence-backed slices:
   `sim_human` registration, attributes, door-opening/melee/bleed surface,
   variant skins, callable melt/shrink state, sounds, renderer, and animation
   resources,
+- InfCow/Assimilated Cow's full `EntityPInfected` backend,
+  `canSpawnByIDData`/config gating, exact `EntityAIGetFollowers` follower
+  linking, exact `EntityAISwimmingDiving` water behavior, exact old
+  `EntityAISkill` scheduler internals, exact `EntityDamage` charge helper
+  entity, `skillBreakBlocks`, self-explosion `infcowmob` summon table,
+  death-time `EntityInfCowHead` spawn chance, client GCLOUD melt particles, and
+  the real `EntityLesh` replacement with `INFCOW_V` leg data remain explicit
+  future slices. The modern slice preserves the evidence-backed `sim_cow`
+  registration, attributes, melee/charge surface, callable melt/shrink state,
+  sounds, renderer, and animation resources,
 - world evolution and phase systems,
 - adaptation systems,
 - bestiary GUI and networking,
