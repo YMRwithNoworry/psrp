@@ -10,6 +10,7 @@ import com.dhanantry.scapeandrunparasites.entity.monster.infected.DorpaEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.infected.InfBearEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.infected.InfCowEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.infected.InfPigEntity;
+import com.dhanantry.scapeandrunparasites.entity.monster.infected.InfSheepEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.infected.InfHumanEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.inborn.AtaEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.inborn.ButholEntity;
@@ -96,6 +97,12 @@ public final class ModEntities {
             .eyeHeight(InfPigEntity.LEGACY_EYE_HEIGHT)
             .clientTrackingRange(8)
             .build(SRPMain.MODID + ":sim_pig"));
+    public static final DeferredHolder<EntityType<?>, EntityType<InfSheepEntity>> INFSHEEP = ENTITIES.register("sim_sheep", () ->
+        EntityType.Builder.of(InfSheepEntity::new, MobCategory.MONSTER)
+            .sized(InfSheepEntity.LEGACY_WIDTH, InfSheepEntity.LEGACY_HEIGHT)
+            .eyeHeight(InfSheepEntity.LEGACY_EYE_HEIGHT)
+            .clientTrackingRange(8)
+            .build(SRPMain.MODID + ":sim_sheep"));
     public static final DeferredHolder<EntityType<?>, EntityType<LodoEntity>> LODO = ENTITIES.register("lodo", () ->
         EntityType.Builder.of(LodoEntity::new, MobCategory.MONSTER)
             .sized(LodoEntity.LEGACY_WIDTH, LodoEntity.LEGACY_HEIGHT)

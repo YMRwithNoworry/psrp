@@ -1718,6 +1718,40 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
     the two legacy pose-mutating animation methods
     `animation.inf_pig.func_78087_a` and
     `animation.inf_pig.setRotationAnglesCosmical`.
+- Added the evidence-backed infected InfSheep/Assimilated Sheep slice:
+  - confirmed the old infected-sheep line uses visible entity id `sim_sheep`,
+    `EntityInfSheep`, renderer `RenderInfSheep`, model `ModelInfSheep`, and
+    spawn egg item `itemmobspawner_infsheep`. `EntityInfSheepHead` and
+    `EntityFerSheep` exist in the legacy jar but remain separate future slices,
+  - upgraded `itemmobspawner_infsheep` from a placeholder item into a real
+    modern spawn egg using the established old assimilated colors `8611072`
+    (`0x835000`) and `16711900` (`0xFF00DC`),
+  - preserved parasite ID `14`, size `0.9 x 1.3`, old eye-height formula
+    result `1.235`, shadow radius `0.5`, type marker `12`, can-mod-render
+    marker `1`, fuse marker `40`, health `13`, armor `1.3`, attack damage `6`,
+    movement speed `0.23000000417232513`, knockback resistance `0.3`, and
+    current infected follow range `32`,
+  - ported the visible old `EntityInfSheep` combat/navigation surface:
+    `EntityAIAttackMeleeStatus(1.5, false, 0)`-style melee, hurt-by-target,
+    swim/float handling, look idle, and target acquisition using the current
+    parasite target filters,
+  - preserved the old three-texture sheep variant surface: spawn-time weighted
+    variant roll (`<0.1` black, `<0.4` grey, otherwise white), synced
+    `TextureVariant` NBT, renderer selection among `sheep.png`,
+    `sheep_grey.png`, and `sheep_black.png`, and dye interaction for white,
+    grey, light grey, and black dyes,
+  - preserved the old `EntityCanMelt` surface as a callable `melt()` entry with
+    wait `1000`, start height `1.3`, threshold `0.7`, shrink steps `-0.005`
+    and `-0.01`, and stop/spawn marker `63`,
+  - wired legacy infected-sheep `INFECTEDSHEEP_GROWL`,
+    `INFECTEDSHEEP_HURT`, and `INFECTEDSHEEP_DEATH` sounds plus modern
+    `SoundEvents.SHEEP_STEP`,
+  - wired a GeckoLib client renderer to the converted legacy `ModelInfSheep`
+    geometry, Java-authored animation resource, old renderer scale/pulse math,
+    and jar-backed sheep textures. The converted model keeps 83 bones and the
+    two legacy pose-mutating animation methods
+    `animation.inf_sheep.func_78087_a` and
+    `animation.inf_sheep.setRotationAnglesCosmical`.
 
 ## Explicit Gaps
 
@@ -1946,6 +1980,16 @@ own evidence-backed slices:
   slices. The modern slice preserves the evidence-backed `sim_pig`
   registration, attributes, melee surface, callable melt/shrink state, sounds,
   renderer, and animation resources,
+- InfSheep/Assimilated Sheep's full `EntityPInfected` backend,
+  `canSpawnByIDData`/config gating, exact `EntityAIGetFollowers` follower
+  linking, exact `EntityAISwimmingDiving` water behavior, self-explosion
+  `infsheepmob` summon table, death-time `EntityInfSheepHead` spawn chance,
+  feral fallback `EntityFerSheep` behavior, client GCLOUD melt particles, and
+  the real `EntityLesh` replacement with `INFSHEEP_V` leg data remain explicit
+  future slices. The modern slice preserves the evidence-backed `sim_sheep`
+  registration, attributes, melee surface, callable melt/shrink state, sounds,
+  renderer, animation resources, and the old white/grey/black dyeable texture
+  variant surface,
 - world evolution and phase systems,
 - adaptation systems,
 - bestiary GUI and networking,
