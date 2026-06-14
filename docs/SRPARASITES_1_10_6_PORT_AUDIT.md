@@ -1656,8 +1656,7 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - Added the evidence-backed infected InfCow/Assimilated Cow slice:
   - confirmed the old infected-cow line uses visible entity id `sim_cow`,
     `EntityInfCow`, renderer `RenderInfCow`, model `ModelInfCow`, and spawn
-    egg item `itemmobspawner_infcow`. `EntityInfCowHead` exists in the legacy
-    jar but remains a separate head-entity slice,
+    egg item `itemmobspawner_infcow`,
   - upgraded `itemmobspawner_infcow` from a placeholder item into a real modern
     spawn egg using the established old assimilated colors `8611072`
     (`0x835000`) and `16711900` (`0xFF00DC`),
@@ -1690,6 +1689,44 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
     the two legacy pose-mutating animation methods
     `animation.inf_cow.func_78087_a` and
     `animation.inf_cow.setRotationAnglesCosmical`.
+- Added the evidence-backed infected InfCowHead / Walking Cow Head slice:
+  - confirmed the old head line uses visible entity id `sim_cowhead`,
+    `EntityInfCowHead`, renderer `RenderInfCowHead`, model `ModelInfCowHead`,
+    texture `assets/srparasites/textures/entity/monster/cowh.png`, and spawn
+    egg item `itemmobspawner_infcowhead`,
+  - upgraded `itemmobspawner_infcowhead` from a placeholder item into a real
+    modern spawn egg using the established old assimilated colors `8611072`
+    (`0x835000`) and `16711900` (`0xFF00DC`),
+  - preserved parasite ID `28`, size `0.7 x 0.9`, eye height `0.8`, legacy
+    `killcount = -10`, attack speed marker `15`, and the old
+    `canSpawnByIDData` relationship to the InfCow natural-spawn gate. The
+    inspected 1.10.6 defaults leave `INFCOW_HEADHEALTH` and
+    `INFCOW_HEADDAMAGE` at `0.0` before config head multipliers; the modern
+    runtime uses a small non-zero health/damage fallback so the registered
+    entity is playable until the full config multiplier table is migrated,
+  - preserved the visible old AI surface: swimming/float handling, look idle,
+    leap-at-target `0.4`, melee status speed `1.3`, the
+    `EntityAISkill(40, 100, 3, true, 14)` leap/skill status markers, the old
+    avoid-or-attack threshold/range/status values `0.5`, `10`, and `2`, and
+    the old avoid predicate that ignores water mobs, creepers, parasites, and
+    animals,
+  - wired legacy head sounds `INFECTEDHEAD_GROWL`, `INFECTEDHEAD_HURT`, and
+    `INFECTEDHEAD_DEATH`, plus the legacy `SMALL_STEPS` Java alias to the
+    existing `small.step` sound event,
+  - wired a GeckoLib client renderer to the converted legacy
+    `ModelInfCowHead` geometry, Java-authored animation resource, and
+    jar-backed `cowh.png` texture. The converted model keeps the 64x46 texture
+    size, 110 bones, and the two legacy pose-mutating animation methods
+    `animation.inf_cow_head.func_78087_a`,
+    `animation.inf_cow_head.setRotationAnglesCosmical`,
+  - documented the old `EntityInfCowHead` special `disloGiveBodies` tick path
+    and crude-host recombination with `EntityInhooM`: the 1.10.6 head could
+    become `EntityInfCow` through dislodgement world phase data, and could
+    attack a crude `EntityInhooM`, spawn/replace into `EntityInfCow`,
+    particle-status the crude host, and discard the crude host. The current
+    repo has no `SRPSaveData` world phase backend and no crude `EntityInhooM`
+    implementation, so those two body-recombination paths are left as explicit
+    future backend slices instead of being faked.
 - Added the evidence-backed infected InfPig/Assimilated Pig slice:
   - confirmed the old infected-pig line uses visible entity id `sim_pig`,
     `EntityInfPig`, renderer `RenderInfPig`, model `ModelInfPig`, and spawn
@@ -2066,11 +2103,20 @@ own evidence-backed slices:
   linking, exact `EntityAISwimmingDiving` water behavior, exact old
   `EntityAISkill` scheduler internals, exact `EntityDamage` charge helper
   entity, `skillBreakBlocks`, self-explosion `infcowmob` summon table,
-  death-time `EntityInfCowHead` spawn chance, client GCLOUD melt particles, and
+  death-time head spawn chance, client GCLOUD melt particles, and
   the real `EntityLesh` replacement with `INFCOW_V` leg data remain explicit
   future slices. The modern slice preserves the evidence-backed `sim_cow`
   registration, attributes, melee/charge surface, callable melt/shrink state,
   sounds, renderer, and animation resources,
+- InfCowHead/Walking Cow Head's exact legacy head health/damage config
+  multiplier table, full `EntityPInfected` backend, exact `EntityAISkill`
+  scheduler internals, exact `disloGiveBodies` + `SRPSaveData` body-upgrade
+  path, and special crude-host recombination with `EntityInhooM` remain
+  explicit future slices. The current repo has no `SRPSaveData` world phase
+  backend and no crude `EntityInhooM` implementation, so the modern slice
+  preserves the registered `sim_cowhead` entity, spawn egg, visible AI surface,
+  sounds, renderer, and animation resources without faking those missing
+  body-recombination backends,
 - InfPig/Assimilated Pig's full `EntityPInfected` backend,
   `canSpawnByIDData`/config gating, exact `EntityAIGetFollowers` follower
   linking, self-explosion `infpigmob` summon table, death-time

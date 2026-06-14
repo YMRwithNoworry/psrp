@@ -21,6 +21,7 @@ public final class ModClientEvents {
         event.registerEntityRenderer(ModEntities.INFBEAR.get(), InfBearRenderer::new);
         event.registerEntityRenderer(ModEntities.INFHUMAN.get(), InfHumanRenderer::new);
         event.registerEntityRenderer(ModEntities.INFCOW.get(), InfCowRenderer::new);
+        event.registerEntityRenderer(ModEntities.INFCOWHEAD.get(), InfCowHeadRenderer::new);
         event.registerEntityRenderer(ModEntities.INFPIG.get(), InfPigRenderer::new);
         event.registerEntityRenderer(ModEntities.INFSHEEP.get(), InfSheepRenderer::new);
         event.registerEntityRenderer(ModEntities.INFWOLF.get(), InfWolfRenderer::new);
