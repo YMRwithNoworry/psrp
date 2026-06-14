@@ -1871,8 +1871,9 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - Added the evidence-backed infected InfWolf/Assimilated Wolf slice:
   - confirmed the old infected-wolf line uses visible entity id `sim_wolf`,
     `EntityInfWolf`, renderer `RenderInfWolf`, model `ModelInfWolf`, and spawn
-    egg item `itemmobspawner_infwolf`. `EntityInfWolfHead` and `EntityFerWolf`
-    exist in the legacy jar but remain separate future slices,
+    egg item `itemmobspawner_infwolf`. `EntityInfWolfHead` is tracked in its
+    own head-entity slice below, while `EntityFerWolf` remains a separate
+    future slice,
   - upgraded `itemmobspawner_infwolf` from a placeholder item into a real
     modern spawn egg using the established old assimilated colors `8611072`
     (`0x835000`) and `16711900` (`0xFF00DC`),
@@ -1896,6 +1897,45 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
     the two legacy pose-mutating animation methods
     `animation.inf_wolf.func_78087_a` and
     `animation.inf_wolf.setRotationAnglesCosmical`.
+- Added the evidence-backed infected InfWolfHead / Walking Wolf Head slice:
+  - confirmed the old head line uses visible entity id `sim_wolfhead`,
+    `EntityInfWolfHead`, renderer `RenderInfWolfHead`, model
+    `ModelInfWolfHead`, texture `assets/srparasites/textures/entity/monster/wolfh.png`,
+    and spawn egg item `itemmobspawner_infwolfhead`,
+  - upgraded `itemmobspawner_infwolfhead` from a placeholder item into a real
+    modern spawn egg using the established old assimilated colors `8611072`
+    (`0x835000`) and `16711900` (`0xFF00DC`),
+  - preserved parasite ID `21`, size `0.7 x 0.6`, eye height `0.3`, shadow
+    radius `0.4`, legacy `killcount = -10`, attack speed marker `15`, reduced
+    fall-damage multiplier `0.3`, and the old `canSpawnByIDData` relationship
+    to the InfWolf natural-spawn gate. The inspected 1.10.6 defaults leave
+    `INFWOLF_HEADHEALTH` and `INFWOLF_HEADDAMAGE` at `0.0` before config head
+    multipliers; the modern runtime uses a small non-zero health/damage
+    fallback so the registered entity is playable until the full config
+    multiplier table is migrated,
+  - preserved the visible old AI surface: swimming/float handling, look idle,
+    leap-at-target `0.4`, melee status speed `1.3`, the
+    `EntityAISkill(40, 100, 3, true, 14)` leap/skill status markers, the old
+    avoid-or-attack threshold/range/status values `0.5`, `10`, and `2`, and
+    the old avoid predicate that ignores water mobs, creepers, parasites, and
+    animals,
+  - wired legacy head sounds `INFECTEDHEAD_GROWL`, `INFECTEDHEAD_HURT`, and
+    `INFECTEDHEAD_DEATH`, plus the legacy `SMALL_STEPS` Java alias to the
+    existing `small.step` sound event,
+  - wired a GeckoLib client renderer to the converted legacy
+    `ModelInfWolfHead` geometry, Java-authored animation resource, and
+    jar-backed `wolfh.png` texture. The converted model keeps the 64x32 texture
+    size, 61 bones, and the two legacy pose-mutating animation methods
+    `animation.inf_wolf_head.func_78087_a`,
+    `animation.inf_wolf_head.setRotationAnglesCosmical`,
+  - documented the old `EntityInfWolfHead` special `disloGiveBodies` tick path
+    and crude-host recombination with `EntityInhooM`: the 1.10.6 head could
+    become `EntityInfWolf` through dislodgement world phase data, and could
+    attack a crude `EntityInhooM`, spawn/replace into `EntityInfWolf`,
+    particle-status the crude host, and discard the crude host. The current
+    repo has no `SRPSaveData` world phase backend and no crude `EntityInhooM`
+    implementation, so those two body-recombination paths are left as explicit
+    future backend slices instead of being faked.
 - Added the evidence-backed infected InfHorse/Assimilated Horse slice:
   - confirmed the old infected-horse line uses visible entity id `sim_horse`,
     `EntityInfHorse`, renderer `RenderInfHorse`, model `ModelInfHorse`, and
@@ -2241,6 +2281,15 @@ own evidence-backed slices:
   future slices. The modern slice preserves the evidence-backed `sim_wolf`
   registration, attributes, melee/leap surface, callable melt/shrink state,
   sounds, renderer, and animation resources,
+- InfWolfHead/Walking Wolf Head's exact legacy head health/damage config
+  multiplier table, full `EntityPInfected` backend, exact `EntityAISkill`
+  scheduler internals, exact `disloGiveBodies` + `SRPSaveData` body-upgrade
+  path, and special crude-host recombination with `EntityInhooM` remain
+  explicit future slices. The current repo has no `SRPSaveData` world phase
+  backend and no crude `EntityInhooM` implementation, so the modern slice
+  preserves the registered `sim_wolfhead` entity, spawn egg, visible AI
+  surface, sounds, renderer, and animation resources without faking those
+  missing body-recombination backends,
 - InfHorse/Assimilated Horse's full `EntityPInfected` backend,
   `canSpawnByIDData`/config gating, exact `EntityAIGetFollowers` follower
   linking, exact `EntityAISwimmingDiving` water behavior, exact
