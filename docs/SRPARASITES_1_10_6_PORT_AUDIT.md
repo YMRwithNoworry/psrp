@@ -1783,8 +1783,8 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - Added the evidence-backed infected InfHorse/Assimilated Horse slice:
   - confirmed the old infected-horse line uses visible entity id `sim_horse`,
     `EntityInfHorse`, renderer `RenderInfHorse`, model `ModelInfHorse`, and
-    spawn egg item `itemmobspawner_infhorse`. `EntityInfHorseHead` and
-    `EntityFerHorse` exist in the legacy jar but remain separate future slices,
+    spawn egg item `itemmobspawner_infhorse`. `EntityFerHorse` exists in the
+    legacy jar but remains a separate future slice,
   - upgraded `itemmobspawner_infhorse` from a placeholder item into a real
     modern spawn egg using the established old assimilated colors `8611072`
     (`0x835000`) and `16711900` (`0xFF00DC`),
@@ -1815,6 +1815,42 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
     and the two legacy pose-mutating animation methods
     `animation.inf_horse.func_78087_a` and
     `animation.inf_horse.setRotationAnglesCosmical`.
+- Added the evidence-backed infected InfHorseHead / Walking Horse Head slice:
+  - confirmed the old head line uses visible entity id `sim_horsehead`,
+    `EntityInfHorseHead`, renderer `RenderInfHorseHead`, model
+    `ModelInfHorseHead`, texture `assets/srparasites/textures/entity/monster/horseh.png`,
+    and spawn egg item `itemmobspawner_infhorsehead`,
+  - upgraded `itemmobspawner_infhorsehead` from a placeholder item into a real
+    modern spawn egg using the established old assimilated colors `8611072`
+    (`0x835000`) and `16711900` (`0xFF00DC`),
+  - preserved parasite ID `45`, size `0.7 x 0.9`, eye height `0.8`, legacy
+    `killcount = -10`, attack speed marker `15`, and the old
+    `canSpawnByIDData` relationship to the InfHorse natural-spawn gate. The
+    inspected 1.10.6 defaults leave `INFHORSE_HEADHEALTH` and
+    `INFHORSE_HEADDAMAGE` at `0.0` before config head multipliers; the modern
+    runtime uses a small non-zero health/damage fallback so the registered
+    entity is playable until the full config multiplier table is migrated,
+  - preserved the visible old AI surface: swimming/float handling, look idle,
+    leap-at-target `0.4`, melee status speed `1.3`, the
+    `EntityAISkill(40, 100, 3, true, 14)` leap/skill status markers, the old
+    avoid-or-attack threshold/range/status values `0.5`, `10`, and `2`, and
+    the old avoid predicate that ignores water mobs, creepers, parasites, and
+    animals,
+  - wired legacy head sounds `INFECTEDHEAD_GROWL`, `INFECTEDHEAD_HURT`, and
+    `INFECTEDHEAD_DEATH`, plus the legacy `SMALL_STEPS` Java alias to the
+    existing `small.step` sound event,
+  - wired a GeckoLib client renderer to the converted legacy
+    `ModelInfHorseHead` geometry, Java-authored animation resource, and
+    jar-backed `horseh.png` texture. The converted model keeps the 64x46
+    texture size, 89 bones, and the two legacy pose-mutating animation methods
+    `animation.inf_horse_head.func_78087_a` and
+    `animation.inf_horse_head.setRotationAnglesCosmical`,
+  - documented the old `EntityInfHorseHead` special interaction with
+    `EntityInhooM`: the 1.10.6 head could attack a crude `EntityInhooM`,
+    spawn/replace into `EntityInfHorse`, particle-status the crude host, and
+    discard the crude host. The current repo has no crude `EntityInhooM`
+    implementation, so that host-recombination behavior is intentionally left
+    as an explicit future crude-entity slice instead of being faked.
 
 ## Explicit Gaps
 
@@ -2066,13 +2102,20 @@ own evidence-backed slices:
   `canSpawnByIDData`/config gating, exact `EntityAIGetFollowers` follower
   linking, exact `EntityAISwimmingDiving` water behavior, exact
   `EntityAIAttackSwell` internals, exact `EntityToxicCloud` and `COTH_E`
-  backend behavior, death-time `EntityInfHorseHead` spawn chance, feral
-  fallback `EntityFerHorse` behavior, client GCLOUD/explosion/gore particles,
-  and the real `EntityLesh` replacement with `INFHORSE_V` leg data remain
+  backend behavior, death-time head spawn chance, feral fallback
+  `EntityFerHorse` behavior, client GCLOUD/explosion/gore particles, and the
+  real `EntityLesh` replacement with `INFHORSE_V` leg data remain
   explicit future slices. The modern slice preserves the evidence-backed
   `sim_horse` registration, attributes, melee/swell/self-explosion surface,
   poison/viral cloud approximation, callable melt/shrink state, sounds,
   renderer, and animation resources,
+- InfHorseHead/Walking Horse Head's exact legacy head health/damage config
+  multiplier table, full `EntityPInfected` backend, exact `EntityAISkill`
+  scheduler internals, and special crude-host recombination with
+  `EntityInhooM` remain explicit future slices. The current repo has no crude
+  `EntityInhooM` implementation, so the modern slice preserves the registered
+  `sim_horsehead` entity, spawn egg, visible AI surface, sounds, renderer, and
+  animation resources without faking that missing crude backend,
 - world evolution and phase systems,
 - adaptation systems,
 - bestiary GUI and networking,

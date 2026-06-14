@@ -96,6 +96,7 @@ public final class ModSounds {
     public static final DeferredHolder<SoundEvent, SoundEvent> INFECTEDSPIDER_GROWL = register("infectedspider.growl");
     public static final DeferredHolder<SoundEvent, SoundEvent> LITE_FLESH_SLIDE = register("lite_flesh.slide");
     public static final DeferredHolder<SoundEvent, SoundEvent> SMALL_STEP = register("small.step");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SMALL_STEPS = SMALL_STEP;
     public static final DeferredHolder<SoundEvent, SoundEvent> INFECTEDSPIDER_STEP = register("infectedspider.step");
     public static final DeferredHolder<SoundEvent, SoundEvent> INFECTEDSPIDER_HURT = register("infectedspider.hurt");
     public static final DeferredHolder<SoundEvent, SoundEvent> INFECTEDENDERMAN_DEATH = register("infectedenderman.death");
