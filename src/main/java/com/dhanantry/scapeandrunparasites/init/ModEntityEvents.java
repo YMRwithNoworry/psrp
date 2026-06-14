@@ -8,6 +8,7 @@ import com.dhanantry.scapeandrunparasites.entity.monster.deterrent.UnvoEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.infected.DorpaEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.infected.InfBearEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.infected.InfCowEntity;
+import com.dhanantry.scapeandrunparasites.entity.monster.infected.InfHorseEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.infected.InfPigEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.infected.InfSheepEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.infected.InfWolfEntity;
@@ -49,6 +50,7 @@ public final class ModEntityEvents {
         event.put(ModEntities.INFPIG.get(), InfPigEntity.createAttributes().build());
         event.put(ModEntities.INFSHEEP.get(), InfSheepEntity.createAttributes().build());
         event.put(ModEntities.INFWOLF.get(), InfWolfEntity.createAttributes().build());
+        event.put(ModEntities.INFHORSE.get(), InfHorseEntity.createAttributes().build());
         event.put(ModEntities.LODO.get(), LodoEntity.createAttributes().build());
         event.put(ModEntities.MUDO.get(), MudoEntity.createAttributes().build());
         event.put(ModEntities.NUUH.get(), NuuhEntity.createAttributes().build());

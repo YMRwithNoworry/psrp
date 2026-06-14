@@ -205,7 +205,8 @@ public final class ModItems {
     public static final DeferredItem<Item> ITEMMOBSPAWNER_INFVILLAGERHEAD = legacyItem("itemmobspawner_infvillagerhead", 64);
     public static final DeferredItem<Item> ITEMMOBSPAWNER_INHOOS = legacyItem("itemmobspawner_inhoos", 64);
     public static final DeferredItem<Item> ITEMMOBSPAWNER_INHOOM = legacyItem("itemmobspawner_inhoom", 64);
-    public static final DeferredItem<Item> ITEMMOBSPAWNER_INFHORSE = legacyItem("itemmobspawner_infhorse", 64);
+    public static final DeferredItem<DeferredSpawnEggItem> ITEMMOBSPAWNER_INFHORSE = register("itemmobspawner_infhorse", () ->
+        new DeferredSpawnEggItem(ModEntities.INFHORSE, 0x835000, 0xFF00DC, new Item.Properties()));
     public static final DeferredItem<Item> ITEMMOBSPAWNER_INFHORSEHEAD = legacyItem("itemmobspawner_infhorsehead", 64);
     public static final DeferredItem<Item> ITEMMOBSPAWNER_INFPLAYER = legacyItem("itemmobspawner_infplayer", 64);
     public static final DeferredItem<Item> ITEMMOBSPAWNER_INFPLAYERHEAD = legacyItem("itemmobspawner_infplayerhead", 64);

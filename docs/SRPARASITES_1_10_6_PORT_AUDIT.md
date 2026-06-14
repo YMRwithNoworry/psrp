@@ -1780,6 +1780,41 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
     the two legacy pose-mutating animation methods
     `animation.inf_wolf.func_78087_a` and
     `animation.inf_wolf.setRotationAnglesCosmical`.
+- Added the evidence-backed infected InfHorse/Assimilated Horse slice:
+  - confirmed the old infected-horse line uses visible entity id `sim_horse`,
+    `EntityInfHorse`, renderer `RenderInfHorse`, model `ModelInfHorse`, and
+    spawn egg item `itemmobspawner_infhorse`. `EntityInfHorseHead` and
+    `EntityFerHorse` exist in the legacy jar but remain separate future slices,
+  - upgraded `itemmobspawner_infhorse` from a placeholder item into a real
+    modern spawn egg using the established old assimilated colors `8611072`
+    (`0x835000`) and `16711900` (`0xFF00DC`),
+  - preserved parasite ID `44`, size `1.3964844 x 1.6`, eye height `1.3`,
+    shadow radius `0.75`, type marker `11`, can-mod-render marker `1`, fuse
+    marker `70`, health `24`, armor `0.5`, attack damage `7.5`, movement
+    speed `0.26999999701976773`, knockback resistance `0.1`, and current
+    infected follow range `32`,
+  - ported the visible old `EntityInfHorse` combat/navigation surface:
+    `EntityAIAttackMeleeStatus(1.5, false, 0)`-style melee, hurt-by-target,
+    swim/float handling, look idle, target acquisition using the current
+    parasite target filters, and `EntityAIAttackSwell(5.0)` as a modern swell
+    goal using the old fuse timing,
+  - preserved the horse-specific self-explosion surface: a `3.5` inflated AABB
+    magic-damage pass using attack damage and the legacy
+    `infhorseExplotionMult` default multiplier, `INFECTEDHORSE_SA2`, and a
+    toxic lingering cloud with poison `300` ticks plus the current port's
+    viral approximation for the old `COTH_E` `3600` tick cloud effect,
+  - preserved the old `EntityCanMelt` surface as a callable `melt()` entry with
+    wait `1000`, start height `1.6`, threshold `0.7`, shrink steps `-0.005`
+    and `-0.01`, and stop/spawn marker `73`,
+  - wired legacy infected-horse `INFECTEDHORSE_GROWL`,
+    `INFECTEDHORSE_HURT`, `INFECTEDHORSE_DEATH`, `INFECTEDHORSE_SA1`, and
+    `INFECTEDHORSE_SA2` sounds plus modern `SoundEvents.HORSE_STEP`,
+  - wired a GeckoLib client renderer to the converted legacy `ModelInfHorse`
+    geometry, Java-authored animation resource, old renderer scale/pulse math,
+    and jar-backed `infhorse.png` texture. The converted model keeps 71 bones
+    and the two legacy pose-mutating animation methods
+    `animation.inf_horse.func_78087_a` and
+    `animation.inf_horse.setRotationAnglesCosmical`.
 
 ## Explicit Gaps
 
@@ -2027,6 +2062,17 @@ own evidence-backed slices:
   future slices. The modern slice preserves the evidence-backed `sim_wolf`
   registration, attributes, melee/leap surface, callable melt/shrink state,
   sounds, renderer, and animation resources,
+- InfHorse/Assimilated Horse's full `EntityPInfected` backend,
+  `canSpawnByIDData`/config gating, exact `EntityAIGetFollowers` follower
+  linking, exact `EntityAISwimmingDiving` water behavior, exact
+  `EntityAIAttackSwell` internals, exact `EntityToxicCloud` and `COTH_E`
+  backend behavior, death-time `EntityInfHorseHead` spawn chance, feral
+  fallback `EntityFerHorse` behavior, client GCLOUD/explosion/gore particles,
+  and the real `EntityLesh` replacement with `INFHORSE_V` leg data remain
+  explicit future slices. The modern slice preserves the evidence-backed
+  `sim_horse` registration, attributes, melee/swell/self-explosion surface,
+  poison/viral cloud approximation, callable melt/shrink state, sounds,
+  renderer, and animation resources,
 - world evolution and phase systems,
 - adaptation systems,
 - bestiary GUI and networking,
