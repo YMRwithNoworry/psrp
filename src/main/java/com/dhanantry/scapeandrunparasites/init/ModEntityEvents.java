@@ -13,6 +13,7 @@ import com.dhanantry.scapeandrunparasites.entity.monster.infected.InfHorseHeadEn
 import com.dhanantry.scapeandrunparasites.entity.monster.infected.InfHorseEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.infected.InfPigHeadEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.infected.InfPigEntity;
+import com.dhanantry.scapeandrunparasites.entity.monster.infected.InfSheepHeadEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.infected.InfSheepEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.infected.InfWolfEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.infected.InfHumanEntity;
@@ -54,6 +55,7 @@ public final class ModEntityEvents {
         event.put(ModEntities.INFPIG.get(), InfPigEntity.createAttributes().build());
         event.put(ModEntities.INFPIGHEAD.get(), InfPigHeadEntity.createAttributes().build());
         event.put(ModEntities.INFSHEEP.get(), InfSheepEntity.createAttributes().build());
+        event.put(ModEntities.INFSHEEPHEAD.get(), InfSheepHeadEntity.createAttributes().build());
         event.put(ModEntities.INFWOLF.get(), InfWolfEntity.createAttributes().build());
         event.put(ModEntities.INFHORSE.get(), InfHorseEntity.createAttributes().build());
         event.put(ModEntities.INFHORSEHEAD.get(), InfHorseHeadEntity.createAttributes().build());
