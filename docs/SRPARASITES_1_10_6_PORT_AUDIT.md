@@ -1690,6 +1690,34 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
     the two legacy pose-mutating animation methods
     `animation.inf_cow.func_78087_a` and
     `animation.inf_cow.setRotationAnglesCosmical`.
+- Added the evidence-backed infected InfPig/Assimilated Pig slice:
+  - confirmed the old infected-pig line uses visible entity id `sim_pig`,
+    `EntityInfPig`, renderer `RenderInfPig`, model `ModelInfPig`, and spawn
+    egg item `itemmobspawner_infpig`. `EntityInfPigHead` exists in the legacy
+    jar but remains a separate head-entity slice,
+  - upgraded `itemmobspawner_infpig` from a placeholder item into a real modern
+    spawn egg using the established old assimilated colors `8611072`
+    (`0x835000`) and `16711900` (`0xFF00DC`),
+  - preserved parasite ID `26`, size `0.9 x 0.9`, eye height `0.8`, shadow
+    radius `0.5`, type marker `15`, can-mod-render marker `1`, fuse marker
+    `40`, health `9`, armor `0.1`, attack damage `3.5`, movement speed `0.25`,
+    knockback resistance `0.1`, and current infected follow range `32`,
+  - ported the visible old `EntityInfPig` combat/navigation surface:
+    `EntityAIAttackMeleeStatus(1.3, false, 0)`-style melee, hurt-by-target,
+    swim/float handling, look idle, and target acquisition using the current
+    parasite target filters,
+  - preserved the old `EntityCanMelt` surface as a callable `melt()` entry with
+    synchronized melt height, `aSize` render scale, wait marker `1000`, start
+    height `0.9`, shrink steps `-0.005` / `-0.01`, threshold `0.7`, stop
+    marker `20`, NBT persistence, and `INFECTED_MELT` looping sound,
+  - wired legacy infected-pig `INFECTEDPIG_GROWL`, `INFECTEDPIG_HURT`, and
+    `INFECTEDPIG_DEATH` sounds plus modern `SoundEvents.PIG_STEP`,
+  - wired a GeckoLib client renderer to the converted legacy `ModelInfPig`
+    geometry, Java-authored animation resource, old renderer scale/pulse math,
+    and jar-backed `pig.png` texture. The converted model keeps 51 bones and
+    the two legacy pose-mutating animation methods
+    `animation.inf_pig.func_78087_a` and
+    `animation.inf_pig.setRotationAnglesCosmical`.
 
 ## Explicit Gaps
 
@@ -1910,6 +1938,14 @@ own evidence-backed slices:
   future slices. The modern slice preserves the evidence-backed `sim_cow`
   registration, attributes, melee/charge surface, callable melt/shrink state,
   sounds, renderer, and animation resources,
+- InfPig/Assimilated Pig's full `EntityPInfected` backend,
+  `canSpawnByIDData`/config gating, exact `EntityAIGetFollowers` follower
+  linking, self-explosion `infpigmob` summon table, death-time
+  `EntityInfPigHead` spawn chance, client GCLOUD melt particles, and the real
+  `EntityLesh` replacement with `INFPIG_V` leg data remain explicit future
+  slices. The modern slice preserves the evidence-backed `sim_pig`
+  registration, attributes, melee surface, callable melt/shrink state, sounds,
+  renderer, and animation resources,
 - world evolution and phase systems,
 - adaptation systems,
 - bestiary GUI and networking,
