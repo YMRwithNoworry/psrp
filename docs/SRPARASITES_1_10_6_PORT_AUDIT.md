@@ -1653,6 +1653,53 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
     variants. The converted model keeps 58 bones and the two legacy
     pose-mutating animation methods `animation.inf_human.func_78087_a` and
     `animation.inf_human.setRotationAnglesCosmical`.
+- Added the evidence-backed infected InfHumanHead / Walking Human Head slice:
+  - confirmed the old head line uses visible entity id `sim_humanhead`,
+    `EntityInfHumanHead`, renderer `RenderInfHumanHead`, model
+    `ModelInfHumanHead`, textures
+    `assets/srparasites/textures/entity/monster/humanh.png`, `humanh1.png`,
+    `humanh2.png`, and `humanhnocturn.png`, and spawn egg item
+    `itemmobspawner_infhumanhead`,
+  - upgraded `itemmobspawner_infhumanhead` from a placeholder item into a real
+    modern spawn egg using the established old assimilated colors `8611072`
+    (`0x835000`) and `16711900` (`0xFF00DC`),
+  - preserved parasite ID `46`, size `0.7 x 0.8`, eye height `0.7`, shadow
+    radius `0.6`, legacy `killcount = -10`, attack speed marker `15`, reduced
+    fall-damage multiplier `0.3`, and the old `canSpawnByIDData` relationship
+    to the InfHuman natural-spawn gate. The inspected 1.10.6 defaults leave
+    `INFHUMAN_HEADHEALTH` and `INFHUMAN_HEADDAMAGE` at `0.0` before config
+    head multipliers; the modern runtime uses a small non-zero health/damage
+    fallback so the registered entity is playable until the full config
+    multiplier table is migrated,
+  - preserved the visible old AI surface: swimming/float handling, look idle,
+    leap-at-target `0.4`, melee status speed `1.3`, the
+    `EntityAISkill(40, 100, 3, true, 14)` leap/skill status markers, the old
+    avoid-or-attack threshold/range/status values `0.5`, `10`, and `2`, and
+    the old avoid predicate that ignores water mobs, creepers, parasites, and
+    animals,
+  - preserved the old spawn-time skin selection `1 + random.nextInt(3)` and
+    renderer switch behavior: skin `1` uses `humanh1.png`, skin `10` uses
+    `humanhnocturn.png`, and all other visible cases fall back to `humanh.png`.
+    `RenderInfHumanHead` also declares `humanh2.png`; the resource is kept
+    because the legacy renderer references it even though the bytecode switch
+    does not select it for the random `1..3` spawn variants,
+  - wired legacy head sounds `INFECTEDHEAD_GROWL`, `INFECTEDHEAD_HURT`, and
+    `INFECTEDHEAD_DEATH`, plus the legacy `SMALL_STEPS` Java alias to the
+    existing `small.step` sound event,
+  - wired a GeckoLib client renderer to the converted legacy
+    `ModelInfHumanHead` geometry and Java-authored animation resource. The
+    converted model keeps the 64x32 texture size, 78 bones, and the two legacy
+    pose-mutating animation methods
+    `animation.inf_human_head.func_78087_a` and
+    `animation.inf_human_head.setRotationAnglesCosmical`,
+  - documented the old `EntityInfHumanHead` special `disloGiveBodies` tick
+    path and crude-host recombination with `EntityInhooM`: the 1.10.6 head
+    could become `EntityInfHuman` through dislodgement world phase data, and
+    could attack a crude `EntityInhooM`, spawn/replace into `EntityInfHuman`,
+    particle-status the crude host, and discard the crude host. The current
+    repo has no `SRPSaveData` world phase backend and no crude `EntityInhooM`
+    implementation, so those two body-recombination paths are left as explicit
+    future backend slices instead of being faked.
 - Added the evidence-backed infected InfCow/Assimilated Cow slice:
   - confirmed the old infected-cow line uses visible entity id `sim_cow`,
     `EntityInfCow`, renderer `RenderInfCow`, model `ModelInfCow`, and spawn
@@ -2217,6 +2264,15 @@ own evidence-backed slices:
   `sim_human` registration, attributes, door-opening/melee/bleed surface,
   variant skins, callable melt/shrink state, sounds, renderer, and animation
   resources,
+- InfHumanHead/Walking Human Head's exact legacy head health/damage config
+  multiplier table, full `EntityPInfected` backend, exact `EntityAISkill`
+  scheduler internals, exact `disloGiveBodies` + `SRPSaveData` body-upgrade
+  path, and special crude-host recombination with `EntityInhooM` remain
+  explicit future slices. The current repo has no `SRPSaveData` world phase
+  backend and no crude `EntityInhooM` implementation, so the modern slice
+  preserves the registered `sim_humanhead` entity, spawn egg, visible AI
+  surface, skin/texture branch, sounds, renderer, and animation resources
+  without faking those missing body-recombination backends,
 - InfCow/Assimilated Cow's full `EntityPInfected` backend,
   `canSpawnByIDData`/config gating, exact `EntityAIGetFollowers` follower
   linking, exact `EntityAISwimmingDiving` water behavior, exact old
