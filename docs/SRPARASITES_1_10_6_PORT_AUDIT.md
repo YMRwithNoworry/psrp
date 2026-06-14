@@ -1752,6 +1752,34 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
     two legacy pose-mutating animation methods
     `animation.inf_sheep.func_78087_a` and
     `animation.inf_sheep.setRotationAnglesCosmical`.
+- Added the evidence-backed infected InfWolf/Assimilated Wolf slice:
+  - confirmed the old infected-wolf line uses visible entity id `sim_wolf`,
+    `EntityInfWolf`, renderer `RenderInfWolf`, model `ModelInfWolf`, and spawn
+    egg item `itemmobspawner_infwolf`. `EntityInfWolfHead` and `EntityFerWolf`
+    exist in the legacy jar but remain separate future slices,
+  - upgraded `itemmobspawner_infwolf` from a placeholder item into a real
+    modern spawn egg using the established old assimilated colors `8611072`
+    (`0x835000`) and `16711900` (`0xFF00DC`),
+  - preserved parasite ID `15`, size `0.6 x 0.85`, old eye-height formula
+    result `0.68`, shadow radius `0.5`, type marker `13`, can-mod-render
+    marker `1`, fuse marker `40`, attack-speed marker `10`, health `10`,
+    armor `0.5`, attack damage `10.5`, movement speed `0.30000001192092896`,
+    knockback resistance `0.2`, and current infected follow range `32`,
+  - ported the visible old `EntityInfWolf` combat/navigation surface:
+    `EntityAIAttackMeleeStatus(1.3, false, 0)`-style melee, hurt-by-target,
+    swim/float handling, look idle, `EntityAILeapAtTarget(0.4)` leap, and
+    target acquisition using the current parasite target filters,
+  - preserved the old `EntityCanMelt` surface as a callable `melt()` entry with
+    wait `1000`, start height `0.85`, threshold `0.7`, shrink steps `-0.005`
+    and `-0.01`, and stop/spawn marker `19`,
+  - wired legacy infected-wolf `INFECTEDWOLF_GROWL`, `INFECTEDWOLF_HURT`, and
+    `INFECTEDWOLF_DEATH` sounds plus modern `SoundEvents.WOLF_STEP`,
+  - wired a GeckoLib client renderer to the converted legacy `ModelInfWolf`
+    geometry, Java-authored animation resource, old renderer scale/pulse math,
+    and jar-backed `wolf.png` texture. The converted model keeps 55 bones and
+    the two legacy pose-mutating animation methods
+    `animation.inf_wolf.func_78087_a` and
+    `animation.inf_wolf.setRotationAnglesCosmical`.
 
 ## Explicit Gaps
 
@@ -1990,6 +2018,15 @@ own evidence-backed slices:
   registration, attributes, melee surface, callable melt/shrink state, sounds,
   renderer, animation resources, and the old white/grey/black dyeable texture
   variant surface,
+- InfWolf/Assimilated Wolf's full `EntityPInfected` backend,
+  `canSpawnByIDData`/config gating, exact `EntityAIGetFollowers` follower
+  linking, exact `EntityAISwimmingDiving` water behavior, self-explosion
+  `infwolfmob` summon table, death-time `EntityInfWolfHead` spawn chance,
+  feral fallback `EntityFerWolf` behavior, client GCLOUD melt particles, and
+  the real `EntityLesh` replacement with `INFWOLF_V` leg data remain explicit
+  future slices. The modern slice preserves the evidence-backed `sim_wolf`
+  registration, attributes, melee/leap surface, callable melt/shrink state,
+  sounds, renderer, and animation resources,
 - world evolution and phase systems,
 - adaptation systems,
 - bestiary GUI and networking,

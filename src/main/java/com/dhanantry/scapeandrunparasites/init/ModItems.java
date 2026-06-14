@@ -197,7 +197,8 @@ public final class ModItems {
     public static final DeferredItem<DeferredSpawnEggItem> ITEMMOBSPAWNER_INFSHEEP = register("itemmobspawner_infsheep", () ->
         new DeferredSpawnEggItem(ModEntities.INFSHEEP, 0x835000, 0xFF00DC, new Item.Properties()));
     public static final DeferredItem<Item> ITEMMOBSPAWNER_INFSHEEPHEAD = legacyItem("itemmobspawner_infsheephead", 64);
-    public static final DeferredItem<Item> ITEMMOBSPAWNER_INFWOLF = legacyItem("itemmobspawner_infwolf", 64);
+    public static final DeferredItem<DeferredSpawnEggItem> ITEMMOBSPAWNER_INFWOLF = register("itemmobspawner_infwolf", () ->
+        new DeferredSpawnEggItem(ModEntities.INFWOLF, 0x835000, 0xFF00DC, new Item.Properties()));
     public static final DeferredItem<Item> ITEMMOBSPAWNER_INFWOLFHEAD = legacyItem("itemmobspawner_infwolfhead", 64);
     public static final DeferredItem<Item> ITEMMOBSPAWNER_INFPIGHEAD = legacyItem("itemmobspawner_infpighead", 64);
     public static final DeferredItem<Item> ITEMMOBSPAWNER_INFVILLAGER = legacyItem("itemmobspawner_infvillager", 64);
