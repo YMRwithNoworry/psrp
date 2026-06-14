@@ -12,6 +12,7 @@ import com.dhanantry.scapeandrunparasites.entity.monster.infected.InfCowHeadEnti
 import com.dhanantry.scapeandrunparasites.entity.monster.infected.InfCowEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.infected.InfHorseHeadEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.infected.InfHorseEntity;
+import com.dhanantry.scapeandrunparasites.entity.monster.infected.InfPigHeadEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.infected.InfPigEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.infected.InfSheepEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.infected.InfWolfEntity;
@@ -107,6 +108,12 @@ public final class ModEntities {
             .eyeHeight(InfPigEntity.LEGACY_EYE_HEIGHT)
             .clientTrackingRange(8)
             .build(SRPMain.MODID + ":sim_pig"));
+    public static final DeferredHolder<EntityType<?>, EntityType<InfPigHeadEntity>> INFPIGHEAD = ENTITIES.register("sim_pighead", () ->
+        EntityType.Builder.of(InfPigHeadEntity::new, MobCategory.MONSTER)
+            .sized(InfPigHeadEntity.LEGACY_WIDTH, InfPigHeadEntity.LEGACY_HEIGHT)
+            .eyeHeight(InfPigHeadEntity.LEGACY_EYE_HEIGHT)
+            .clientTrackingRange(8)
+            .build(SRPMain.MODID + ":sim_pighead"));
     public static final DeferredHolder<EntityType<?>, EntityType<InfSheepEntity>> INFSHEEP = ENTITIES.register("sim_sheep", () ->
         EntityType.Builder.of(InfSheepEntity::new, MobCategory.MONSTER)
             .sized(InfSheepEntity.LEGACY_WIDTH, InfSheepEntity.LEGACY_HEIGHT)

@@ -1730,8 +1730,8 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - Added the evidence-backed infected InfPig/Assimilated Pig slice:
   - confirmed the old infected-pig line uses visible entity id `sim_pig`,
     `EntityInfPig`, renderer `RenderInfPig`, model `ModelInfPig`, and spawn
-    egg item `itemmobspawner_infpig`. `EntityInfPigHead` exists in the legacy
-    jar but remains a separate head-entity slice,
+    egg item `itemmobspawner_infpig`. `EntityInfPigHead` is tracked in its own
+    head-entity slice below,
   - upgraded `itemmobspawner_infpig` from a placeholder item into a real modern
     spawn egg using the established old assimilated colors `8611072`
     (`0x835000`) and `16711900` (`0xFF00DC`),
@@ -1755,6 +1755,45 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
     the two legacy pose-mutating animation methods
     `animation.inf_pig.func_78087_a` and
     `animation.inf_pig.setRotationAnglesCosmical`.
+- Added the evidence-backed infected InfPigHead / Walking Pig Head slice:
+  - confirmed the old head line uses visible entity id `sim_pighead`,
+    `EntityInfPigHead`, renderer `RenderInfPigHead`, model `ModelInfPigHead`,
+    texture `assets/srparasites/textures/entity/monster/pigh.png`, and spawn
+    egg item `itemmobspawner_infpighead`,
+  - upgraded `itemmobspawner_infpighead` from a placeholder item into a real
+    modern spawn egg using the established old assimilated colors `8611072`
+    (`0x835000`) and `16711900` (`0xFF00DC`),
+  - preserved parasite ID `31`, size `0.7 x 0.9`, eye height `0.8`, shadow
+    radius `0.6`, legacy `killcount = -10`, attack speed marker `15`, reduced
+    fall-damage multiplier `0.3`, and the old `canSpawnByIDData` relationship
+    to the InfPig natural-spawn gate. The inspected 1.10.6 defaults leave
+    `INFPIG_HEADHEALTH` and `INFPIG_HEADDAMAGE` at `0.0` before config head
+    multipliers; the modern runtime uses a small non-zero health/damage
+    fallback so the registered entity is playable until the full config
+    multiplier table is migrated,
+  - preserved the visible old AI surface: swimming/float handling, look idle,
+    leap-at-target `0.4`, melee status speed `1.3`, the
+    `EntityAISkill(40, 100, 3, true, 14)` leap/skill status markers, the old
+    avoid-or-attack threshold/range/status values `0.5`, `10`, and `2`, and
+    the old avoid predicate that ignores water mobs, creepers, parasites, and
+    animals,
+  - wired legacy head sounds `INFECTEDHEAD_GROWL`, `INFECTEDHEAD_HURT`, and
+    `INFECTEDHEAD_DEATH`, plus the legacy `SMALL_STEPS` Java alias to the
+    existing `small.step` sound event,
+  - wired a GeckoLib client renderer to the converted legacy
+    `ModelInfPigHead` geometry, Java-authored animation resource, and
+    jar-backed `pigh.png` texture. The converted model keeps the 64x46 texture
+    size, 109 bones, and the two legacy pose-mutating animation methods
+    `animation.inf_pig_head.func_78087_a`,
+    `animation.inf_pig_head.setRotationAnglesCosmical`,
+  - documented the old `EntityInfPigHead` special `disloGiveBodies` tick path
+    and crude-host recombination with `EntityInhooM`: the 1.10.6 head could
+    become `EntityInfPig` through dislodgement world phase data, and could
+    attack a crude `EntityInhooM`, spawn/replace into `EntityInfPig`,
+    particle-status the crude host, and discard the crude host. The current
+    repo has no `SRPSaveData` world phase backend and no crude `EntityInhooM`
+    implementation, so those two body-recombination paths are left as explicit
+    future backend slices instead of being faked.
 - Added the evidence-backed infected InfSheep/Assimilated Sheep slice:
   - confirmed the old infected-sheep line uses visible entity id `sim_sheep`,
     `EntityInfSheep`, renderer `RenderInfSheep`, model `ModelInfSheep`, and
@@ -2125,6 +2164,15 @@ own evidence-backed slices:
   slices. The modern slice preserves the evidence-backed `sim_pig`
   registration, attributes, melee surface, callable melt/shrink state, sounds,
   renderer, and animation resources,
+- InfPigHead/Walking Pig Head's exact legacy head health/damage config
+  multiplier table, full `EntityPInfected` backend, exact `EntityAISkill`
+  scheduler internals, exact `disloGiveBodies` + `SRPSaveData` body-upgrade
+  path, and special crude-host recombination with `EntityInhooM` remain
+  explicit future slices. The current repo has no `SRPSaveData` world phase
+  backend and no crude `EntityInhooM` implementation, so the modern slice
+  preserves the registered `sim_pighead` entity, spawn egg, visible AI surface,
+  sounds, renderer, and animation resources without faking those missing
+  body-recombination backends,
 - InfSheep/Assimilated Sheep's full `EntityPInfected` backend,
   `canSpawnByIDData`/config gating, exact `EntityAIGetFollowers` follower
   linking, exact `EntityAISwimmingDiving` water behavior, self-explosion
