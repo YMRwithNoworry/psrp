@@ -92,7 +92,7 @@ for (const marker of [
   "https://scape-and-run-parasites.fandom.com/wiki/Dead_Blood",
   "https://scape-and-run-parasites.fandom.com/wiki/Dead_Blood_Fluid",
   "https://scape-and-run-parasites.fandom.com/wiki/Alveoli",
-  "Water/lava conversion remains a documented gap"
+  "Water/lava conversion is now implemented"
 ]) {
   if (!audit.includes(marker)) throw new Error(`audit missing wiki/evidence marker: ${marker}`);
 }

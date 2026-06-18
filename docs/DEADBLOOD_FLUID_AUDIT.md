@@ -23,6 +23,8 @@ Inspected from `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar` with `javap 
 - `com.dhanantry.scapeandrunparasites.init.SRPFluids`
 - `com.dhanantry.scapeandrunparasites.fluid.DeadBloodFluid`
 - `com.dhanantry.scapeandrunparasites.block.BlockFluid`
+- `com.dhanantry.scapeandrunparasites.block.BlockParasiteStain$EnumType`
+- `com.dhanantry.scapeandrunparasites.block.BlockParasiteRubble$EnumType`
 - `com.dhanantry.scapeandrunparasites.events.DeadBloodBottleHandler`
 - `com.dhanantry.scapeandrunparasites.item.ItemDeadBlood`
 - `com.dhanantry.scapeandrunparasites.item.ItemAlveolarFluid`
@@ -37,10 +39,11 @@ Inspected from `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar` with `javap 
 - Bottled Dead Blood stacks to 64, drinks for 32 ticks, returns a glass bottle, and applies Viral II for 600 ticks.
 - Dead Blood fluid slows non-parasite movement, reduces falling speed, resets fall distance, applies viral-scaled magic chip damage, and adds Corrosive/Viral when the entity head is submerged.
 - Parasite entities are healed by Dead Blood instead of damaged.
+- Water/lava conversion is now implemented on Dead Blood placement and neighbor shape updates. Adjacent water becomes the legacy `parasitestain` `variant=mud` state, matching Visceral Mud; adjacent lava becomes the legacy `parasiterubble` `variant=obsidian` state, matching Bleeding Obsidian.
+- `parasitestain` and `parasiterubble` now carry minimal runtime `variant` properties for the legacy variants required by this conversion slice, while preserving the original registry IDs used by the 1.10.6 block classes.
 - Client behavior restores green fog, close fog distance, water overlay cancellation, a flowing Dead Blood screen overlay, and jump-key swim lift while the player's eyes are in Dead Blood.
 - Bottled Alveolar Fluid follows legacy bytecode: stack size 1, 32 tick drink, returns a glass bottle, and applies Speed I, Haste I, and Viral III for 600 ticks.
 
 ## Remaining gaps
 
-- Water/lava conversion remains a documented gap. The wiki says Dead Blood turns contacted water into Visceral Mud and lava into Bleeding Obsidian, but those target blocks are still represented in this repo as broader blockstate assets rather than a focused conversion behavior slice.
 - Diseased Sponge brewing into Dead Blood Fluid remains a documented gap. The wiki confirms the recipe path, but this slice only restores the direct source-block bottle path and drink behavior.

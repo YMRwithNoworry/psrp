@@ -23,6 +23,8 @@ for (const marker of [
   "CREATIVE_TAB_BLOCK_ITEMS",
   "BlockBehaviour.Properties.of().strength(1.0F, 3.0F)",
   "public static final DeferredBlock<LiquidBlock> DEADBLOOD = legacyFluid(\"deadblood\");",
+  "public static final DeferredBlock<ParasiteStainBlock> PARASITESTAIN = parasiteStainBlock(\"parasitestain\");",
+  "public static final DeferredBlock<ParasiteRubbleBlock> PARASITERUBBLE = parasiteRubbleBlock(\"parasiterubble\");",
   "new DeadBloodFluidBlock(ModFluids.DEADBLOOD_SOURCE.get(), legacyFluidProperties())",
   "new BlockItem(block.get(), new Item.Properties())"
 ]) {
@@ -32,12 +34,17 @@ for (const id of blockIds) {
   const constant = constantName(id);
   const expected = id === "deadblood"
     ? `public static final DeferredBlock<LiquidBlock> ${constant} = legacyFluid("${id}");`
-    : `public static final DeferredBlock<Block> ${constant} = legacyBlock("${id}");`;
+    : id === "parasitestain"
+      ? `public static final DeferredBlock<ParasiteStainBlock> ${constant} = parasiteStainBlock("${id}");`
+      : id === "parasiterubble"
+        ? `public static final DeferredBlock<ParasiteRubbleBlock> ${constant} = parasiteRubbleBlock("${id}");`
+        : `public static final DeferredBlock<Block> ${constant} = legacyBlock("${id}");`;
   if (!source.includes(expected)) {
     throw new Error(`ModBlocks missing legacy block registration: ${id}`);
   }
   const blockstate = JSON.parse(read(`src/main/resources/assets/srparasites/blockstates/${id}.json`));
-  if (!blockstate.variants || !blockstate.variants[""]) {
+  const hasBaselineVariant = blockstate.variants && (blockstate.variants[""] || blockstate.variants["variant=dirt"] || blockstate.variants["variant=flesh"]);
+  if (!hasBaselineVariant) {
     throw new Error(`Blockstate is missing no-property fallback variant for baseline block: ${id}`);
   }
 }

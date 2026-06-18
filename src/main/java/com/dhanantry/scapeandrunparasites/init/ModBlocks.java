@@ -2,6 +2,8 @@ package com.dhanantry.scapeandrunparasites.init;
 
 import com.dhanantry.scapeandrunparasites.SRPMain;
 import com.dhanantry.scapeandrunparasites.block.DeadBloodFluidBlock;
+import com.dhanantry.scapeandrunparasites.block.ParasiteRubbleBlock;
+import com.dhanantry.scapeandrunparasites.block.ParasiteStainBlock;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.world.item.BlockItem;
@@ -203,7 +205,7 @@ public final class ModBlocks {
     public static final DeferredBlock<Block> PARASITEMOUTH = legacyBlock("parasitemouth");
     public static final DeferredBlock<Block> PARASITEPLANK = legacyBlock("parasiteplank");
     public static final DeferredBlock<Block> PARASITEPLANK_DEADHEAD_WALL = legacyBlock("parasiteplank_deadhead_wall");
-    public static final DeferredBlock<Block> PARASITERUBBLE = legacyBlock("parasiterubble");
+    public static final DeferredBlock<ParasiteRubbleBlock> PARASITERUBBLE = parasiteRubbleBlock("parasiterubble");
     public static final DeferredBlock<Block> PARASITERUBBLE_BONESTAIRS = legacyBlock("parasiterubble_bonestairs");
     public static final DeferredBlock<Block> PARASITERUBBLE_BRICKS_WALL = legacyBlock("parasiterubble_bricks_wall");
     public static final DeferredBlock<Block> PARASITERUBBLE_BRICKSSTAIRS = legacyBlock("parasiterubble_bricksstairs");
@@ -228,7 +230,7 @@ public final class ModBlocks {
     public static final DeferredBlock<Block> PARASITERUBBLESLABDOUBLE = legacyBlock("parasiterubbleslabdouble");
     public static final DeferredBlock<Block> PARASITERUBBLESLABHALF = legacyBlock("parasiterubbleslabhalf");
     public static final DeferredBlock<Block> PARASITESAPLING = legacyBlock("parasitesapling");
-    public static final DeferredBlock<Block> PARASITESTAIN = legacyBlock("parasitestain");
+    public static final DeferredBlock<ParasiteStainBlock> PARASITESTAIN = parasiteStainBlock("parasitestain");
     public static final DeferredBlock<Block> PARASITESTAIN_DIRTSTAIRS = legacyBlock("parasitestain_dirtstairs");
     public static final DeferredBlock<Block> PARASITESTAIN_FEELERSTAIRS = legacyBlock("parasitestain_feelerstairs");
     public static final DeferredBlock<Block> PARASITESTAIN_FLESH_WALL = legacyBlock("parasitestain_flesh_wall");
@@ -303,6 +305,22 @@ public final class ModBlocks {
 
     private static DeferredBlock<Block> legacyBlock(String name) {
         DeferredBlock<Block> block = BLOCKS.registerSimpleBlock(name, BlockBehaviour.Properties.of().strength(1.0F, 3.0F));
+        DeferredItem<BlockItem> item = BLOCK_ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+        CREATIVE_TAB_BLOCK_ITEMS.add(item);
+        return block;
+    }
+
+    private static DeferredBlock<ParasiteStainBlock> parasiteStainBlock(String name) {
+        DeferredBlock<ParasiteStainBlock> block = BLOCKS.register(name, () ->
+            new ParasiteStainBlock(BlockBehaviour.Properties.of().strength(1.0F, 3.0F)));
+        DeferredItem<BlockItem> item = BLOCK_ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+        CREATIVE_TAB_BLOCK_ITEMS.add(item);
+        return block;
+    }
+
+    private static DeferredBlock<ParasiteRubbleBlock> parasiteRubbleBlock(String name) {
+        DeferredBlock<ParasiteRubbleBlock> block = BLOCKS.register(name, () ->
+            new ParasiteRubbleBlock(BlockBehaviour.Properties.of().strength(1.0F, 3.0F)));
         DeferredItem<BlockItem> item = BLOCK_ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
         CREATIVE_TAB_BLOCK_ITEMS.add(item);
         return block;

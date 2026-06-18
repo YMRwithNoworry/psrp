@@ -1,15 +1,19 @@
 package com.dhanantry.scapeandrunparasites.block;
 
+import com.dhanantry.scapeandrunparasites.init.ModBlocks;
 import com.dhanantry.scapeandrunparasites.entity.monster.pure.SrpParasiteMob;
 import com.dhanantry.scapeandrunparasites.init.ModEffects;
 import com.dhanantry.scapeandrunparasites.init.ModFluids;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FlowingFluid;
@@ -27,6 +31,21 @@ public class DeadBloodFluidBlock extends LiquidBlock {
 
     public DeadBloodFluidBlock(FlowingFluid fluid, Properties properties) {
         super(fluid, properties);
+    }
+
+    @Override
+    protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
+        super.onPlace(state, level, pos, oldState, isMoving);
+        if (!level.isClientSide) {
+            convertNeighboringLiquids(level, pos);
+        }
+    }
+
+    @Override
+    protected BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
+        BlockState updated = super.updateShape(state, facing, facingState, level, currentPos, facingPos);
+        convertLiquid(level, facingPos, facingState.getFluidState());
+        return updated;
     }
 
     @Override
@@ -50,6 +69,24 @@ public class DeadBloodFluidBlock extends LiquidBlock {
                 refreshIfLow(living, ModEffects.CORROSIVE, LEGACY_HEAD_CORROSIVE_DURATION, 0);
                 refreshIfLow(living, ModEffects.VIRAL, LEGACY_HEAD_VIRAL_DURATION, 1);
             }
+        }
+    }
+
+    private static void convertNeighboringLiquids(LevelAccessor level, BlockPos pos) {
+        for (Direction direction : Direction.values()) {
+            BlockPos targetPos = pos.relative(direction);
+            convertLiquid(level, targetPos, level.getFluidState(targetPos));
+        }
+    }
+
+    private static void convertLiquid(LevelAccessor level, BlockPos pos, FluidState fluidState) {
+        if (level instanceof Level concreteLevel && concreteLevel.isClientSide) {
+            return;
+        }
+        if (fluidState.is(FluidTags.WATER)) {
+            level.setBlock(pos, ModBlocks.PARASITESTAIN.get().mudState(), 3);
+        } else if (fluidState.is(FluidTags.LAVA)) {
+            level.setBlock(pos, ModBlocks.PARASITERUBBLE.get().obsidianState(), 3);
         }
     }
 
