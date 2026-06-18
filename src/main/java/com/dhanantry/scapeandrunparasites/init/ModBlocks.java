@@ -1,12 +1,16 @@
 package com.dhanantry.scapeandrunparasites.init;
 
 import com.dhanantry.scapeandrunparasites.SRPMain;
+import com.dhanantry.scapeandrunparasites.block.DeadBloodFluidBlock;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -68,7 +72,7 @@ public final class ModBlocks {
     public static final DeferredBlock<Block> COOKED_FLESH_STAIRS = legacyBlock("cooked_flesh_stairs");
     public static final DeferredBlock<Block> DEAD_HEAD_PLANK_SLAB = legacyBlock("dead_head_plank_slab");
     public static final DeferredBlock<Block> DEAD_HEAD_PLANK_SLAB_DOUBLE = legacyBlock("dead_head_plank_slab_double");
-    public static final DeferredBlock<Block> DEADBLOOD = legacyBlock("deadblood");
+    public static final DeferredBlock<LiquidBlock> DEADBLOOD = legacyFluid("deadblood");
     public static final DeferredBlock<Block> DEADHEAD_FENCE = legacyBlock("deadhead_fence");
     public static final DeferredBlock<Block> DEADHEAD_PLANK_STAIRS = legacyBlock("deadhead_plank_stairs");
     public static final DeferredBlock<Block> DERMOID_CYST = legacyBlock("dermoid_cyst");
@@ -302,5 +306,20 @@ public final class ModBlocks {
         DeferredItem<BlockItem> item = BLOCK_ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
         CREATIVE_TAB_BLOCK_ITEMS.add(item);
         return block;
+    }
+
+    private static DeferredBlock<LiquidBlock> legacyFluid(String name) {
+        return BLOCKS.register(name, () -> new DeadBloodFluidBlock(ModFluids.DEADBLOOD_SOURCE.get(), legacyFluidProperties()));
+    }
+
+    private static BlockBehaviour.Properties legacyFluidProperties() {
+        return BlockBehaviour.Properties.of()
+            .mapColor(MapColor.COLOR_RED)
+            .replaceable()
+            .noCollission()
+            .strength(100.0F)
+            .pushReaction(PushReaction.DESTROY)
+            .noLootTable()
+            .liquid();
     }
 }

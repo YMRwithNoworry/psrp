@@ -22,13 +22,18 @@ for (const marker of [
   "DeferredRegister.createItems(SRPMain.MODID)",
   "CREATIVE_TAB_BLOCK_ITEMS",
   "BlockBehaviour.Properties.of().strength(1.0F, 3.0F)",
+  "public static final DeferredBlock<LiquidBlock> DEADBLOOD = legacyFluid(\"deadblood\");",
+  "new DeadBloodFluidBlock(ModFluids.DEADBLOOD_SOURCE.get(), legacyFluidProperties())",
   "new BlockItem(block.get(), new Item.Properties())"
 ]) {
   if (!source.includes(marker)) throw new Error(`ModBlocks missing marker: ${marker}`);
 }
 for (const id of blockIds) {
   const constant = constantName(id);
-  if (!source.includes(`public static final DeferredBlock<Block> ${constant} = legacyBlock("${id}");`)) {
+  const expected = id === "deadblood"
+    ? `public static final DeferredBlock<LiquidBlock> ${constant} = legacyFluid("${id}");`
+    : `public static final DeferredBlock<Block> ${constant} = legacyBlock("${id}");`;
+  if (!source.includes(expected)) {
     throw new Error(`ModBlocks missing legacy block registration: ${id}`);
   }
   const blockstate = JSON.parse(read(`src/main/resources/assets/srparasites/blockstates/${id}.json`));

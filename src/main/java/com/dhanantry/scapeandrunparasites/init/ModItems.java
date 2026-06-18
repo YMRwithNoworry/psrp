@@ -1,6 +1,8 @@
 package com.dhanantry.scapeandrunparasites.init;
 
 import com.dhanantry.scapeandrunparasites.SRPMain;
+import com.dhanantry.scapeandrunparasites.item.AlveolarFluidItem;
+import com.dhanantry.scapeandrunparasites.item.DeadBloodFluidItem;
 import com.dhanantry.scapeandrunparasites.item.LivingArmorItem;
 import com.dhanantry.scapeandrunparasites.item.LivingBowItem;
 import com.dhanantry.scapeandrunparasites.item.LivingMeleeWeaponItem;
@@ -123,8 +125,10 @@ public final class ModItems {
     public static final DeferredItem<Item> BONE = legacyItem("bone", 16);
     public static final DeferredItem<Item> SEMIORGANIC_INGOT = legacyItem("semiorganic_ingot", 64);
     public static final DeferredItem<Item> TISSUE_SPIKE = legacyItem("tissue_spike", 1);
-    public static final DeferredItem<Item> ALVEOLAR_FLUID = legacyItem("alveolar_fluid", 1);
-    public static final DeferredItem<Item> DEADBLOOD_FLUID = legacyItem("deadblood_fluid", 1);
+    public static final DeferredItem<AlveolarFluidItem> ALVEOLAR_FLUID = register("alveolar_fluid", () ->
+        new AlveolarFluidItem(new Item.Properties().stacksTo(AlveolarFluidItem.LEGACY_STACK_SIZE)));
+    public static final DeferredItem<DeadBloodFluidItem> DEADBLOOD_FLUID = register("deadblood_fluid", () ->
+        new DeadBloodFluidItem(new Item.Properties().stacksTo(DeadBloodFluidItem.LEGACY_STACK_SIZE)));
     public static final DeferredItem<Item> ALVEOLIGROWTH = legacyItem("alveoligrowth", 64);
     public static final DeferredItem<Item> INFESTED_BONEMEAL = legacyItem("infested_bonemeal", 1);
     public static final DeferredItem<Item> BOUGH = legacyItem("bough", 1);
