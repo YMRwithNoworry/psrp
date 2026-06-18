@@ -199,14 +199,30 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   `srparasites:thornshade_decanter`, stack size `16`, drink animation, `32` tick
   use duration, and applies `THORNSHADE_THORNS_E` to players for `400` ticks.
 - `com.dhanantry.scapeandrunparasites.potion.Recipe`: old `init()` registers
-  `SpongeToDeadbloodRecipe` after resolving `srparasites:diseased_sponge`,
-  `srparasites:deadblood_fluid`, `minecraft:water`, and
+  the custom SRP brewing recipes after resolving `srparasites:alveolar_fluid`,
+  `srparasites:fear`, `srparasites:diseased_sponge`,
+  `srparasites:deadblood_fluid`, `srparasites:thornshade_berry`,
+  `srparasites:thornshade_decanter`, `minecraft:water`, and
   `minecraft:awkward`.
+- `com.dhanantry.scapeandrunparasites.potion.Recipe$BaseToFearRecipe`:
+  implements `IBrewingRecipe`; valid inputs are `srparasites:alveolar_fluid`,
+  the ingredient is vanilla flint, and the output is a normal
+  `srparasites:fear` potion.
+- `com.dhanantry.scapeandrunparasites.potion.Recipe$FearToSplashRecipe`:
+  converts a normal `srparasites:fear` potion with gunpowder into a splash
+  `srparasites:fear` potion.
+- `com.dhanantry.scapeandrunparasites.potion.Recipe$FearSplashToLingeringRecipe`:
+  converts a splash `srparasites:fear` potion with dragon breath into a
+  lingering `srparasites:fear` potion.
 - `com.dhanantry.scapeandrunparasites.potion.Recipe$SpongeToDeadbloodRecipe`:
   implements `IBrewingRecipe`; valid inputs are `Items.POTION` stacks whose
   potion type is vanilla water or awkward, the ingredient item must be
   `srparasites:diseased_sponge`, and the output is one
   `srparasites:deadblood_fluid`.
+- `com.dhanantry.scapeandrunparasites.potion.Recipe$BerryToThornshadeDecanterRecipe`:
+  mirrors `SpongeToDeadbloodRecipe` shape; valid inputs are vanilla water or
+  awkward potion bottles, the ingredient is `srparasites:thornshade_berry`, and
+  the output is one `srparasites:thornshade_decanter`.
 - `com.dhanantry.scapeandrunparasites.entity.monster.pure.EntityFlog`: Grunt /
   Flog entity size, legacy parasite ID `60`, climb flag, swim and water leap
   goals, AOE melee attack, skill leap, evade dash, variant skin selection, and
@@ -1069,6 +1085,13 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   NeoForge `RegisterBrewingRecipesEvent`: Water Bottle or Awkward Potion plus
   `srparasites:diseased_sponge` now produces one
   `srparasites:deadblood_fluid`.
+- Ported the remaining old `Recipe` custom brewing surfaces through the same
+  NeoForge event: `srparasites:alveolar_fluid` plus flint produces a normal
+  Fear potion, Fear plus gunpowder produces splash Fear, splash Fear plus
+  dragon breath produces lingering Fear, and Water Bottle or Awkward Potion
+  plus `srparasites:thornshade_berry` produces a Thornshade Decanter. The
+  Thornshade Decanter wiki page documents the Awkward Potion path; the 1.10.6
+  jar also accepts Water Bottles, so the port preserves the jar behavior.
 - Added the first evidence-backed parasite entity slice:
   - registered the Grunt/Flog entity under the legacy `grunt` visible entity id,
   - registered the legacy `itemmobspawner_flog` spawn egg,
@@ -2095,9 +2118,9 @@ own evidence-backed slices:
   changes, scent entities, origin/mob-cap-aware parasite spawning, and related
   particles before their old potion types should be mirrored in this modern
   port,
-- potion item variants for unimplemented effects, remaining brewing data beyond
-  the migrated Diseased Sponge to Dead Blood Fluid recipe, HUD/screen overlays,
-  viral transmission systems, DDP/sign renderer systems, and immunity
+- potion item variants for unimplemented effects, remaining vanilla-style
+  brewing data beyond the migrated old custom `Recipe` entries, HUD/screen
+  overlays, viral transmission systems, DDP/sign renderer systems, and immunity
   interactions outside the migrated Flog, Orch, and Kirin combat slices.
   Current legacy bytecode evidence has no Needler or Dod Smoke Trail potion type
   to mirror,
