@@ -198,6 +198,15 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - `com.dhanantry.scapeandrunparasites.item.ItemThornshadeDecanter`: registers
   `srparasites:thornshade_decanter`, stack size `16`, drink animation, `32` tick
   use duration, and applies `THORNSHADE_THORNS_E` to players for `400` ticks.
+- `com.dhanantry.scapeandrunparasites.potion.Recipe`: old `init()` registers
+  `SpongeToDeadbloodRecipe` after resolving `srparasites:diseased_sponge`,
+  `srparasites:deadblood_fluid`, `minecraft:water`, and
+  `minecraft:awkward`.
+- `com.dhanantry.scapeandrunparasites.potion.Recipe$SpongeToDeadbloodRecipe`:
+  implements `IBrewingRecipe`; valid inputs are `Items.POTION` stacks whose
+  potion type is vanilla water or awkward, the ingredient item must be
+  `srparasites:diseased_sponge`, and the output is one
+  `srparasites:deadblood_fluid`.
 - `com.dhanantry.scapeandrunparasites.entity.monster.pure.EntityFlog`: Grunt /
   Flog entity size, legacy parasite ID `60`, climb flag, swim and water leap
   goals, AOE melee attack, skill leap, evade dash, variant skin selection, and
@@ -1056,6 +1065,10 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
 - Added a modern `data/srparasites/advancement/thornshade_self_destruct.json`
   with the legacy `exploded` / `minecraft:impossible` criterion so the
   self-destruct award has a loadable 1.21.1 target.
+- Ported the old `Recipe$SpongeToDeadbloodRecipe` brewing surface through
+  NeoForge `RegisterBrewingRecipesEvent`: Water Bottle or Awkward Potion plus
+  `srparasites:diseased_sponge` now produces one
+  `srparasites:deadblood_fluid`.
 - Added the first evidence-backed parasite entity slice:
   - registered the Grunt/Flog entity under the legacy `grunt` visible entity id,
   - registered the legacy `itemmobspawner_flog` spawn egg,
@@ -2082,11 +2095,12 @@ own evidence-backed slices:
   changes, scent entities, origin/mob-cap-aware parasite spawning, and related
   particles before their old potion types should be mirrored in this modern
   port,
-- potion item variants for unimplemented effects, brewing data, HUD/screen
-  overlays, viral transmission systems, DDP/sign renderer systems, and immunity
-  interactions outside the migrated Flog, Orch, and Kirin combat slices. Current
-  legacy bytecode evidence has no Needler or Dod Smoke Trail potion type to
-  mirror,
+- potion item variants for unimplemented effects, remaining brewing data beyond
+  the migrated Diseased Sponge to Dead Blood Fluid recipe, HUD/screen overlays,
+  viral transmission systems, DDP/sign renderer systems, and immunity
+  interactions outside the migrated Flog, Orch, and Kirin combat slices.
+  Current legacy bytecode evidence has no Needler or Dod Smoke Trail potion type
+  to mirror,
 - remaining living/sentient greatbow behavior beyond the migrated damage
   formula, tipped-arrow effect additions, and legacy arrow ballistics:
   scent/Prey calling gates, pull/pulling/vinni item predicates, and tooltip text
