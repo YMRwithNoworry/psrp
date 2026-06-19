@@ -2125,6 +2125,32 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
     assembly, residue plant growth, InfestRemain conversion, SRP Web
     type-specific placement, or other block-level world-system hooks; those
     remain explicit future slices behind the same registry names.
+- Added the evidence-backed feral livestock slice:
+  - inspected legacy `EntityFerSheep`, `EntityFerWolf`, and `EntityFerHorse`
+    bytecode under `com.dhanantry.scapeandrunparasites.entity.monster.feral`.
+    The port preserves `EntityFerSheep` parasite id 98, `EntityFerWolf`
+    parasite id 300, and `EntityFerHorse` parasite id 95, plus legacy type `11`,
+    `canModRender = 1`, dimensions (`0.9x1.3`, `0.6x1.95`, `1.3964844x1.75`),
+    shared `EntityAISwimmingDiving(0.08)`, water-leap markers (`0.7`, `1.5`,
+    status `3`, interval `20`), melee speed `1.5`, follower marker (`1`, `16`),
+    and infected sheep/wolf/horse sound surfaces,
+  - registered `srparasites:fer_sheep`, `srparasites:fer_wolf`, and
+    `srparasites:fer_horse` in `ModEntities`, attribute creation in
+    `ModEntityEvents`, client renderers in `ModClientEvents`, and upgraded
+    `itemmobspawner_fersheep`, `itemmobspawner_ferwolf`, and
+    `itemmobspawner_ferhorse` from placeholder items to real
+    `DeferredSpawnEggItem` instances,
+  - implemented `FerSheepEntity`, `FerWolfEntity`, and `FerHorseEntity` as
+    `SrpParasiteMob` + GeckoLib entities using the preserved legacy constants,
+    HurtByTarget / Float / melee / look idle / parasite-target goals, and the
+    existing converted infected sheep/wolf/horse geo + animation resources with
+    feral textures (`fersheep.png`, `ferwolf.png`, `ferhorse.png`),
+  - added `scripts/verify-entity-feral-family-port.cjs` so code, resources,
+    spawn eggs, renderer wiring, lang keys, and audit markers must stay aligned,
+  - this slice does not yet port the deeper `EntityPFeral` base-class systems
+    such as old regen counters, fear-player logic, gore/dislodgement hooks, or
+    exact `EntityAIGetFollowers` group coordination; those remain explicit
+    future feral-system behavior slices.
 
 ## Explicit Gaps
 

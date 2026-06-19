@@ -228,11 +228,14 @@ public final class ModItems {
     public static final DeferredItem<Item> ITEMMOBSPAWNER_FERHUMAN = legacyItem("itemmobspawner_ferhuman", 64);
     public static final DeferredItem<Item> ITEMMOBSPAWNER_FERCOW = legacyItem("itemmobspawner_fercow", 64);
     public static final DeferredItem<Item> ITEMMOBSPAWNER_FERENDERMAN = legacyItem("itemmobspawner_ferenderman", 64);
-    public static final DeferredItem<Item> ITEMMOBSPAWNER_FERHORSE = legacyItem("itemmobspawner_ferhorse", 64);
+    public static final DeferredItem<DeferredSpawnEggItem> ITEMMOBSPAWNER_FERHORSE = register("itemmobspawner_ferhorse", () ->
+        new DeferredSpawnEggItem(ModEntities.FERHORSE, 0x7B5E44, 0x2D1F10, new Item.Properties()));
     public static final DeferredItem<Item> ITEMMOBSPAWNER_FERPIG = legacyItem("itemmobspawner_ferpig", 64);
-    public static final DeferredItem<Item> ITEMMOBSPAWNER_FERSHEEP = legacyItem("itemmobspawner_fersheep", 64);
+    public static final DeferredItem<DeferredSpawnEggItem> ITEMMOBSPAWNER_FERSHEEP = register("itemmobspawner_fersheep", () ->
+        new DeferredSpawnEggItem(ModEntities.FERSHEEP, 0x9E5B34, 0x3D2B1F, new Item.Properties()));
     public static final DeferredItem<Item> ITEMMOBSPAWNER_FERVILLAGER = legacyItem("itemmobspawner_fervillager", 64);
-    public static final DeferredItem<Item> ITEMMOBSPAWNER_FERWOLF = legacyItem("itemmobspawner_ferwolf", 64);
+    public static final DeferredItem<DeferredSpawnEggItem> ITEMMOBSPAWNER_FERWOLF = register("itemmobspawner_ferwolf", () ->
+        new DeferredSpawnEggItem(ModEntities.FERWOLF, 0x6E5C4F, 0x2C1F14, new Item.Properties()));
     public static final DeferredItem<Item> ITEMMOBSPAWNER_MARCOW = legacyItem("itemmobspawner_marcow", 64);
     public static final DeferredItem<Item> ITEMMOBSPAWNER_MARENDERMAN = legacyItem("itemmobspawner_marenderman", 64);
     public static final DeferredItem<Item> ITEMMOBSPAWNER_MARVILLAGER = legacyItem("itemmobspawner_marvillager", 64);

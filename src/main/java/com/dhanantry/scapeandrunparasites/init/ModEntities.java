@@ -5,7 +5,12 @@ import com.dhanantry.scapeandrunparasites.entity.monster.derived.HebluEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.derived.KirinEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.deterrent.NakEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.deterrent.TonroEntity;
+import com.dhanantry.scapeandrunparasites.entity.monster.deterrent.NakEntity;
+import com.dhanantry.scapeandrunparasites.entity.monster.deterrent.TonroEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.deterrent.UnvoEntity;
+import com.dhanantry.scapeandrunparasites.entity.monster.feral.FerHorseEntity;
+import com.dhanantry.scapeandrunparasites.entity.monster.feral.FerSheepEntity;
+import com.dhanantry.scapeandrunparasites.entity.monster.feral.FerWolfEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.infected.DorpaEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.infected.InfBearEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.infected.InfCowHeadEntity;
@@ -159,6 +164,24 @@ public final class ModEntities {
             .eyeHeight(InfHorseHeadEntity.LEGACY_EYE_HEIGHT)
             .clientTrackingRange(8)
             .build(SRPMain.MODID + ":sim_horsehead"));
+    public static final DeferredHolder<EntityType<?>, EntityType<FerSheepEntity>> FERSHEEP = ENTITIES.register("fer_sheep", () ->
+        EntityType.Builder.of(FerSheepEntity::new, MobCategory.MONSTER)
+            .sized(FerSheepEntity.LEGACY_WIDTH, FerSheepEntity.LEGACY_HEIGHT)
+            .eyeHeight(FerSheepEntity.LEGACY_EYE_HEIGHT)
+            .clientTrackingRange(8)
+            .build(SRPMain.MODID + ":fer_sheep"));
+    public static final DeferredHolder<EntityType<?>, EntityType<FerWolfEntity>> FERWOLF = ENTITIES.register("fer_wolf", () ->
+        EntityType.Builder.of(FerWolfEntity::new, MobCategory.MONSTER)
+            .sized(FerWolfEntity.LEGACY_WIDTH, FerWolfEntity.LEGACY_HEIGHT)
+            .eyeHeight(FerWolfEntity.LEGACY_EYE_HEIGHT)
+            .clientTrackingRange(8)
+            .build(SRPMain.MODID + ":fer_wolf"));
+    public static final DeferredHolder<EntityType<?>, EntityType<FerHorseEntity>> FERHORSE = ENTITIES.register("fer_horse", () ->
+        EntityType.Builder.of(FerHorseEntity::new, MobCategory.MONSTER)
+            .sized(FerHorseEntity.LEGACY_WIDTH, FerHorseEntity.LEGACY_HEIGHT)
+            .eyeHeight(FerHorseEntity.LEGACY_EYE_HEIGHT)
+            .clientTrackingRange(8)
+            .build(SRPMain.MODID + ":fer_horse"));
     public static final DeferredHolder<EntityType<?>, EntityType<LodoEntity>> LODO = ENTITIES.register("lodo", () ->
         EntityType.Builder.of(LodoEntity::new, MobCategory.MONSTER)
             .sized(LodoEntity.LEGACY_WIDTH, LodoEntity.LEGACY_HEIGHT)

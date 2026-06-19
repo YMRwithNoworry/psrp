@@ -31,6 +31,9 @@ public final class ModClientEvents {
         event.registerEntityRenderer(ModEntities.INFWOLFHEAD.get(), InfWolfHeadRenderer::new);
         event.registerEntityRenderer(ModEntities.INFHORSE.get(), InfHorseRenderer::new);
         event.registerEntityRenderer(ModEntities.INFHORSEHEAD.get(), InfHorseHeadRenderer::new);
+        event.registerEntityRenderer(ModEntities.FERSHEEP.get(), FerSheepRenderer::new);
+        event.registerEntityRenderer(ModEntities.FERWOLF.get(), FerWolfRenderer::new);
+        event.registerEntityRenderer(ModEntities.FERHORSE.get(), FerHorseRenderer::new);
         event.registerEntityRenderer(ModEntities.LODO.get(), LodoRenderer::new);
         event.registerEntityRenderer(ModEntities.MUDO.get(), MudoRenderer::new);
         event.registerEntityRenderer(ModEntities.NUUH.get(), NuuhRenderer::new);

@@ -87,6 +87,16 @@ function assertMultipart(blockstate, id) {
 }
 
 function verifyModernBlockstate(id, blockstate, factory) {
+  if (id === "parasitestain") {
+    assertVariant(blockstate, id, "variant=mud");
+    assertVariant(blockstate, id, "variant=flesh");
+    return;
+  }
+  if (id === "parasiterubble") {
+    assertVariant(blockstate, id, "variant=flesh");
+    assertVariant(blockstate, id, "variant=obsidian");
+    return;
+  }
   if (factory === "legacyBlock" || factory === "legacyFluid") {
     assertVariant(blockstate, id, "");
     return;
