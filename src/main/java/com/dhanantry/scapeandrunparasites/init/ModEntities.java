@@ -1,6 +1,7 @@
 package com.dhanantry.scapeandrunparasites.init;
 
 import com.dhanantry.scapeandrunparasites.SRPMain;
+import com.dhanantry.scapeandrunparasites.entity.monster.crude.InhooMEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.derived.HebluEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.derived.KirinEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.deterrent.NakEntity;
@@ -164,6 +165,12 @@ public final class ModEntities {
             .eyeHeight(InfHorseHeadEntity.LEGACY_EYE_HEIGHT)
             .clientTrackingRange(8)
             .build(SRPMain.MODID + ":sim_horsehead"));
+    public static final DeferredHolder<EntityType<?>, EntityType<InhooMEntity>> INHOOM = ENTITIES.register("incompleteform_medium", () ->
+        EntityType.Builder.of(InhooMEntity::new, MobCategory.MONSTER)
+            .sized(InhooMEntity.LEGACY_WIDTH, InhooMEntity.LEGACY_HEIGHT)
+            .eyeHeight(InhooMEntity.LEGACY_EYE_HEIGHT)
+            .clientTrackingRange(8)
+            .build(SRPMain.MODID + ":incompleteform_medium"));
     public static final DeferredHolder<EntityType<?>, EntityType<FerSheepEntity>> FERSHEEP = ENTITIES.register("fer_sheep", () ->
         EntityType.Builder.of(FerSheepEntity::new, MobCategory.MONSTER)
             .sized(FerSheepEntity.LEGACY_WIDTH, FerSheepEntity.LEGACY_HEIGHT)

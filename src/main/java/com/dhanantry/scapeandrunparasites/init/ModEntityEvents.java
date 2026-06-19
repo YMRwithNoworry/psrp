@@ -1,5 +1,6 @@
 package com.dhanantry.scapeandrunparasites.init;
 
+import com.dhanantry.scapeandrunparasites.entity.monster.crude.InhooMEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.derived.KirinEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.derived.HebluEntity;
 import com.dhanantry.scapeandrunparasites.entity.monster.deterrent.NakEntity;
@@ -66,6 +67,7 @@ public final class ModEntityEvents {
         event.put(ModEntities.INFWOLFHEAD.get(), InfWolfHeadEntity.createAttributes().build());
         event.put(ModEntities.INFHORSE.get(), InfHorseEntity.createAttributes().build());
         event.put(ModEntities.INFHORSEHEAD.get(), InfHorseHeadEntity.createAttributes().build());
+        event.put(ModEntities.INHOOM.get(), InhooMEntity.createAttributes().build());
         event.put(ModEntities.FERSHEEP.get(), FerSheepEntity.createAttributes().build());
         event.put(ModEntities.FERWOLF.get(), FerWolfEntity.createAttributes().build());
         event.put(ModEntities.FERHORSE.get(), FerHorseEntity.createAttributes().build());

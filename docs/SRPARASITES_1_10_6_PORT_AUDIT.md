@@ -2151,6 +2151,37 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
     such as old regen counters, fear-player logic, gore/dislodgement hooks, or
     exact `EntityAIGetFollowers` group coordination; those remain explicit
     future feral-system behavior slices.
+- Added the evidence-backed Medium Incomplete Form / InhooM crude slice:
+  - inspected legacy `EntityInhooM`, `ModelInhooM`, and `RenderInhooM` bytecode
+    under `com.dhanantry.scapeandrunparasites.entity.monster.crude` and
+    `client.model/entity.crude`; the port preserves parasite id `43`, legacy
+    type `11`, `canModRender = 0`, dimensions `0.6x1.95`, eye height `1.2`,
+    melee speed `1.3`, movement speed `0.15`, health `14.0`, armor `0.0`,
+    attack damage `11.0`, knockback resistance `0.3`, and old target predicate
+    exclusions for water mobs, animals, and villagers,
+  - extracted `ModelInhooM` with the SRP GeckoLib converter into
+    `geo/entity/inhoo_m.geo.json` and `animations/entity/inhoo_m.animation.json`.
+    The exported geo preserves the legacy `128x55` texture size and `157` bones;
+    both module-defined animations (`animation.inhoo_m.func_78087_a` and
+    `animation.inhoo_m.setRotationAnglesCosmical`) are looped 60fps samples with
+    `121` key times and `28` animated bones,
+  - implemented `InhooMEntity` as an `SrpParasiteMob` + GeckoLib entity with the
+    legacy `dsltwenty` NBT flag, `SrpSkin`, `SrpParasiteStatus`, MOB_SILENCE
+    ambient gate, INHOOM_GROWL / INHOOM_HURT / INHOOM_DEATH sounds,
+    LITE_FLESH_SLIDE step sound,
+    HurtByTarget / Float / melee / crude prey-target goals, and a runtime
+    dislodgement-body hook that can spawn one of the currently ported feral
+    bodies when `dsltwenty` is set at legacy tick `10`,
+  - registered `srparasites:incompleteform_medium` in `ModEntities`, attributes
+    in `ModEntityEvents`, renderer in `ModClientEvents`, and upgraded
+    `itemmobspawner_inhoom` from a placeholder item to a real
+    `DeferredSpawnEggItem`; existing lang keys and item model/texture resources
+    are reused,
+  - the old `RenderInhooM` frozen texture branch references
+    `srparasites:textures/entity/monster/snowvariants/test.png`, but that file
+    is absent from the 1.10.6 jar and from current resources, so the modern
+    renderer uses the actual legacy `textures/entity/monster/inhoom.png` and
+    leaves the missing frozen visual as an explicit renderer-polish gap.
 
 ## Explicit Gaps
 
