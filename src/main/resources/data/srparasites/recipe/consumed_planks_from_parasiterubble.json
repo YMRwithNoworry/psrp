@@ -7,7 +7,7 @@
     }
   ],
   "result": {
-    "item": "srparasites:consumed_planks",
-    "count": 4
+    "count": 4,
+    "id": "srparasites:consumed_planks"
   }
 }

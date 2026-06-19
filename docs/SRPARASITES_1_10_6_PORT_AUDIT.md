@@ -1092,6 +1092,13 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
   plus `srparasites:thornshade_berry` produces a Thornshade Decanter. The
   Thornshade Decanter wiki page documents the Awkward Potion path; the 1.10.6
   jar also accepts Water Bottles, so the port preserves the jar behavior.
+- Migrated and verified 248 migrated legacy recipe JSON files from
+  `assets/srparasites/recipes` into the 1.21 data-pack path
+  `data/srparasites/recipe`. Their output stacks now use the modern 1.21
+  `result.id` field instead of the old `result.item` field, and the verifier
+  checks that SRP item/block references resolve against current registrations.
+  Living Core and living weapon recipes are included in this verified data
+  surface.
 - Added the first evidence-backed parasite entity slice:
   - registered the Grunt/Flog entity under the legacy `grunt` visible entity id,
   - registered the legacy `itemmobspawner_flog` spawn egg,
@@ -2404,7 +2411,8 @@ own evidence-backed slices:
 - world evolution and phase systems,
 - adaptation systems,
 - bestiary GUI and networking,
-- recipes, loot tables, advancements, and data generation,
+- remaining recipe gameplay parity beyond the verified legacy crafting JSON
+  loadability, loot tables, advancements, and data generation,
 - sounds and entity renderers.
 
 Do not treat a build passing as full restoration. Future slices should continue

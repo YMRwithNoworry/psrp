@@ -17,7 +17,7 @@
     }
   },
   "result": {
-    "item": "srparasites:living_core",
-    "count": 1
+    "count": 1,
+    "id": "srparasites:living_core"
   }
 }

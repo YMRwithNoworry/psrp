@@ -18,7 +18,7 @@
     }
   },
   "result": {
-    "item": "srparasites:esca_bulb",
-    "count": 4
+    "count": 4,
+    "id": "srparasites:esca_bulb"
   }
 }

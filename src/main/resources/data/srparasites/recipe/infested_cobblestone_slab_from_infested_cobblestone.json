@@ -9,8 +9,8 @@
     }
   },
   "result": {
-    "item": "srparasites:infested_cobblestone_slab",
     "data": 0,
-    "count": 6
+    "count": 6,
+    "id": "srparasites:infested_cobblestone_slab"
   }
 }

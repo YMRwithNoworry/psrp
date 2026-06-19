@@ -18,8 +18,8 @@
     }
   },
   "result": {
-    "item": "srparasites:module_deterrent",
     "data": 0,
-    "count": 1
+    "count": 1,
+    "id": "srparasites:module_deterrent"
   }
 }

@@ -9,8 +9,8 @@
     }
   },
   "result": {
-    "item": "srparasites:infested_sandstone_slab",
     "data": 0,
-    "count": 6
+    "count": 6,
+    "id": "srparasites:infested_sandstone_slab"
   }
 }

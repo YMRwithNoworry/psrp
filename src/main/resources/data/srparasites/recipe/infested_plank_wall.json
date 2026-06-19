@@ -10,7 +10,7 @@
     }
   },
   "result": {
-    "item": "srparasites:infested_plank_wall",
-    "count": 6
+    "count": 6,
+    "id": "srparasites:infested_plank_wall"
   }
 }

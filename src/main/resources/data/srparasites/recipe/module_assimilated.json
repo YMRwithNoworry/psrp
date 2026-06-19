@@ -17,8 +17,8 @@
     }
   },
   "result": {
-    "item": "srparasites:module_assimilated",
     "data": 0,
-    "count": 1
+    "count": 1,
+    "id": "srparasites:module_assimilated"
   }
 }

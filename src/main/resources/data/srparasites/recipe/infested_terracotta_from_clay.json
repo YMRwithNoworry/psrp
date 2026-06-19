@@ -9,7 +9,7 @@
     }
   ],
   "result": {
-    "item": "srparasites:infested_terracotta",
-    "count": 2
+    "count": 2,
+    "id": "srparasites:infested_terracotta"
   }
 }

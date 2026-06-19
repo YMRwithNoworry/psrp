@@ -6,7 +6,7 @@
     }
   ],
   "result": {
-    "item": "srparasites:infested_bonemeal",
-    "count": 16
+    "count": 16,
+    "id": "srparasites:infested_bonemeal"
   }
 }

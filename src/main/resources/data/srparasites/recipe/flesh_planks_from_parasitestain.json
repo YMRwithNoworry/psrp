@@ -7,8 +7,8 @@
     }
   ],
   "result": {
-    "item": "srparasites:flesh_planks",
     "data": 0,
-    "count": 4
+    "count": 4,
+    "id": "srparasites:flesh_planks"
   }
 }

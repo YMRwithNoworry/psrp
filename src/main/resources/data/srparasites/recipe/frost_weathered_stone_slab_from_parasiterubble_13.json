@@ -10,8 +10,8 @@
     }
   },
   "result": {
-    "item": "srparasites:frost_weathered_stone_slab",
     "data": 0,
-    "count": 6
+    "count": 6,
+    "id": "srparasites:frost_weathered_stone_slab"
   }
 }

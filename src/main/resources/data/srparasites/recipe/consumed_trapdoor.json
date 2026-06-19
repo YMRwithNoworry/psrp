@@ -10,7 +10,7 @@
     }
   },
   "result": {
-    "item": "srparasites:consumed_trapdoor",
-    "count": 2
+    "count": 2,
+    "id": "srparasites:consumed_trapdoor"
   }
 }

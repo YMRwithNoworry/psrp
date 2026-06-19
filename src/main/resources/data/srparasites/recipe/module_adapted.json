@@ -23,8 +23,8 @@
     }
   },
   "result": {
-    "item": "srparasites:module_adapted",
     "data": 0,
-    "count": 1
+    "count": 1,
+    "id": "srparasites:module_adapted"
   }
 }

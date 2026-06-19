@@ -21,8 +21,8 @@
     }
   },
   "result": {
-    "item": "srparasites:tissue_spike",
     "data": 0,
-    "count": 1
+    "count": 1,
+    "id": "srparasites:tissue_spike"
   }
 }

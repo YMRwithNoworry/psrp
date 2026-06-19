@@ -14,7 +14,7 @@
     }
   },
   "result": {
-    "item": "srparasites:itemthrow",
-    "count": 3
+    "count": 3,
+    "id": "srparasites:itemthrow"
   }
 }

@@ -10,7 +10,7 @@
     }
   },
   "result": {
-    "item": "srparasites:residue_block",
-    "count": 4
+    "count": 4,
+    "id": "srparasites:residue_block"
   }
 }

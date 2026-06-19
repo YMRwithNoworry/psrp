@@ -11,8 +11,8 @@
     }
   },
   "result": {
-    "item": "srparasites:parasitecanister",
     "data": 3,
-    "count": 1
+    "count": 1,
+    "id": "srparasites:parasitecanister"
   }
 }

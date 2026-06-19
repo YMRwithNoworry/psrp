@@ -10,8 +10,8 @@
     }
   },
   "result": {
-    "item": "srparasites:parasiterubbleslabhalf",
     "data": 6,
-    "count": 6
+    "count": 6,
+    "id": "srparasites:parasiterubbleslabhalf"
   }
 }

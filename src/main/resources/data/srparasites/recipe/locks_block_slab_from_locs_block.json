@@ -9,8 +9,8 @@
     }
   },
   "result": {
-    "item": "srparasites:locs_block_slab",
     "data": 0,
-    "count": 6
+    "count": 6,
+    "id": "srparasites:locs_block_slab"
   }
 }

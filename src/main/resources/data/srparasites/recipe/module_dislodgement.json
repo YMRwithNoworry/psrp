@@ -17,7 +17,7 @@
     }
   },
   "result": {
-    "item": "srparasites:module_dislodgement",
-    "count": 1
+    "count": 1,
+    "id": "srparasites:module_dislodgement"
   }
 }

@@ -9,8 +9,8 @@
     }
   },
   "result": {
-    "item": "srparasites:bruisewood_plank_slab",
     "data": 0,
-    "count": 6
+    "count": 6,
+    "id": "srparasites:bruisewood_plank_slab"
   }
 }

@@ -10,7 +10,7 @@
     }
   },
   "result": {
-    "item": "srparasites:infested_workbench",
-    "count": 1
+    "count": 1,
+    "id": "srparasites:infested_workbench"
   }
 }

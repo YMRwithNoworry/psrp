@@ -24,7 +24,7 @@
     }
   },
   "result": {
-    "item": "srparasites:relay_base",
-    "count": 1
+    "count": 1,
+    "id": "srparasites:relay_base"
   }
 }

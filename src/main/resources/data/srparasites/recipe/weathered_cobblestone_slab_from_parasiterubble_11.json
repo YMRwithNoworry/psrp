@@ -10,8 +10,8 @@
     }
   },
   "result": {
-    "item": "srparasites:weathered_cobblestone_slab",
     "data": 0,
-    "count": 6
+    "count": 6,
+    "id": "srparasites:weathered_cobblestone_slab"
   }
 }

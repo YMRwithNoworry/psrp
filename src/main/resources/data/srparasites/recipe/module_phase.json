@@ -29,7 +29,7 @@
     }
   },
   "result": {
-    "item": "srparasites:module_phase",
-    "count": 1
+    "count": 1,
+    "id": "srparasites:module_phase"
   }
 }

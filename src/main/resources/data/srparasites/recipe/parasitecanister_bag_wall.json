@@ -11,7 +11,7 @@
     }
   },
   "result": {
-    "item": "srparasites:parasitecanister_bag_wall",
-    "count": 6
+    "count": 6,
+    "id": "srparasites:parasitecanister_bag_wall"
   }
 }

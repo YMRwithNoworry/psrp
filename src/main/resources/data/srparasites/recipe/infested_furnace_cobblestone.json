@@ -11,7 +11,7 @@
     }
   },
   "result": {
-    "item": "srparasites:infested_furnace",
-    "count": 1
+    "count": 1,
+    "id": "srparasites:infested_furnace"
   }
 }

@@ -14,7 +14,7 @@
     }
   },
   "result": {
-    "item": "srparasites:infectious_blade_fragment",
-    "count": 1
+    "count": 1,
+    "id": "srparasites:infectious_blade_fragment"
   }
 }

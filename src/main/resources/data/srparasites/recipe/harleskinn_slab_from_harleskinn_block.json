@@ -9,8 +9,8 @@
     }
   },
   "result": {
-    "item": "srparasites:harleskinn_slab",
     "data": 0,
-    "count": 6
+    "count": 6,
+    "id": "srparasites:harleskinn_slab"
   }
 }

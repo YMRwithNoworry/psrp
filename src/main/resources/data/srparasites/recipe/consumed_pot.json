@@ -14,7 +14,7 @@
     }
   },
   "result": {
-    "item": "srparasites:consumed_pot",
-    "count": 1
+    "count": 1,
+    "id": "srparasites:consumed_pot"
   }
 }

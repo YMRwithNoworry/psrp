@@ -13,8 +13,8 @@
     }
   },
   "result": {
-    "item": "srparasites:flesh_fence",
     "data": 0,
-    "count": 3
+    "count": 3,
+    "id": "srparasites:flesh_fence"
   }
 }

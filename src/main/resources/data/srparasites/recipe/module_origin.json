@@ -26,8 +26,8 @@
     }
   },
   "result": {
-    "item": "srparasites:module_origin",
     "data": 0,
-    "count": 1
+    "count": 1,
+    "id": "srparasites:module_origin"
   }
 }

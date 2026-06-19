@@ -14,8 +14,8 @@
     }
   },
   "result": {
-    "item": "srparasites:evolutionlure",
     "data": 0,
-    "count": 1
+    "count": 1,
+    "id": "srparasites:evolutionlure"
   }
 }

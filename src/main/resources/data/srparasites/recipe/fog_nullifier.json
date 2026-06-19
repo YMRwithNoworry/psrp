@@ -21,7 +21,7 @@
     }
   },
   "result": {
-    "item": "srparasites:fog_nullifier",
-    "count": 1
+    "count": 1,
+    "id": "srparasites:fog_nullifier"
   }
 }

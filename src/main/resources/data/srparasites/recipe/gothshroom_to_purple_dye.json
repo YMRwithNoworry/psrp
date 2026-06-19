@@ -6,8 +6,8 @@
     }
   ],
   "result": {
-    "item": "minecraft:dye",
     "data": 5,
-    "count": 2
+    "count": 2,
+    "id": "minecraft:dye"
   }
 }

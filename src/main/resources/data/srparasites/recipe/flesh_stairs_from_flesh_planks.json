@@ -11,8 +11,8 @@
     }
   },
   "result": {
-    "item": "srparasites:flesh_stairs",
     "data": 0,
-    "count": 4
+    "count": 4,
+    "id": "srparasites:flesh_stairs"
   }
 }

@@ -14,7 +14,7 @@
     }
   },
   "result": {
-    "item": "srparasites:node_redstone_lamp",
-    "count": 1
+    "count": 1,
+    "id": "srparasites:node_redstone_lamp"
   }
 }

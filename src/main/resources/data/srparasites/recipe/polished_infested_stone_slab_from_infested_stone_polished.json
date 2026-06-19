@@ -9,8 +9,8 @@
     }
   },
   "result": {
-    "item": "srparasites:polished_infested_stone_slab",
     "data": 0,
-    "count": 6
+    "count": 6,
+    "id": "srparasites:polished_infested_stone_slab"
   }
 }

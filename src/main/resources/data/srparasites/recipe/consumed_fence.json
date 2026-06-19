@@ -13,7 +13,7 @@
     }
   },
   "result": {
-    "item": "srparasites:consumed_fence",
-    "count": 3
+    "count": 3,
+    "id": "srparasites:consumed_fence"
   }
 }

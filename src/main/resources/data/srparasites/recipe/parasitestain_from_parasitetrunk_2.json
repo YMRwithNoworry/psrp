@@ -7,8 +7,8 @@
     }
   ],
   "result": {
-    "item": "srparasites:parasitestain",
     "data": 2,
-    "count": 4
+    "count": 4,
+    "id": "srparasites:parasitestain"
   }
 }

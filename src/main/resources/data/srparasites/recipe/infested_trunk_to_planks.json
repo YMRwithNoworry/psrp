@@ -6,7 +6,7 @@
     }
   ],
   "result": {
-    "item": "srparasites:infested_planks",
-    "count": 4
+    "count": 4,
+    "id": "srparasites:infested_planks"
   }
 }

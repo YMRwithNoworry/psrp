@@ -10,8 +10,8 @@
     }
   },
   "result": {
-    "item": "srparasites:infested_dirt_slab",
     "data": 0,
-    "count": 6
+    "count": 6,
+    "id": "srparasites:infested_dirt_slab"
   }
 }

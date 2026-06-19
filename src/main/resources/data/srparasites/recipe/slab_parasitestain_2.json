@@ -10,8 +10,8 @@
     }
   },
   "result": {
-    "item": "srparasites:parasitestainslabhalf",
     "data": 2,
-    "count": 6
+    "count": 6,
+    "id": "srparasites:parasitestainslabhalf"
   }
 }

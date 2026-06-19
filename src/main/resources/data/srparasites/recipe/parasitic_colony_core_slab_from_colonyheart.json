@@ -9,8 +9,8 @@
     }
   },
   "result": {
-    "item": "srparasites:parasitic_colony_core_slab",
     "data": 0,
-    "count": 6
+    "count": 6,
+    "id": "srparasites:parasitic_colony_core_slab"
   }
 }

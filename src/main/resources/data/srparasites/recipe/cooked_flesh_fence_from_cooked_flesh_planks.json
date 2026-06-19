@@ -13,8 +13,8 @@
     }
   },
   "result": {
-    "item": "srparasites:cooked_flesh_fence",
     "data": 0,
-    "count": 3
+    "count": 3,
+    "id": "srparasites:cooked_flesh_fence"
   }
 }

@@ -9,7 +9,7 @@
     }
   ],
   "result": {
-    "item": "srparasites:solid_alveoli_block",
-    "count": 1
+    "count": 1,
+    "id": "srparasites:solid_alveoli_block"
   }
 }

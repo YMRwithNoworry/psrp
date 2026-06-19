@@ -11,8 +11,8 @@
     }
   },
   "result": {
-    "item": "srparasites:cooked_flesh_stairs",
     "data": 0,
-    "count": 4
+    "count": 4,
+    "id": "srparasites:cooked_flesh_stairs"
   }
 }

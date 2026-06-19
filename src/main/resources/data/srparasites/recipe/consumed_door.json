@@ -11,7 +11,7 @@
     }
   },
   "result": {
-    "item": "srparasites:consumed_door",
-    "count": 3
+    "count": 3,
+    "id": "srparasites:consumed_door"
   }
 }

@@ -43,7 +43,7 @@
     }
   },
   "result": {
-    "item": "srparasites:biomass_block",
-    "count": 4
+    "count": 4,
+    "id": "srparasites:biomass_block"
   }
 }

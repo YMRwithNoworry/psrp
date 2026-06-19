@@ -13,7 +13,7 @@
     }
   },
   "result": {
-    "item": "srparasites:frost_weathered_stone_stairs",
-    "count": 4
+    "count": 4,
+    "id": "srparasites:frost_weathered_stone_stairs"
   }
 }

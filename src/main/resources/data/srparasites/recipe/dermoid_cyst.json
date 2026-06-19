@@ -19,7 +19,7 @@
     }
   },
   "result": {
-    "item": "srparasites:dermoid_cyst",
-    "count": 1
+    "count": 1,
+    "id": "srparasites:dermoid_cyst"
   }
 }

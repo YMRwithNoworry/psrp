@@ -11,8 +11,8 @@
     }
   },
   "result": {
-    "item": "srparasites:parasiterubble",
     "data": 9,
-    "count": 4
+    "count": 4,
+    "id": "srparasites:parasiterubble"
   }
 }

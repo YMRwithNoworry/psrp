@@ -10,7 +10,7 @@
     }
   },
   "result": {
-    "item": "srparasites:infested_column",
-    "count": 2
+    "count": 2,
+    "id": "srparasites:infested_column"
   }
 }

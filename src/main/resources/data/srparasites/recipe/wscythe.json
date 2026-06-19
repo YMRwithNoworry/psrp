@@ -20,7 +20,7 @@
     }
   },
   "result": {
-    "item": "srparasites:weapon_scythe",
-    "count": 1
+    "count": 1,
+    "id": "srparasites:weapon_scythe"
   }
 }

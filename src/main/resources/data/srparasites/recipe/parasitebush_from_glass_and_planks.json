@@ -22,8 +22,8 @@
     ]
   },
   "result": {
-    "item": "srparasites:parasitebush",
     "data": 10,
-    "count": 1
+    "count": 1,
+    "id": "srparasites:parasitebush"
   }
 }

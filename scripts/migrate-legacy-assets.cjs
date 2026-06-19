@@ -366,6 +366,17 @@ function normalizeRecipe(value) {
   return out;
 }
 
+function normalizeRecipeResult(recipe) {
+  if (!recipe || typeof recipe !== "object" || !recipe.result || typeof recipe.result !== "object" || Array.isArray(recipe.result)) {
+    return recipe;
+  }
+  if (typeof recipe.result.item === "string" && typeof recipe.result.id !== "string") {
+    recipe.result.id = recipe.result.item;
+    delete recipe.result.item;
+  }
+  return recipe;
+}
+
 function writeRecipes(srcDir) {
   if (!fs.existsSync(srcDir)) return 0;
   const recipeOut = path.join(outData, "recipe");
@@ -375,7 +386,7 @@ function writeRecipes(srcDir) {
   for (const entry of fs.readdirSync(srcDir, { withFileTypes: true })) {
     if (!entry.isFile() || !entry.name.endsWith(".json")) continue;
     const from = path.join(srcDir, entry.name);
-    const recipe = normalizeRecipe(JSON.parse(fs.readFileSync(from, "utf8")));
+    const recipe = normalizeRecipeResult(normalizeRecipe(JSON.parse(fs.readFileSync(from, "utf8"))));
     fs.writeFileSync(path.join(recipeOut, entry.name), `${JSON.stringify(recipe, null, 2)}\n`, "utf8");
     count += 1;
   }

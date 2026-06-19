@@ -20,7 +20,7 @@
     }
   },
   "result": {
-    "item": "srparasites:relay_roof",
-    "count": 1
+    "count": 1,
+    "id": "srparasites:relay_roof"
   }
 }

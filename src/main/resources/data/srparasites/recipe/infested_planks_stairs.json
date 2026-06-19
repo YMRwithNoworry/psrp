@@ -12,7 +12,7 @@
     }
   },
   "result": {
-    "item": "srparasites:infested_planks_stairs",
-    "count": 4
+    "count": 4,
+    "id": "srparasites:infested_planks_stairs"
   }
 }

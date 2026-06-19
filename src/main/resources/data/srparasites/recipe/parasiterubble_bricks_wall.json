@@ -11,7 +11,7 @@
     }
   },
   "result": {
-    "item": "srparasites:parasiterubble_bricks_wall",
-    "count": 6
+    "count": 6,
+    "id": "srparasites:parasiterubble_bricks_wall"
   }
 }

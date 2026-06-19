@@ -11,7 +11,7 @@
     }
   },
   "result": {
-    "item": "srparasites:infestedstain_wall",
-    "count": 6
+    "count": 6,
+    "id": "srparasites:infestedstain_wall"
   }
 }
