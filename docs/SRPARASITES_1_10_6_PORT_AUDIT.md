@@ -2097,6 +2097,34 @@ slice is `杂物/[逃逸：寄生体] SRParasites-1.10.6.jar`.
     discard the crude host. The current repo has no crude `EntityInhooM`
     implementation, so that host-recombination behavior is intentionally left
     as an explicit future crude-entity slice instead of being faked.
+- Added the evidence-backed structural block slice:
+  - ported 108 blockstate IDs from generic `Block` shells to their matching
+    modern block classes: `DoorBlock` / `TrapDoorBlock` with `BlockSetType.OAK`,
+    `StairBlock` over `Blocks.STONE`, `SlabBlock`, `FenceBlock`, `IronBarsBlock`
+    for panes, `WallBlock` with modern low|tall/none direction values, and
+    `RotatedPillarBlock` for axis-only pillars. The 8 deleted fence fallback
+    model JSONs are no longer needed because FenceBlock handles its own
+    multipart,
+  - upgraded `scripts/migrate-legacy-assets.cjs` so `normalizeBlockstateJsonText`
+    attempts a modern structural blockstate first via
+    `modernStandardBlockstate` before falling back to the baseline `""` variant;
+    and post-processing script `scripts/_tmp_upgrade_blockstates.cjs` upgrades
+    already-migrated blockstates from their preserved `srparasites_legacy_*`
+    data into their matching modern shapes,
+  - rewrote `scripts/verify-blocks-port.cjs` so it now derives an
+    `expectedFactory` (`legacyDoor` etc.) from each blockstate's legacy
+    properties and asserts the corresponding modern variant / multipart keys
+    exist, ensuring the registered block class and its blockstate shape never
+    drift,
+  - preserved the existing `ParasiteRubbleBlock` and `ParasiteStainBlock`
+    custom block registrations and their full variant-key blockstates; the
+    structural upgrade intentionally skips IDs without matching structural
+    naming patterns such as `parasitethin`,
+  - the structural slice does not restore legacy infection growth,
+    biome-heart conversion, colony-heart tick behavior, relay multiblock
+    assembly, residue plant growth, InfestRemain conversion, SRP Web
+    type-specific placement, or other block-level world-system hooks; those
+    remain explicit future slices behind the same registry names.
 
 ## Explicit Gaps
 
@@ -2135,7 +2163,12 @@ own evidence-backed slices:
   formula, tipped-arrow effect additions, and legacy arrow ballistics:
   scent/Prey calling gates, pull/pulling/vinni item predicates, and tooltip text
   still need focused slices,
-- block registry and legacy block behavior,
+- block registry and legacy block behavior: structural block classes
+  (doors, trapdoors, stairs, slabs, fences, panes, walls, pillars) are ported
+  with matching modern blockstates, but the remaining legacy block-level
+  world-system hooks are not (infection growth, biome-heart/colony-heart
+  ticking, relay multiblock assembly, residue plant growth, InfestRemain
+  conversion, SRP Web type-specific placement, etc.),
 - SRP Web block variants and type-specific Webball web placement; until the
   block system is migrated, Webball placement is represented by vanilla
   `minecraft:cobweb`,
