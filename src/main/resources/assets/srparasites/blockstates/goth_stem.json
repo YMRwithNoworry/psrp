@@ -1,7 +1,16 @@
 {
   "variants": {
-    "": {
+    "axis=y": {
       "model": "srparasites:block/goth_stem"
+    },
+    "axis=x": {
+      "model": "srparasites:block/goth_stem",
+      "x": 90,
+      "y": 90
+    },
+    "axis=z": {
+      "model": "srparasites:block/goth_stem",
+      "x": 90
     }
   },
   "srparasites_legacy_variants": {

@@ -146,6 +146,7 @@ function normalizeLegacyJsonText(text) {
 }
 
 function cloneJson(value) {
+  if (value === undefined || value === null) return value;
   return JSON.parse(JSON.stringify(value));
 }
 
@@ -287,6 +288,162 @@ function firstMultipartCandidate(multipart, defaults, blockId) {
   return null;
 }
 
+function collectLegacyBlockstateProperties(data) {
+  const props = new Map();
+  const add = (name, value) => {
+    if (!props.has(name)) props.set(name, new Set());
+    props.get(name).add(String(value));
+  };
+
+  if (data.variants && typeof data.variants === "object") {
+    for (const key of Object.keys(data.variants)) {
+      if (["", "normal", "inventory", "fluid", "stage"].includes(key)) continue;
+      for (const part of key.split(",")) {
+        const split = part.indexOf("=");
+        if (split > 0) add(part.slice(0, split), part.slice(split + 1));
+      }
+    }
+  }
+
+  const walkWhen = (when) => {
+    if (!when || typeof when !== "object") return;
+    for (const [key, raw] of Object.entries(when)) {
+      if ((key === "OR" || key === "AND") && Array.isArray(raw)) {
+        raw.forEach(walkWhen);
+      } else {
+        add(key, typeof raw === "boolean" ? String(raw) : raw);
+      }
+    }
+  };
+  for (const entry of data.multipart || []) walkWhen(entry.when);
+  return props;
+}
+
+function legacyBlockstateKind(data, blockId) {
+  const props = collectLegacyBlockstateProperties(data);
+  const names = new Set(props.keys());
+  if (data.variants && data.variants.fluid) return "fluid";
+  if (hasAll(names, ["facing", "half", "hinge", "open"])) {
+    if (names.has("powered")) return "door";
+    return "trapdoor";
+  }
+  if (hasAll(names, ["facing", "half", "shape"])) return "stairs";
+  if (blockId.endsWith("_slab") && names.has("half") && (!props.has("variant") || [...props.get("variant")].every(v => v === "default"))) return "slab";
+  if (names.has("axis") && !props.has("variant") && props.get("axis") && !props.get("axis").has("none")) return "pillar";
+  if (blockId.endsWith("_fence") && hasAll(names, ["north", "east", "south", "west"])) return "fence";
+  if (blockId.endsWith("_pane") && hasAll(names, ["north", "east", "south", "west"])) return "pane";
+  if (blockId.endsWith("_wall") && hasAll(names, ["north", "east", "south", "west", "up"])) return "wall";
+  return null;
+}
+
+function parseVariantKey(key) {
+  if (key === "" || key === "normal" || key === "inventory" || key === "fluid" || key === "stage") return null;
+  const parts = [];
+  for (const part of key.split(",")) {
+    const split = part.indexOf("=");
+    if (split > 0) parts.push([part.slice(0, split), part.slice(split + 1)]);
+  }
+  return parts.length > 0 ? parts : null;
+}
+
+function joinVariantParts(parts) {
+  return parts.map(([key, value]) => `${key}=${value}`).join(",");
+}
+
+function normalizeLegacyVariantMap(variants, defaults, blockId, transformKey) {
+  const out = {};
+  if (!variants || typeof variants !== "object") return out;
+  for (const [key, raw] of Object.entries(variants)) {
+    const parts = parseVariantKey(key);
+    if (!parts) continue;
+    const nextParts = transformKey ? transformKey(parts) : parts;
+    if (!nextParts) continue;
+    const candidate = normalizedCandidateVariant(raw, defaults, blockId);
+    if (!candidate) continue;
+    out[joinVariantParts(nextParts)] = candidate;
+  }
+  return out;
+}
+
+function slabVariantKey(parts) {
+  const out = [];
+  let hasType = false;
+  for (const [key, value] of parts) {
+    if (key === "half") {
+      out.push(["type", value === "top" ? "top" : "bottom"]);
+      hasType = true;
+    } else if (key === "variant" && value === "default") {
+      continue;
+    } else {
+      return null;
+    }
+  }
+  return hasType ? out : null;
+}
+
+function modernSlabVariants(data, blockId, defaults) {
+  const variants = normalizeLegacyVariantMap(data.variants, defaults, blockId, slabVariantKey);
+  variants["type=double"] = { "model": `srparasites:block/${blockId}_double` };
+  return variants;
+}
+
+function normalizeMultipart(multipart, defaults, blockId, transformWhen) {
+  if (!Array.isArray(multipart)) return [];
+  const out = [];
+  for (const entry of multipart) {
+    if (!entry || typeof entry !== "object") continue;
+    const apply = normalizedCandidateVariant(entry.apply, defaults, blockId);
+    if (!apply) continue;
+    const next = { "apply": apply };
+    const when = transformWhen ? transformWhen(entry.when) : cloneJson(entry.when);
+    if (when && Object.keys(when).length > 0) next.when = when;
+    out.push(next);
+  }
+  return out;
+}
+
+function modernWallWhen(when) {
+  if (!when || typeof when !== "object") return when;
+  const out = {};
+  for (const [key, raw] of Object.entries(when)) {
+    if ((key === "OR" || key === "AND") && Array.isArray(raw)) {
+      out[key] = raw.map(modernWallWhen);
+    } else if (["north", "east", "south", "west"].includes(key)) {
+      const value = typeof raw === "boolean" ? String(raw) : String(raw);
+      out[key] = value === "true" ? "low|tall" : "none";
+    } else {
+      out[key] = raw;
+    }
+  }
+  return out;
+}
+
+function modernStandardBlockstate(data, blockId) {
+  const kind = legacyBlockstateKind(data, blockId);
+  if (!kind) return null;
+  const defaults = data.defaults && typeof data.defaults === "object" ? data.defaults : {};
+  if (["door", "trapdoor", "stairs", "pillar"].includes(kind)) {
+    const variants = normalizeLegacyVariantMap(data.variants, defaults, blockId);
+    return Object.keys(variants).length > 0 ? { "variants": variants } : null;
+  }
+  if (kind === "slab") {
+    return { "variants": modernSlabVariants(data, blockId, defaults) };
+  }
+  if (kind === "fence" || kind === "pane") {
+    const multipart = normalizeMultipart(data.multipart, defaults, blockId);
+    return multipart.length > 0 ? { "multipart": multipart } : null;
+  }
+  if (kind === "wall") {
+    const multipart = normalizeMultipart(data.multipart, defaults, blockId, modernWallWhen);
+    return multipart.length > 0 ? { "multipart": multipart } : null;
+  }
+  return null;
+}
+
+function hasAll(set, values) {
+  return values.every(v => set.has(v));
+}
+
 function textureOverrideCandidate(data, defaults, blockId) {
   const textures = firstTextureOverride(data.variants) || firstTextureOverride(data.multipart);
   if (!textures) return null;
@@ -319,7 +476,7 @@ function normalizeBlockstateJsonText(text, from, entryName) {
   const normalized = normalizeLegacyJsonText(text);
   const data = JSON.parse(normalized);
   const blockId = (entryName || path.basename(from)).replace(/\.json$/, "");
-  const out = {
+  const out = modernStandardBlockstate(data, blockId) || {
     "variants": {
       "": fallbackBlockstateVariant(data, blockId)
     }

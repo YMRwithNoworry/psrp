@@ -1,7 +1,13 @@
 {
   "variants": {
-    "": {
+    "type=bottom": {
       "model": "srparasites:block/goth_plank_slab"
+    },
+    "type=top": {
+      "model": "srparasites:block/goth_plank_slab_top"
+    },
+    "type=double": {
+      "model": "srparasites:block/goth_plank_slab_double"
     }
   },
   "srparasites_legacy_defaults": {

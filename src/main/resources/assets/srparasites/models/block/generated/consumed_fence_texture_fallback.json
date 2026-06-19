@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cross",
-  "textures": {
-    "texture": "srparasites:blocks/consumed_fence"
-  }
-}

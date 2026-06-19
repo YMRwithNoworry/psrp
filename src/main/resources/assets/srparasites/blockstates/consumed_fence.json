@@ -1,9 +1,62 @@
 {
-  "variants": {
-    "": {
-      "model": "srparasites:block/generated/consumed_fence_texture_fallback"
+  "multipart": [
+    {
+      "apply": {
+        "model": "srparasites:block/consumed_fence_post",
+        "textures": {
+          "texture": "srparasites:blocks/consumed_fence"
+        }
+      }
+    },
+    {
+      "apply": {
+        "model": "srparasites:block/consumed_fence_side",
+        "y": 0,
+        "textures": {
+          "texture": "srparasites:blocks/consumed_fence"
+        }
+      },
+      "when": {
+        "north": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "srparasites:block/consumed_fence_side",
+        "y": 180,
+        "textures": {
+          "texture": "srparasites:blocks/consumed_fence"
+        }
+      },
+      "when": {
+        "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "srparasites:block/consumed_fence_side",
+        "y": 90,
+        "textures": {
+          "texture": "srparasites:blocks/consumed_fence"
+        }
+      },
+      "when": {
+        "east": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "srparasites:block/consumed_fence_side",
+        "y": 270,
+        "textures": {
+          "texture": "srparasites:blocks/consumed_fence"
+        }
+      },
+      "when": {
+        "west": "true"
+      }
     }
-  },
+  ],
   "srparasites_legacy_multipart": [
     {
       "apply": {
